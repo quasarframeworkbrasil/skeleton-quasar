@@ -1,0 +1,17 @@
+version: '3'
+
+# services
+services:
+
+  # app
+  quasar-app:
+    container_name: ${DOCKER_SERVICE_APP}
+    user: node
+    image: tevun/quasar:latest
+    working_dir: /var/www/app
+    command: bash /var/www/app/command.sh
+    volumes:
+      - .:/var/www/app
+      - ./.bin:/home/node/bin
+    ports:
+      - ${DOCKER_SERVICE_APP_PORT}:8080
