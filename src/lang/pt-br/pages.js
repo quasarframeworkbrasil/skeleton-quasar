@@ -7,12 +7,12 @@
  */
 export default {
   '/': {
-    title: 'Entrar | Scuderia'
+    title: 'Entrar | Quasar Skeleton'
   },
   '/dashboard': {
     crumb: 'Início'
   },
   '/dashboard/home': {
-    title: 'Bem vindo à Scuderia'
+    title: 'Bem vindo à Quasar Skeleton'
   }
 }
