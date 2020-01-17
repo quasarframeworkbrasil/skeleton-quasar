@@ -1,1 +1,16 @@
 // app global css in Stylus form
+
+@import "agnostic.styl"
+
+.fullscreen
+  z-index 10000
+
+.app-page
+  height calc(100vh - 95px)
+  overflow auto
+  background #fff
+  border-radius 4px
+  box-shadow 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)
+
+  .p-10
+    padding 10px

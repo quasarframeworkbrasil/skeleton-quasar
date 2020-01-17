@@ -1,5 +1,10 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
+const DotEnv = require('dotenv-webpack')
+const VersionFile = require('webpack-version-file-plugin')
+const Path = require('path')
+
+const unique = require('./src/app/unique')
 
 module.exports = function (ctx) {
   return {
@@ -7,8 +12,17 @@ module.exports = function (ctx) {
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/cli-documentation/boot-files
     boot: [
-      'i18n',
-      'axios'
+      '@components',
+      'browse',
+      'database',
+      'development',
+      'lang',
+      'message',
+      'polyfill',
+      'sentry',
+      'service',
+      'util',
+      'vuelidate'
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -31,40 +45,78 @@ module.exports = function (ctx) {
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
     framework: {
-      iconSet: 'material-icons', // Quasar icon set
-      lang: 'en-us', // Quasar language pack
+      // iconSet: 'ionicons-v4',
+      lang: 'pt-br', // Quasar language
 
-      // Possible values for "all":
-      // * 'auto' - Auto-import needed Quasar components & directives
-      //            (slightly higher compile time; next to minimum bundle size; most convenient)
-      // * false  - Manually specify what to import
-      //            (fastest compile time; minimum bundle size; most tedious)
-      // * true   - Import everything from Quasar
-      //            (not treeshaking Quasar; biggest bundle size; convenient)
-      all: false,
+      // all: true, // --- includes everything; for dev only!
 
       components: [
+        'QSpace',
+        'QAjaxBar',
         'QLayout',
-        'QHeader',
-        'QDrawer',
         'QPageContainer',
         'QPage',
+        'QHeader',
+        'QFooter',
+        'QDrawer',
+        'QPageSticky',
         'QToolbar',
         'QToolbarTitle',
-        'QBtn',
-        'QIcon',
         'QList',
         'QItem',
         'QItemSection',
-        'QItemLabel'
+        'QItemLabel',
+        'QSeparator',
+        'QBtn',
+        'QBtnDropdown',
+        'QIcon',
+        'QField',
+        'QInput',
+        'QCheckbox',
+        'QSelect',
+        'QRadio',
+        'QOptionGroup',
+        'QCard',
+        'QCardSection',
+        'QCardActions',
+        'QPopupProxy',
+        'QScrollArea',
+        'QDate',
+        'QTime',
+        'QTable',
+        'QTd',
+        'QAvatar',
+        'QImg',
+        'QToggle',
+        'QDialog',
+        'QBar',
+        'QTabs',
+        'QTab',
+        'QTabPanels',
+        'QTabPanel',
+        'QFab',
+        'QFabAction',
+        'QExpansionItem',
+        'QChip',
+        'QTooltip',
+        'QMarkupTable',
+        'QResizeObserver'
       ],
 
       directives: [
-        'Ripple'
+        'Ripple',
+        'ClosePopup'
       ],
 
       // Quasar plugins
-      plugins: []
+      plugins: [
+        'Notify',
+        'Dialog',
+        'AppFullscreen',
+        'Loading',
+        'LocalStorage',
+        'SessionStorage'
+      ]
     },
 
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie
@@ -73,25 +125,37 @@ module.exports = function (ctx) {
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       scopeHoisting: true,
-      vueRouterMode: 'hash', // available values: 'hash', 'history'
-      showProgress: true,
-      gzip: false,
-      analyze: false,
-      // Options below are automatically set depending on the env, set them if you want to override
-      // preloadChunks: false,
-      // extractCSS: false,
-
-      // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
+      // vueRouterMode: 'history',
+      // vueCompiler: true,
+      // gzip: true,
+      // analyze: true,
+      publicPath: process.env.BUILD_PUBLIC_PATH || '',
+      preloadChunks: false,
+      extractCSS: true,
       extendWebpack (cfg) {
         cfg.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /node_modules/,
-          options: {
-            formatter: require('eslint').CLIEngine.getFormatter('stylish')
-          }
+          exclude: /node_modules/
         })
+
+        let environment = ''
+        if (ctx.prod) {
+          environment = '.stage'
+        }
+        if (process.env.BUILD_ENV) {
+          environment = '.' + process.env.BUILD_ENV
+        }
+        const path = `./.env${environment}`
+        cfg.plugins.push(new DotEnv({ path }))
+
+        cfg.plugins.push(new VersionFile({
+          packageFile: Path.join(__dirname, 'package.json'),
+          template: Path.join(__dirname, 'version.ejs'),
+          extras: { build: unique() },
+          outputFile: Path.join(__dirname, 'src', 'statics', 'version')
+        }))
       }
     },
 
@@ -158,7 +222,6 @@ module.exports = function (ctx) {
       // noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
       id: 'br.com.connectronic.visual-on'
     },
-
 
     // Full list of options: https://quasar.dev/quasar-cli/developing-capacitor-apps/configuring-capacitor
     capacitor: {

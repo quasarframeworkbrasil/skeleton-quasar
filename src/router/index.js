@@ -1,30 +1,50 @@
+// noinspection NpmUsedModulesInstalled
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+// noinspection NpmUsedModulesInstalled
+import AppRouter from 'src/app/Routing/AppRouter'
 
-import routes from './routes'
+import updateTitle from 'src/router/middleware/updateTitle'
+import updateDevice from 'src/router/middleware/updateDevice'
 
-Vue.use(VueRouter)
+import authRouteFile from 'src/layouts/Auth/router/routeFile'
+import dashboardRouteFile from 'src/layouts/Dashboard/router/routeFile'
 
-/*
- * If not building with SSR mode, you can
- * directly export the Router instantiation;
- *
- * The function below can be async too; either use
- * async/await or return a Promise which resolves
- * with the Router instance.
+Vue.use(AppRouter)
+
+/**
+ * expose the router
+ * use import { storing as $router } from 'src/router'
  */
+export let routing
 
+/**
+ * @type {string}
+ */
+export const otherwise = '/'
+
+/**
+ * @returns {VueRouter}
+ */
 export default function (/* { store, ssrContext } */) {
-  const Router = new VueRouter({
+  // the router options
+  const options = {
     scrollBehavior: () => ({ x: 0, y: 0 }),
-    routes,
-
-    // Leave these as they are and change in quasar.conf.js instead!
+    // Leave these as is and change from quasar.conf.js instead!
     // quasar.conf.js -> build -> vueRouterMode
     // quasar.conf.js -> build -> publicPath
     mode: process.env.VUE_ROUTER_MODE,
     base: process.env.VUE_ROUTER_BASE
-  })
+  }
+  // create router
+  routing = new AppRouter(options)
 
-  return Router
+  // update device info
+  routing.beforeEach(updateDevice)
+  // just a simple middleware
+  routing.afterEach(updateTitle)
+
+  authRouteFile(routing)
+  dashboardRouteFile(routing)
+
+  return routing
 }

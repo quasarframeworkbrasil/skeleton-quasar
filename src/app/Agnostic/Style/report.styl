@@ -1,0 +1,53 @@
+.SchemaReport
+  form
+    display block
+
+  iframe
+    display none
+    padding 0
+    height calc(100vh - 155px)
+    border-width 0 0 1px 0
+    border-style solid
+    border-color #ddd
+    overflow auto
+    width 100%
+
+  .app-form-buttons
+    display flex
+
+  button#submit
+    display block
+
+  button#printing
+    display block
+
+  button#return
+    display none
+
+  button#printer
+    display none
+
+  &.submitting
+    form
+      display none
+
+    iframe
+      display block
+
+    button#submit
+      display none
+
+    button#printing
+      display none
+
+    button#return
+      display block
+
+    button#printer
+      display block
+
+.DashboardLayout--modal
+  .SchemaReport
+    iframe
+      padding 10px
+      height calc(100vh - 95px)
