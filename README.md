@@ -1,4 +1,4 @@
-# VisualOn (visualon)
+# Skeleton
 
 Rapid development with Vue and Quasar
 

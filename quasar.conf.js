@@ -180,8 +180,8 @@ module.exports = function (ctx) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: 'VisualOn',
-        short_name: 'VisualOn',
+        name: 'Quasar Framework Brazil - Skeleton',
+        short_name: 'Skeleton',
         description: 'Rapid development with Vue and Quasar',
         display: 'standalone',
         orientation: 'portrait',
