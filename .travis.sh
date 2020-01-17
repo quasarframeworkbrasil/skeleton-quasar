@@ -8,4 +8,4 @@ fi
 
 docker run -v "${PWD}":/app -w /app tevun/quasar:latest \
   quasar build
-  cp -R dist/spa/* ./ &&\
+  cp -R dist/spa/* ./
