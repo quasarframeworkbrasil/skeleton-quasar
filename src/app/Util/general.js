@@ -336,3 +336,26 @@ export const findValueInOptions = (options, value) => {
 export const run = (value) => {
   return clone(typeof value === 'function' ? value() : value)
 }
+
+/**
+ * @param {string} path
+ * @param {Object} data
+ * @param {number} timeout
+ * @return {Promise<unknown>}
+ */
+export const fakeFy = (path, data, timeout = 800) => {
+  const payload = get(data, path.replace(/\//g, '.'))
+  return promisify(payload)
+}
+
+/**
+ * @param {Object} payload
+ * @param {number} timeout
+ * @return {Promise<unknown>}
+ */
+export const promisify = (payload, timeout = 800) => {
+  return new Promise(function (resolve) {
+    const handler = () => resolve(payload)
+    window.setTimeout(handler, timeout)
+  })
+}

@@ -14,7 +14,7 @@ export default class AuthService extends Http {
    * @param {AxiosInstance} client
    * @returns {this}
    */
-  static instance (offline = false, client) {
+  static instance (offline = false, client = undefined) {
     if (!this.__instance) {
       this.__instance = new this(offline, client)
     }
@@ -93,5 +93,12 @@ export default class AuthService extends Http {
    */
   info (vendor, payload) {
     return this.post(`/api/v1/auth/info/${vendor}`, { payload })
+  }
+
+  /**
+   * @return {Promise}
+   */
+  me () {
+    return Http.build().get('/api/v1/auth/me').then(({ data }) => data)
   }
 }

@@ -74,10 +74,29 @@ export default class Base {
   is = 'input'
 
   /**
+   * @type {Array}
+   */
+  basics = [
+    { name: 'createdAt', type: 'datetime' },
+    { name: 'updatedAt', type: 'datetime' },
+    { name: 'deletedAt', type: 'datetime' },
+    { name: 'createdBy', type: 'user' },
+    { name: 'updatedBy', type: 'user' },
+    { name: 'deletedBy', type: 'user' }
+  ]
+
+  /**
+   * @type {string}
+   * @private
+   */
+  __currentField = ''
+
+  /**
    * @param {Object} options
-   * @returns {this}
+   * @returns {Schema}
    */
   static build (options = {}) {
+    // noinspection JSValidateTypes
     return new this(options)
   }
 
@@ -98,26 +117,23 @@ export default class Base {
 
     this.init()
 
+    // noinspection JSUnresolvedVariable
     if (this.defaults && typeof this.defaults === 'function') {
+      // noinspection JSUnresolvedFunction
       this.defaults()
     }
 
+    // noinspection JSUnresolvedVariable
     if (this.construct && typeof this.construct === 'function') {
+      // noinspection JSUnresolvedFunction
       this.construct()
 
-      const elements = [
-        { name: 'createdAt', type: 'datetime' },
-        { name: 'updatedAt', type: 'datetime' },
-        { name: 'deletedAt', type: 'datetime' },
-        { name: 'createdBy', type: 'user' },
-        { name: 'updatedBy', type: 'user' },
-        { name: 'deletedBy', type: 'user' }
-      ]
-      elements.forEach((element, index) => {
+      this.basics.forEach((element, index) => {
         if (this.__fields[element.name]) {
           return
         }
 
+        // noinspection JSUnresolvedFunction
         this.addField(element.name)
           .fieldScopes([SCOPES.SCOPE_VIEW])
           .fieldAppendAttrs({ borderLess: true, printable: true })

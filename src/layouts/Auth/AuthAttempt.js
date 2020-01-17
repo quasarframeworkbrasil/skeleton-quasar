@@ -54,6 +54,7 @@ export default {
           .catch(this.attemptError)
           .finally(() => this.setLoading(false))
       } catch (e) {
+        this.setLoading(false)
         console.error(`You need implement 'attempting' and return a promise`)
       }
     },

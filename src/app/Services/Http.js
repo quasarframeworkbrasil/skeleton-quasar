@@ -1,5 +1,13 @@
 import http from 'src/settings/http'
-import { is, serialize } from 'src/app/Util/general'
+// TODO: remove fake
+import DELETE from 'src/.fake/delete.json'
+import GET from 'src/.fake/get.json'
+import HEAD from 'src/.fake/head.json'
+import PATCH from 'src/.fake/patch.json'
+import POST from 'src/.fake/post.json'
+import PUT from 'src/.fake/put.json'
+
+import { fakeFy, is, serialize } from 'src/app/Util/general'
 import { searchKey } from 'src/settings/schema'
 
 /**
@@ -43,7 +51,7 @@ export default class Http {
    * @param {AxiosInstance} client
    * @returns {this}
    */
-  static build (offline = false, client) {
+  static build (offline = false, client = undefined) {
     return new this(offline, client)
   }
 
@@ -64,6 +72,9 @@ export default class Http {
    */
   post (url = '', data, config) {
     const path = this.parseUrl(this.path, url)
+    if (process.env.VUE_APP_FAKE_DATA) {
+      return fakeFy(path, POST)
+    }
     const payload = this.parseData(data)
     return this.client.post(path, payload, config)
   }
@@ -75,6 +86,9 @@ export default class Http {
    */
   get (url = '', config) {
     const path = this.parseUrl(this.path, url, true)
+    if (process.env.VUE_APP_FAKE_DATA) {
+      return fakeFy(path, GET)
+    }
     return this.client.get(path, config)
   }
 
@@ -85,6 +99,9 @@ export default class Http {
    */
   head (url, config) {
     const path = this.parseUrl(this.path, url, true)
+    if (process.env.VUE_APP_FAKE_DATA) {
+      return fakeFy(path, HEAD)
+    }
     return this.client.head(path, config)
   }
 
@@ -96,6 +113,9 @@ export default class Http {
    */
   put (url, data, config) {
     const path = this.parseUrl(this.path, url)
+    if (process.env.VUE_APP_FAKE_DATA) {
+      return fakeFy(path, PUT)
+    }
     const payload = this.parseData(data)
     return this.client.put(path, payload, config)
   }
@@ -108,6 +128,9 @@ export default class Http {
    */
   patch (url, data, config) {
     const path = this.parseUrl(this.path, url)
+    if (process.env.VUE_APP_FAKE_DATA) {
+      return fakeFy(path, PATCH)
+    }
     const payload = this.parseData(data)
     return this.client.patch(path, payload, config)
   }
@@ -119,6 +142,9 @@ export default class Http {
    */
   delete (url, config) {
     const path = this.parseUrl(this.path, url, true)
+    if (process.env.VUE_APP_FAKE_DATA) {
+      return fakeFy(path, DELETE)
+    }
     return this.client.delete(path, config)
   }
 
