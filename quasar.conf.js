@@ -142,7 +142,7 @@ module.exports = function (ctx) {
 
         let environment = ''
         if (ctx.prod) {
-          environment = '.stage'
+          environment = '.production'
         }
         if (process.env.BUILD_ENV) {
           environment = '.' + process.env.BUILD_ENV
