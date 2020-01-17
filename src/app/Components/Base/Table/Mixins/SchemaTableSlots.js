@@ -19,6 +19,7 @@ export default {
      * @returns {*}
      */
     renderTableSlots (h) {
+      this.counter = 0
       return {
         'top': (props) => {
           return this.renderTableTop(h, props)
@@ -129,7 +130,7 @@ export default {
       }
       /** @counter */
       const children = [
-        counter.generate(this.pagination.page, this.pagination.rowsPerPage, props.row.__index),
+        counter.generate(this.pagination.page, this.pagination.rowsPerPage, this.counter++),
         this.renderSchemaButtonsCompact(h, POSITIONS.POSITION_TABLE_CELL, { record: props.row })
       ]
 

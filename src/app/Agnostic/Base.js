@@ -44,7 +44,7 @@ export default class Base {
   displayKey = displayKey
 
   /**
-   * @type {Http|OrderService}
+   * @type {Http}
    */
   service = undefined
 
@@ -76,7 +76,7 @@ export default class Base {
   /**
    * @type {Array}
    */
-  basics = [
+  timestamps = [
     { name: 'createdAt', type: 'datetime' },
     { name: 'updatedAt', type: 'datetime' },
     { name: 'deletedAt', type: 'datetime' },
@@ -128,7 +128,7 @@ export default class Base {
       // noinspection JSUnresolvedFunction
       this.construct()
 
-      this.basics.forEach((element, index) => {
+      this.timestamps.forEach((element, index) => {
         if (this.__fields[element.name]) {
           return
         }

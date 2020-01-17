@@ -338,17 +338,6 @@ export const run = (value) => {
 }
 
 /**
- * @param {string} path
- * @param {Object} data
- * @param {number} timeout
- * @return {Promise<unknown>}
- */
-export const fakeFy = (path, data, timeout = 800) => {
-  const payload = get(data, path.replace(/\//g, '.'))
-  return promisify(payload)
-}
-
-/**
  * @param {Object} payload
  * @param {number} timeout
  * @return {Promise<unknown>}

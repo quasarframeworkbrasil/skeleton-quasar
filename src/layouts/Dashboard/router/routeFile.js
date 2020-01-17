@@ -3,6 +3,11 @@ import { group, redirect, route } from 'src/app/Util/routing'
 import { index, layout, notFound } from './components'
 import { updateTransition } from './middleware'
 
+// admin
+import action from 'src/domains/Admin/Action/route'
+import profile from 'src/domains/Admin/Profile/route'
+import user from 'src/domains/Admin/User/route'
+
 // example
 import movie from 'src/domains/Example/Movie/route'
 
@@ -25,6 +30,11 @@ export default (router) => {
   const routes = [
     redirect('', dashboard),
     route(dashboard, index, 'dashboard'),
+
+    // admin
+    ...action(),
+    ...profile(),
+    ...user(),
 
     // example
     ...movie(),

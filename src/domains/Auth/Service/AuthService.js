@@ -1,4 +1,5 @@
 import Http from 'src/app/Services/Http'
+import { promisify } from 'src/app/Util/general'
 
 /**
  * @type {AuthService}
@@ -27,6 +28,9 @@ export default class AuthService extends Http {
    * @returns {Promise}
    */
   login (login, password) {
+    if (process.env.VUE_APP_FAKE_DATA) {
+      return promisify(require('src/.fake/api.v1.auth.login.json'))
+    }
     return this.post(`/api/v1/auth/login`, { login, password })
   }
 
@@ -93,12 +97,5 @@ export default class AuthService extends Http {
    */
   info (vendor, payload) {
     return this.post(`/api/v1/auth/info/${vendor}`, { payload })
-  }
-
-  /**
-   * @return {Promise}
-   */
-  me () {
-    return Http.build().get('/api/v1/auth/me').then(({ data }) => data)
   }
 }
