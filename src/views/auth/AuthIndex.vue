@@ -1,5 +1,8 @@
 <template>
-  <div class="AuthIndex flex row items-center justify-center">
+  <div
+    class="AuthIndex flex row items-center justify-center"
+    :class="{ started }"
+  >
     <q-card class="AuthIndex__card">
       <q-card-section class="text-center bg-primary">
         <div>
@@ -23,7 +26,7 @@
                 outlined
                 v-model="record.login"
               >
-                <template v-slot:prepend="">
+                <template v-slot:prepend>
                   <q-icon name="mail" />
                 </template>
               </q-input>
@@ -35,7 +38,7 @@
                 outlined
                 v-model="record.password"
               >
-                <template v-slot:prepend="">
+                <template v-slot:prepend>
                   <q-icon :name="record.password ? 'vpn_key' : 'lock'" />
                 </template>
                 <template v-slot:append>
@@ -82,6 +85,7 @@ export default {
   /**
    */
   data: () => ({
+    started: false,
     isPassword: true,
     record: {
       login: process.env.VUE_APP_DEFAULT_LOGIN,
@@ -162,6 +166,9 @@ export default {
       }
     }
     this.$store.dispatch('app/clearClipboard').then(setCredentials)
+  },
+  mounted () {
+    window.setTimeout(() => { this.started = true }, 1000)
   }
 }
 </script>
@@ -172,6 +179,11 @@ export default {
 .AuthIndex
   height 100vh
   overflow-x hidden
+  opacity 0.3
+  transition opacity 3s
+
+  &.started
+    opacity 1
 
   .AuthIndex__card
     max-width 420px

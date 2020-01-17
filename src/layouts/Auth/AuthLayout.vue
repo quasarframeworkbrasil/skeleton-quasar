@@ -11,16 +11,8 @@
         class="fullscreen-bg__video"
       >
         <source
-          src="statics/auth/background.webm"
-          type="video/webm"
-        >
-        <source
           src="statics/auth/background.mp4"
           type="video/mp4"
-        >
-        <source
-          src="statics/auth/background.ogv"
-          type="video/ogg"
         >
       </video>
     </div>
