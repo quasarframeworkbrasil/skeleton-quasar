@@ -1,11 +1,12 @@
-language: node_js
+services:
+  - docker
 
 cache:
+  yarn: true
   npm: true
 
 install:
-  - yarn add --global @vue/cli @quasar/cli
-  - yarn install
+  - docker run -v "${PWD}":/app -w /app tevun/quasar:latest yarn install
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./.travis.sh; fi'
 
 script:

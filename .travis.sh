@@ -3,7 +3,7 @@
 cd ${TRAVIS_BUILD_DIR}
 
 cp .env.js.stage .env.js
-quasar build
+docker run -v "${PWD}":/app -w /app tevun/quasar:latest quasar build
 
 rm -rf node_modules/
 rm -rf .quasar/
