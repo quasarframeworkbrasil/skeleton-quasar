@@ -32,7 +32,7 @@ export default class Http {
    * @param {AxiosInstance} client
    * @returns {this}
    */
-  static instance (offline = false, client) {
+  static instance (offline = false, client = undefined) {
     if (!this.__instance) {
       this.__instance = new this(offline, client)
     }
@@ -52,7 +52,7 @@ export default class Http {
    * @param {boolean} offline
    * @param {AxiosInstance} client
    */
-  constructor (offline = false, client) {
+  constructor (offline = false, client = undefined) {
     this.offline = offline
     this.client = client || http
   }

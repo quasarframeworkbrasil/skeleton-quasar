@@ -59,6 +59,7 @@ export default {
      * @param {AxiosResponse} result
      */
     receiveVersion (result) {
+      debugger
       if (this.version && this.version !== result.data) {
         this.notify()
       }
