@@ -7,7 +7,7 @@ import example from 'src/domains/Report/Example/route'
  */
 export default (router) => {
   // index
-  const index = () => import('src/layouts/Group.vue')
+  const index = () => import('src/modules/Group.vue')
 
   const children = [
     ...example(router)

@@ -2,11 +2,11 @@ import { crud, group } from 'src/app/Util/routing'
 import { domain, path } from './settings'
 
 /**
- * @returns Array<RouteConfig>
+ * @returns {Array<RouteConfig>}
  */
 export default () => {
   // index
-  const index = () => import('src/layouts/Group.vue')
+  const index = () => import('src/modules/Group.vue')
   // table
   const table = () => import('src/views/dashboard/admin/action/ActionTable.vue')
   // form

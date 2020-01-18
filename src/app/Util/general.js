@@ -1,4 +1,4 @@
-import { routing as $router } from 'src/router'
+import { $router } from 'src/router'
 import { replacement } from './string'
 import * as uuidV1 from 'uuid/v1'
 import { SEPARATION_OPERATOR } from 'src/settings/schema'

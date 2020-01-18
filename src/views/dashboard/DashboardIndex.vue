@@ -16,8 +16,8 @@
 </template>
 
 <script type="text/javascript">
-import $store from 'src/layouts/General/version'
-import allowed from 'src/layouts/Auth/service/allowed'
+import $store from 'src/modules/General/version'
+import allowed from 'src/modules/Auth/service/allowed'
 // noinspection ES6CheckImport
 import { date } from 'quasar'
 

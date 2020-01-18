@@ -1,4 +1,4 @@
-import { routing as $router } from 'src/router'
+import { $router } from 'src/router'
 import $lang from 'src/lang'
 import { browse } from 'src/app/Util/general'
 import { home } from 'src/settings/components'

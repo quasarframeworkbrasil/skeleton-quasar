@@ -4,7 +4,7 @@ import { primaryKey } from 'src/settings/schema'
 /**
  * @param {string} path
  * @param {string} redirect
- * @returns {Object}
+ * @returns {RouteConfig}
  */
 export const redirect = (path, redirect) => {
   return { path, redirect }
@@ -15,7 +15,7 @@ export const redirect = (path, redirect) => {
  * @param {Function} component
  * @param {string} [name]
  * @param {Object} [meta]
- * @returns {Object}
+ * @returns {RouteConfig}
  */
 export const route = (
   path,
@@ -30,8 +30,8 @@ export const route = (
  * @param {string} path
  * @param {Function} component
  * @param {Array} [children]
- * @param {Record<string, any>} [meta]
- * @returns {Object}
+ * @param {Object} [meta]
+ * @returns {RouteConfig}
  */
 export const group = (
   path,
@@ -48,7 +48,7 @@ export const group = (
  * @param {Function} table
  * @param {Function} form
  * @param {Object} [options]
- * @returns {Array}
+ * @returns {Array<RouteConfig>}
  */
 export const crud = (
   namespace,

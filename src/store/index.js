@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import app from './app'
-import auth from 'src/layouts/Auth/store'
-import dashboard from 'src/layouts/Dashboard/store'
+import auth from 'src/modules/Auth/store'
+import dashboard from 'src/modules/Dashboard/store'
 
 Vue.use(Vuex)
 

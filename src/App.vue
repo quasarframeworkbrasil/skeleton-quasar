@@ -13,7 +13,7 @@
 </template>
 
 <script type="text/javascript">
-import $store from 'src/layouts/General/version'
+import $store from 'src/modules/General/version'
 import Local from 'src/app/Services/Local'
 import Dialog from 'src/app/Components/Schema/Contracts/Dialog'
 import Printable from 'src/views/dashboard/print/Printable'

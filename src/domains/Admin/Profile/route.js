@@ -6,7 +6,7 @@ import { domain, path } from './settings'
  */
 export default () => {
   // index
-  const index = () => import('src/layouts/Group.vue')
+  const index = () => import('src/modules/Group.vue')
   // table
   const table = () => import('src/views/dashboard/admin/profile/ProfileTable.vue')
   // form

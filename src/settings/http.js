@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { storing as $store } from 'src/store'
-import { otherwise, routing as $router } from 'src/router'
+import { otherwise, $router } from 'src/router'
 import { browse } from 'src/app/Util/general'
 
 /**

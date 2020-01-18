@@ -69,8 +69,8 @@
 
 <script type="text/javascript">
 import { required } from 'vuelidate/lib/validators'
-import AuthAttempt from 'src/layouts/Auth/AuthAttempt'
-import { dashboard } from 'src/layouts/Dashboard/router/routeFile'
+import AuthAttempt from 'src/modules/Auth/AuthAttempt'
+import { dashboard } from 'src/modules/Dashboard/router/routeFile'
 import { me } from 'src/domains/Auth/Service'
 
 export default {

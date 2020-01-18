@@ -1,21 +1,19 @@
-// noinspection NpmUsedModulesInstalled
 import Vue from 'vue'
-// noinspection NpmUsedModulesInstalled
 import AppRouter from 'src/app/Routing/AppRouter'
 
 import updateTitle from 'src/router/middleware/updateTitle'
 import updateDevice from 'src/router/middleware/updateDevice'
 
-import authRouteFile from 'src/layouts/Auth/router/routeFile'
-import dashboardRouteFile from 'src/layouts/Dashboard/router/routeFile'
+import authRouteFile from 'src/modules/Auth/router/routeFile'
+import dashboardRouteFile from 'src/modules/Dashboard/router/routeFile'
 
 Vue.use(AppRouter)
 
 /**
  * expose the router
- * use import { storing as $router } from 'src/router'
+ * use import { $router } from 'src/router'
  */
-export let routing
+export let $router
 
 /**
  * @type {string}
@@ -23,7 +21,7 @@ export let routing
 export const otherwise = '/'
 
 /**
- * @returns {VueRouter}
+ * @returns {AppRouter}
  */
 export default function (/* { store, ssrContext } */) {
   // the router options
@@ -36,15 +34,17 @@ export default function (/* { store, ssrContext } */) {
     base: process.env.VUE_ROUTER_BASE
   }
   // create router
-  routing = new AppRouter(options)
+  $router = new AppRouter(options)
 
   // update device info
-  routing.beforeEach(updateDevice)
+  $router.beforeEach(updateDevice)
   // just a simple middleware
-  routing.afterEach(updateTitle)
+  $router.afterEach(updateTitle)
 
-  authRouteFile(routing)
-  dashboardRouteFile(routing)
+  // inject router on auth layout
+  authRouteFile($router)
+  // inject router on dashboard layout
+  dashboardRouteFile($router)
 
-  return routing
+  return $router
 }
