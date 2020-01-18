@@ -6,7 +6,7 @@ import { SCOPES } from 'src/app/Agnostic/enum'
  */
 export default () => {
   // profile page
-  const profile = () => import('src/views/dashboard/home/HomeProfile.vue')
+  const profile = () => import('src/views/dashboard/home/AccountForm.vue')
 
   const namespace = 'home'
   const scope = SCOPES.SCOPE_EDIT

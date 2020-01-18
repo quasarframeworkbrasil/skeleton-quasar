@@ -1,9 +1,9 @@
 import UserSchema from 'src/domains/Admin/User/Schema/UserSchema'
 
 /**
- * @class {ProfileSchema}
+ * @class {AccountSchema}
  */
-export default class ProfileSchema extends UserSchema {
+export default class AccountSchema extends UserSchema {
   /**
    * available: ['none', 'index']
    * @type {string}

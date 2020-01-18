@@ -4,7 +4,7 @@
 
 <script type="text/javascript">
 import View from 'src/app/Agnostic/Adapters/View'
-import Schema from 'src/domains/Home/ProfileSchema'
+import Schema from 'src/domains/Home/AccountSchema'
 
 /**
  */

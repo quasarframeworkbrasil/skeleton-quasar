@@ -143,7 +143,7 @@ export default {
    * @param {Object} attrs
    * @returns {Schema}
    */
-  fieldIsText (rows = 4, attrs = {}) {
+  fieldIsText (rows = 6, attrs = {}) {
     this.setComponent('text')
     this.setAttrs({ ...attrs, rows })
     this.setType('text')
