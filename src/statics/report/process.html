@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+    @media screen {
+      body {
+        background-color: #919191;
+        margin: 0;
+        padding: 0;
+      }
+
+      .wrapper {
+        margin: 0 auto;
+        background-color: #919191;
+        padding: 20px;
+        width: calc(21cm + 40px);
+      }
+
+      .wrapper > main {
+        margin: 0 auto;
+        width: 21cm;
+        background: #fff;
+        padding: 14px;
+        box-shadow: 2px 2px 6px 2px rgba(58, 58, 58, 0.7);
+        border-radius: 2px;
+      }
+
+      .landscape > .wrapper {
+        padding: 20px;
+        width: calc(29.7cm + 40px);
+      }
+
+      .landscape > .wrapper > main {
+        width: 29.7cm;
+      }
+    }
+
+    img {
+      height: 50px;
+    }
+
+    header {
+      margin: 15px 0 0 0;
+      border-width: 1px 0;
+      border-style: solid;
+      border-color: rgb(51, 51, 51);
+    }
+
+    nav {
+      font-size: 0.7rem;
+      padding: 10px 0;
+    }
+
+    nav > span {
+      display: inline-block;
+    }
+
+    nav > span > label {
+      font-weight: bold;
+    }
+
+    nav > i {
+      margin: 0 5px;
+      display: inline-block;
+    }
+
+    nav i:last-child {
+      display: none;
+    }
+
+    table {
+      font-size: 0.7rem;
+      width: 100%;
+    }
+
+    table, th, td {
+      border-style: solid;
+      border-color: rgb(51, 51, 51);
+      border-collapse: collapse;
+    }
+
+    table {
+      border-width: 1px 0;
+    }
+
+    table > thead > tr:nth-child(1) > th {
+      height: 40px !important;
+      background: linear-gradient(180deg, #f7f7f7 0, #eaeaea 20px, #dadada 39px, #dadada 40px) !important;
+    }
+
+    table > tbody > tr:nth-child(even) {
+      background-color: #f0f0f0;
+    }
+
+    th, td {
+      border-width: 1px 1px 1px 0;
+      padding: 4px 8px;
+    }
+
+    th {
+      text-align: left;
+    }
+
+    th:last-child, td:last-child {
+      border-width: 1px 0;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0 15px 0;
+      border-top: 1px solid rgb(51, 51, 51);
+      font-size: 0.8rem;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .right {
+      text-align: right;
+    }
+
+    .left {
+      text-align: left;
+    }
+
+    .uppercase {
+      text-transform: uppercase;
+    }
+
+    .counter {
+      width: 30px;
+      color: #515151;
+      font-style: italic;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <main>
+        <div style="background: #0278DE; border-radius: 3px; padding: 5px;">
+          <img
+            src="logo.png"
+            alt="logo"
+          >
+        </div>
+        <header>
+          <h4>RELATÓRIO DE ESTOQUE ATUAL</h4>
+        </header>
+        <table>
+          <thead>
+            <tr>
+              <th class="counter">*</th>
+              <th>Família</th>
+              <th>Produto</th>
+              <th class="right">Quantidade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="counter">1</td>
+              <td class="uppercase">MATERIAL Concreto</td>
+              <td class="uppercase">GELO BAIANO</td>
+              <td class="right">10,00</td>
+            </tr>
+            <tr>
+              <td class="counter">2</td>
+              <td class="uppercase">MATERIAL ABRAÇADEIRA</td>
+              <td class="uppercase">ABRAÇADEIRA NYLON 200MM PT</td>
+              <td class="right">-25,00</td>
+            </tr>
+          </tbody>
+        </table>
+        <nav>
+          <span>
+            <label>Centro de Estoque:</label> GERAL
+          </span>
+          <i> / </i>
+          <span>
+            <label>Apenas Materiais Movimentados:</label> SIM
+          </span>
+          <i> / </i>
+        </nav>
+        <footer class="uppercase">
+          <small><strong>Usuário:</strong> &nbsp;GUEST</small>
+          <small><strong>Data:</strong> &nbsp; 18/01/2020 08:49</small>
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>

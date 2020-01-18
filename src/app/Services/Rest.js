@@ -5,7 +5,7 @@ import { storing as $store } from 'src/store'
 import Http from './Http'
 
 import { filterKey, primaryKey, searchKey } from 'src/settings/schema'
-import { paginateResponse } from 'src/settings/rest'
+import { parseResponseRecords } from 'src/settings/rest'
 
 /**
  * @type {Rest}
@@ -48,7 +48,7 @@ export default class Rest extends Http {
 
   /**
    * @param {Record<string, any>} record
-   * @returns {Promise<any>}
+   * @returns {Promise}
    */
   create (record) {
     if ($store.getters['app/getOffline'] || this.offline) {
@@ -62,7 +62,7 @@ export default class Rest extends Http {
   /**
    * @param {string | number | Record<string, any>} record
    * @param {boolean} trash
-   * @returns {Promise<any>}
+   * @returns {Promise}
    */
   read (record, trash = false) {
     let queryString = ''
@@ -73,24 +73,25 @@ export default class Rest extends Http {
     if ($store.getters['app/getOffline'] || this.offline) {
       return this.readOffline(record, trash)
     }
-
-    return this.get(`${this.getResource()}/${this.getId(record)}${queryString}`)
+    const url = `${this.getResource()}/${this.getId(record)}${queryString}`
+    return this.get(url)
   }
 
   /**
    * @param {Record<string, any>} record
-   * @returns {Promise<any>}
+   * @returns {Promise}
    */
   update (record) {
     if ($store.getters['app/getOffline'] || this.offline) {
       return this.updateOffline(record)
     }
-    return this.patch(`${this.getResource()}/${this.getId(record)}`, record)
+    const url = `${this.getResource()}/${this.getId(record)}`
+    return this.patch(url, record)
   }
 
   /**
    * @param {Record<string, any>} record
-   * @returns {Promise<any>}
+   * @returns {Promise}
    */
   destroy (record) {
     if ($store.getters['app/getOffline'] || this.offline) {
@@ -98,22 +99,24 @@ export default class Rest extends Http {
         reject('Unsupported action create')
       })
     }
-    return this.delete(`${this.getResource()}/${this.getId(record)}`)
+    const url = `${this.getResource()}/${this.getId(record)}`
+    return this.delete(url)
   }
 
   /**
    * @param {Record<string, any>} record
-   * @returns {Promise<any>}
+   * @returns {Promise}
    */
   restore (record) {
-    return this.patch(`${this.getResource()}/${this.getId(record)}/restore`)
+    const url = `${this.getResource()}/${this.getId(record)}/restore`
+    return this.patch(url)
   }
 
   /**
    * @param {Record<string, string | number>} parameters
    * @param {Array<string>} [filters] = []
    * @param {boolean} [trash] = false
-   * @returns {Promise<any>}
+   * @returns {Promise}
    */
   paginate (parameters, filters, trash = false) {
     const { pagination, [filterKey]: filter, [searchKey]: where, raw } = parameters
@@ -135,13 +138,13 @@ export default class Rest extends Http {
 
     return this
       .search({ page, size, sort, filter, where, raw, trash })
-      .then(paginateResponse({ rowsPerPage: size, sortBy, descending, page }))
+      .then(parseResponseRecords({ rowsPerPage: size, sortBy, descending, page }))
   }
 
   /**
    * Ex.: query({ page, size, sort, filter, where })
    * @param {Record<string, string | number>} parameters
-   * @returns {Promise<any>}
+   * @returns {Promise}
    */
   search (parameters = {}) {
     const queryString = this.searchQueryString(parameters, '&')
@@ -181,8 +184,8 @@ export default class Rest extends Http {
   }
 
   /**
-   * @param {records} records
-   * @returns {Promise<any>}
+   * @param {Array} records
+   * @returns {Promise}
    */
   remove (records) {
     const callback = (record) => this.getId(record)
@@ -227,7 +230,7 @@ export default class Rest extends Http {
   /**
    * @param {string | number | Record<string, any>} record
    * @param {boolean} trash
-   * @returns {Promise<any>}
+   * @returns {Promise}
    */
   readOffline (record, trash = false) {
     const executor = (resolve) => {
@@ -244,7 +247,7 @@ export default class Rest extends Http {
 
   /**
    * @param {Record<string, any>} record
-   * @returns {Promise<any>}
+   * @returns {Promise}
    */
   updateOffline (record) {
     const executor = (resolve, reject) => {
@@ -266,7 +269,7 @@ export default class Rest extends Http {
 
   /**
    * @param {Object} parameters
-   * @returns {Array}
+   * @returns {Promise}
    */
   searchOffline (parameters) {
     const executor = (resolve) => {
@@ -336,7 +339,7 @@ export default class Rest extends Http {
   }
 
   /**
-   * @returns {Promise}
+   * @returns {Array}
    * @private
    */
   getOfflineRecords () {

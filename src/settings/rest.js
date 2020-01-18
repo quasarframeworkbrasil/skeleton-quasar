@@ -1,13 +1,12 @@
 import { get } from 'src/app/Util/general'
 
+// noinspection JSUnusedLocalSymbols
 /**
- * @param rowsPerPage
- * @param sortBy
- * @param descending
- * @param page
- * @returns {Object}
+ * @param {Object} parameters
+ * @returns {Function}
  */
-export const paginateResponse = ({ rowsPerPage, sortBy, descending, page }) => {
+export const parseResponseRecords = (parameters = {}) => {
+  const { rowsPerPage, sortBy, descending, page } = parameters
   return (response) => {
     let rows = []
     if (Array.isArray(response.data)) {
@@ -21,4 +20,13 @@ export const paginateResponse = ({ rowsPerPage, sortBy, descending, page }) => {
 
     return { rows, rowsNumber, pagesNumber, rowsPerPage, sortBy, descending, page }
   }
+}
+
+// noinspection JSUnusedLocalSymbols
+/**
+ * @param {Object} parameters
+ * @return {Function}
+ */
+export const parseResponseRecord = (parameters = {}) => {
+  return (response) => response.data
 }

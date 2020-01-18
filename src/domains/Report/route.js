@@ -1,5 +1,5 @@
 import { group } from 'src/app/Util/routing'
-import transaction from 'src/domains/Report/Transaction/route'
+import example from 'src/domains/Report/Example/route'
 
 /**
  * @param {VueRouter} router
@@ -10,7 +10,7 @@ export default (router) => {
   const index = () => import('src/layouts/Group.vue')
 
   const children = [
-    ...transaction(router)
+    ...example(router)
   ]
   const meta = { namespace: 'report', scope: 'group', bread: false }
   return [

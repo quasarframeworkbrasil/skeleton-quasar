@@ -4,7 +4,7 @@
 
 <script type="text/javascript">
 import View from 'src/app/Agnostic/Adapters/View'
-import Schema from 'src/domains/Gateway/Transaction/Schema/TransactionSchema'
+import Schema from 'src/domains/Gateway/Example/Schema/TransactionSchema'
 
 /**
  */

@@ -2,113 +2,74 @@
   "status": "success",
   "data": {
     "id": "41c3b27c-fc48-11e9-83c7-0242ac150004",
-    "name": "ADMIN",
-    "email": "admin@mail.io",
-    "remember_token": null,
-    "updatedAt": "2019-11-18 18:40:54",
-    "createdAt": "2019-11-02 23:23:29",
-    "deletedAt": null,
+    "name": "Guest",
+    "email": "guest@mail.io",
     "active": 1,
     "integration": "75917eaa-3180-11ea-b2d6-0242ac150004",
     "actions": {
       "c3dfa528-fd0a-11e9-896d-0242ac180004": {
         "id": "c3dfa528-fd0a-11e9-896d-0242ac180004",
-        "actionId": null,
-        "name": "Home",
+        "name": "Início",
         "namespace": "Home",
         "path": "\/dashboard\/home",
         "icon": "home",
-        "separated": 0,
-        "assortment": 1,
-        "updatedAt": "2019-11-02 23:23:29",
-        "createdAt": "2019-11-02 23:23:29",
-        "deletedAt": null,
-        "parent": null
+        "separated": 0
       },
       "c3e09b22-fd0a-11e9-8947-0242ac180004": {
         "id": "c3e09b22-fd0a-11e9-8947-0242ac180004",
         "actionId": null,
-        "name": "Admin",
+        "name": "Administração",
         "namespace": "Admin",
         "path": "",
         "icon": "fingerprint",
         "separated": 0,
-        "assortment": 2,
-        "updatedAt": "2019-11-02 23:23:29",
-        "createdAt": "2019-11-02 23:23:29",
-        "deletedAt": null,
-        "parent": null,
         "children": [
           {
             "id": "c3e09b22-fd0a-11e9-8947-0242ac180004",
             "actionId": null,
-            "name": "Users",
+            "name": "Usuários",
             "namespace": "Admin.User",
             "path": "\/dashboard\/admin\/user",
             "icon": "supervisor_account",
-            "separated": 0,
-            "assortment": 1,
-            "updatedAt": "2019-11-02 23:23:29",
-            "createdAt": "2019-11-02 23:23:29",
-            "deletedAt": null,
-            "parent": null
+            "separated": 1
           },
           {
             "id": "c3e465cc-fd0a-11e9-bcc1-0242ac180004",
             "actionId": null,
-            "name": "Profiles",
+            "name": "Perfis de Usuário",
             "namespace": "Admin.Profile",
             "path": "\/dashboard\/admin\/profile",
             "icon": "playlist_add_check",
-            "separated": 0,
-            "assortment": 2,
-            "updatedAt": "2019-11-02 23:23:29",
-            "createdAt": "2019-11-02 23:23:29",
-            "deletedAt": null,
-            "parent": null
+            "separated": 0
           },
           {
             "id": "c3e5a27a-fd0a-11e9-b185-0242ac180004",
             "actionId": null,
-            "name": "Actions",
+            "name": "Ações",
             "namespace": "Admin.Action",
             "path": "\/dashboard\/admin\/action",
             "icon": "turned_in",
-            "separated": 0,
-            "assortment": 3,
-            "updatedAt": "2019-11-02 23:23:29",
-            "createdAt": "2019-11-02 23:23:29",
-            "deletedAt": null,
-            "parent": null
+            "separated": 0
           }
         ]
       },
       "2e69a680-057d-11ea-8d71-362b9e155667": {
         "id": "2e69a680-057d-11ea-8d71-362b9e155667",
         "actionId": null,
-        "name": "Report",
+        "name": "Relatórios",
         "namespace": "Report",
         "path": "",
         "icon": "list_alt",
         "separated": 0,
-        "assortment": 6,
-        "updatedAt": "2019-11-12 19:00:00",
-        "createdAt": "2019-11-12 19:00:00",
-        "deletedAt": null,
-        "parent": null,
         "children": [
           {
             "id": "2e69a680-057d-11ea-8d71-362b9e155667",
             "actionId": null,
-            "name": "Transactions Report",
-            "namespace": "Report.Transaction",
-            "path": "\/dashboard\/report\/transaction",
+            "name": "Estoque Atual",
+            "namespace": "Report.Example",
+            "path": "\/dashboard\/report\/example",
             "icon": "print",
             "separated": 0,
-            "assortment": 6,
-            "updatedAt": "2019-11-12 19:00:00",
-            "createdAt": "2019-11-12 19:00:00",
-            "deletedAt": null,
             "parent": null
           }
         ]

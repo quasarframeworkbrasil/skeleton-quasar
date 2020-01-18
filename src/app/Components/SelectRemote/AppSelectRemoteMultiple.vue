@@ -1,11 +1,11 @@
 <template src="src/app/Components/SelectRemote/appSelectRemote.html" />
 
 <script type="text/javascript">
-import MixinTableColumn from 'src/app/Components/Base/Contracts/Table/TableColumns'
-import Field from 'src/app/Components/Base/Contracts/Field'
+import MixinTableColumn from 'src/app/Components/Schema/Contracts/Table/TableColumns'
+import Field from 'src/app/Components/Schema/Contracts/Field'
 import AppSelectRemote from './appSelectRemote'
 import SelectRemoteWidgetTable from './SelectRemoteWidgetTable'
-import SchemaTableWhere from 'src/app/Components/Base/Table/Where/SchemaTableWhere'
+import SchemaTableWhere from 'src/app/Components/Schema/Table/Where/SchemaTableWhere'
 import { unSerialize } from 'src/app/Util/general'
 import { searchKey } from 'src/settings/schema'
 

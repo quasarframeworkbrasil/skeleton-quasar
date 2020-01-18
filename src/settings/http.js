@@ -6,7 +6,7 @@ import { browse } from 'src/app/Util/general'
 /**
  * @type {AxiosInstance}
  */
-const http = axios.create({ baseURL: process.env.VUE_APP_BASE_URL })
+const http = axios.create({ baseURL: process.env.VUE_APP_REST_BASE_URL })
 
 /**
  * @param config

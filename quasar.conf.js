@@ -143,19 +143,19 @@ module.exports = function (ctx) {
         let environment = ''
         if (ctx.prod) {
           environment = '.production'
+
+          cfg.plugins.push(new VersionFile({
+            packageFile: Path.join(__dirname, 'package.json'),
+            template: Path.join(__dirname, 'version.ejs'),
+            extras: { build: unique() },
+            outputFile: Path.join(__dirname, 'src', 'statics', 'version')
+          }))
         }
         if (process.env.BUILD_ENV) {
           environment = '.' + process.env.BUILD_ENV
         }
         const path = `./.env${environment}`
         cfg.plugins.push(new DotEnv({ path }))
-
-        cfg.plugins.push(new VersionFile({
-          packageFile: Path.join(__dirname, 'package.json'),
-          template: Path.join(__dirname, 'version.ejs'),
-          extras: { build: unique() },
-          outputFile: Path.join(__dirname, 'src', 'statics', 'version')
-        }))
       }
     },
 

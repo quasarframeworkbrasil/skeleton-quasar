@@ -1,6 +1,6 @@
-export { default as SchemaTable } from 'src/app/Components/Base/SchemaTable'
-export { default as SchemaForm } from 'src/app/Components/Base/SchemaForm'
-export { default as SchemaReport } from 'src/app/Components/Base/SchemaReport'
+export { default as SchemaTable } from 'src/app/Components/Schema/SchemaTable'
+export { default as SchemaForm } from 'src/app/Components/Schema/SchemaForm'
+export { default as SchemaReport } from 'src/app/Components/Schema/SchemaReport'
 
 export { default as AppArray } from './Array/AppArray.vue'
 export { default as AppBreadcrumb } from './Breadcrumb/AppBreadcrumb'

@@ -1,5 +1,6 @@
 import { reject } from 'src/app/Util/general'
 import { SCOPES } from 'src/app/Agnostic/enum'
+import { parseResponseRecord } from 'src/settings/rest'
 
 /**
  */
@@ -70,15 +71,13 @@ export default {
       if (!schema.service) {
         return reject({})
       }
-      if (id) {
-        const trash = this.$route.query.trash
-        return schema.$service()
-          .read(id, trash)
-          .then((response) => response.data)
+      if (!id) {
+        return reject({})
       }
-      return new Promise(function (resolve, reject) {
-        reject()
-      })
+      const trash = this.$route.query.trash
+      return schema.$service()
+        .read(id, trash)
+        .then(parseResponseRecord())
     })
   }
 }

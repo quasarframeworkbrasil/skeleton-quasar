@@ -6,6 +6,8 @@ import user from 'src/domains/Admin/User/pt-br'
 import movie from 'src/domains/Example/Movie/pt-br'
 // domains/Help
 import home from 'src/domains/Home/pt-br'
+// domains/Report
+import report from 'src/domains/Report/pt-br'
 
 /**
  */
@@ -16,5 +18,6 @@ export default {
   },
   example: {
     movie
-  }
+  },
+  report
 }

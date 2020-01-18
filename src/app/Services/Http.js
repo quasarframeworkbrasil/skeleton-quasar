@@ -63,7 +63,7 @@ export default class Http {
    * @param {Record<string, any>} config
    * @returns {Promise<*>}
    */
-  post (url = '', data, config) {
+  post (url = '', data = undefined, config = undefined) {
     const path = this.parseUrl(this.path, url)
     const payload = this.parseData(data)
     return this.client.post(path, payload, config)
@@ -74,7 +74,7 @@ export default class Http {
    * @param {Record<string, any>} config
    * @returns {Promise<*>}
    */
-  get (url = '', config) {
+  get (url = '', config = undefined) {
     const path = this.parseUrl(this.path, url, true)
     return this.client.get(path, config)
   }
@@ -84,7 +84,7 @@ export default class Http {
    * @param {Record<string, any>} config
    * @returns {Promise<*>}
    */
-  head (url, config) {
+  head (url, config = undefined) {
     const path = this.parseUrl(this.path, url, true)
     return this.client.head(path, config)
   }
@@ -95,7 +95,7 @@ export default class Http {
    * @param {Record<string, any>} config
    * @returns {Promise<*>}
    */
-  put (url, data, config) {
+  put (url, data = undefined, config = undefined) {
     const path = this.parseUrl(this.path, url)
     const payload = this.parseData(data)
     return this.client.put(path, payload, config)
@@ -107,7 +107,7 @@ export default class Http {
    * @param {Record<string, any>} config
    * @returns {Promise<*>}
    */
-  patch (url, data, config) {
+  patch (url, data = undefined, config = undefined) {
     const path = this.parseUrl(this.path, url)
     const payload = this.parseData(data)
     return this.client.patch(path, payload, config)
@@ -118,7 +118,7 @@ export default class Http {
    * @param {Record<string, any>} config
    * @returns {Promise<*>}
    */
-  delete (url, config) {
+  delete (url, config = undefined) {
     const path = this.parseUrl(this.path, url, true)
     return this.client.delete(path, config)
   }
