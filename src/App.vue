@@ -59,11 +59,10 @@ export default {
      * @param {AxiosResponse} result
      */
     receiveVersion (result) {
-      console.log(result)
-      if (this.version && this.version !== result.data) {
+      if (this.version && this.version !== result) {
         this.notify()
       }
-      $store.commit('updateVersion', result.data)
+      $store.commit('updateVersion', result)
     },
     /**
      * Fetch the current app version from server
