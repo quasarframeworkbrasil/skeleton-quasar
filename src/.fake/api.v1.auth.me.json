@@ -4,7 +4,6 @@
     "id": "41c3b27c-fc48-11e9-83c7-0242ac150004",
     "name": "Guest",
     "email": "guest@mail.io",
-    "active": 1,
     "integration": "75917eaa-3180-11ea-b2d6-0242ac150004",
     "actions": {
       "c3dfa528-fd0a-11e9-896d-0242ac180004": {
