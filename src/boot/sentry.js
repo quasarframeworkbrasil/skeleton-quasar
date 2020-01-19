@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/browser'
 import * as Integrations from '@sentry/integrations'
-import { storing as $store } from 'src/store'
+import { $store } from 'src/store'
 
 /**
  * @param Vue

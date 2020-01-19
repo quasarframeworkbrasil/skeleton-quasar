@@ -8,9 +8,6 @@ import action from 'src/domains/Admin/Action/route'
 import profile from 'src/domains/Admin/Profile/route'
 import user from 'src/domains/Admin/User/route'
 
-// example
-import movie from 'src/domains/Example/Movie/route'
-
 // home
 import home from 'src/domains/Home/route'
 
@@ -35,9 +32,6 @@ export default (router) => {
     ...action(),
     ...profile(),
     ...user(),
-
-    // example namespace routes
-    ...movie(),
 
     // home namespace routes
     ...home(),

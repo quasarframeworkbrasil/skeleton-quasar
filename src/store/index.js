@@ -9,9 +9,9 @@ Vue.use(Vuex)
 
 /**
  * expose the store
- * use import { storing as $store } from 'src/store'
+ * use import { $store } from 'src/store'
  */
-export let storing
+export let $store
 
 /*
  * If not building with SSR mode, you can
@@ -19,7 +19,7 @@ export let storing
  */
 
 export default function (/* { ssrContext } */) {
-  storing = new Vuex.Store({
+  $store = new Vuex.Store({
     modules: {
       app,
       auth,
@@ -29,5 +29,5 @@ export default function (/* { ssrContext } */) {
     // for dev mode only
     strict: process.env.DEV
   })
-  return storing
+  return $store
 }

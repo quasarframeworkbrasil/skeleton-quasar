@@ -1,5 +1,5 @@
 import $lang from 'src/lang'
-import { storing as $store } from 'src/store'
+import { $store } from 'src/store'
 
 /*
  * middleware:

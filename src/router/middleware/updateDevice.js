@@ -1,5 +1,5 @@
 import Fingerprint2 from 'fingerprintjs2'
-import { storing as $store } from 'src/store'
+import { $store } from 'src/store'
 
 /**
  * @param {Route} to

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { storing as $store } from 'src/store'
+import { $store } from 'src/store'
 import { otherwise, $router } from 'src/router'
 import { browse } from 'src/app/Util/general'
 

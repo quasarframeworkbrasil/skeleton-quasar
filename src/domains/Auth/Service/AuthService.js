@@ -29,7 +29,7 @@ export default class AuthService extends Http {
    */
   login (login, password) {
     if (process.env.VUE_APP_FAKE_DATA) {
-      return promisify(require('src/.fake/api.v1.auth.login.json'))
+      return promisify(require('src/../.fake/api.v1.auth.login.json'))
     }
     return this.post(`/api/v1/auth/login`, { login, password })
   }

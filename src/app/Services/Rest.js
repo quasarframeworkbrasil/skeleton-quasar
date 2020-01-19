@@ -1,6 +1,6 @@
 import { get, is, serialize, unSerialize, withoutSeparator } from 'src/app/Util/general'
 import { replacement } from 'src/app/Util/string'
-import { storing as $store } from 'src/store'
+import { $store } from 'src/store'
 
 import Http from './Http'
 

@@ -17,7 +17,7 @@
 
 <script type="text/javascript">
 import $store from 'src/modules/General/version'
-import allowed from 'src/modules/Auth/service/allowed'
+import allowed from 'src/modules/Auth/helper/allowed'
 // noinspection ES6CheckImport
 import { date } from 'quasar'
 

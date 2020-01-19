@@ -1,9 +1,9 @@
 import { me } from 'src/domains/Auth/Service'
-import allowed from 'src/modules/Auth/service/allowed'
-import bypass from 'src/modules/Auth/service/bypass'
+import allowed from 'src/modules/Auth/helper/allowed'
+import bypass from 'src/modules/Auth/helper/bypass'
 import { otherwise } from 'src/router'
 import { dashboard } from 'src/modules/Dashboard/router/routeFile'
-import { storing as $store } from 'src/store'
+import { $store } from 'src/store'
 
 /**
  * @param {Route} to

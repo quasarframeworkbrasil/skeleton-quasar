@@ -1,7 +1,7 @@
 <template>
   <div class="landing">
     <a
-      href="https://github.com/quasarframeworkbrasil/skeleton"
+      href="https://github.com/quasarframeworkbrasil/skeleton-quasar"
       data-ribbon="Fork me on GitHub"
       title="Fork me on GitHub"
       class="github-fork-ribbon left-top fixed"
