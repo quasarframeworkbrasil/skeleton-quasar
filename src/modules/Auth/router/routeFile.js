@@ -1,5 +1,6 @@
 import { group, route } from 'src/app/Util/routing'
-import { bootstrap, checkIsLogged, checkPermission } from './middleware'
+// import { bootstrap, checkIsLogged, checkPermission } from './middleware'
+import { bootstrap, checkIsLogged } from './middleware'
 import { otherwise } from 'src/router'
 
 /**
@@ -25,5 +26,5 @@ export default (router) => {
   // check user is logged in app
   router.beforeThisRoute(otherwise, checkIsLogged)
   // check the permission to route
-  router.beforeEach(checkPermission)
+  // router.beforeEach(checkPermission)
 }
