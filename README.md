@@ -6,7 +6,7 @@ Rapid development with Vue and Quasar
 
 ## Docs
 
-Get started in our [docs](https://quasarframework-brasil.gitbook.io/skeleton) ; )
+Get started in our [docs](https://quasarframework-brasil.gitbook.io/skeleton-quasar) ; )
 
 ## Install the dependencies
 ```bash
