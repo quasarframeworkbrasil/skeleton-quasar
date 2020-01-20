@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/quasarframeworkbrasil/skeleton.svg?branch=master)](https://travis-ci.com/quasarframeworkbrasil/skeleton)
+[![Build Status](https://travis-ci.com/quasarframeworkbrasil/skeleton-quasar.svg?branch=master)](https://travis-ci.com/quasarframeworkbrasil/skeleton-quasar)
 
 # Skeleton
 
