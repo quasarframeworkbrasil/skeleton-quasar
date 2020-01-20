@@ -8,6 +8,9 @@ import action from 'src/domains/Admin/Action/route'
 import profile from 'src/domains/Admin/Profile/route'
 import user from 'src/domains/Admin/User/route'
 
+// general
+import category from 'src/domains/General/Category/routes'
+
 // home
 import home from 'src/domains/Home/route'
 
@@ -32,6 +35,8 @@ export default (router) => {
     ...action(),
     ...profile(),
     ...user(),
+
+    ...category(),
 
     // home namespace routes
     ...home(),
