@@ -35,6 +35,7 @@ export default class UserService extends Rest {
   read (record, trash = false) {
     return promisify({
       data: {
+        integration: uuid(),
         id: uuid(),
         name: 'User fake',
         email: 'user' + Math.ceil(Math.random() * 100) + '@mail.com',
