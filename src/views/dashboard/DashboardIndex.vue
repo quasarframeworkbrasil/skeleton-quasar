@@ -207,6 +207,7 @@ export default {
     justify-content center
     background #183055
     padding 69px 15px 50px 0
+    min-height 200px
 
   .DashboardIndex__source
     position relative
@@ -217,6 +218,7 @@ export default {
     background-size 210px
     background-repeat no-repeat
     background-position right -20px
+    min-height 200px
 
     > .DashboardIndex__source__logo
       grid-column auto / span 30
