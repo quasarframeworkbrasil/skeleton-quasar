@@ -12,8 +12,8 @@ fi
 
 echo "Details: '$(pwd)' | '$(quasar -v)'"
 
-chown -R node:node .
 echo "~> fix permissions"
+chown -R node:node .
 
 echo "~> starting dev"
 quasar dev

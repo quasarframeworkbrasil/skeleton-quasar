@@ -74,6 +74,10 @@ export default class UserSchema extends Schema {
       .fieldIsPassword()
       .validationSameAs(['password'])
 
+    this.addField('phone')
+      .fieldAsPhone()
+      .fieldFormWidth(40)
+
     this.addField('active')
       .fieldTableShow()
       .fieldTableWhere()

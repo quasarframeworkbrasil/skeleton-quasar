@@ -2,6 +2,17 @@ import DateTime from 'src/app/Support/DateTime'
 import { replacement } from 'src/app/Util/string'
 
 /**
+ * @param {string} value
+ * @param {string} pattern
+ * @return {string}
+ */
+export const format = (value, pattern) => {
+  let i = 0
+  const string = String(value)
+  return pattern.replace(/#/g, _ => string[i++])
+}
+
+/**
  * @param {string} string
  * @param {string} output
  * @param {string} [format]

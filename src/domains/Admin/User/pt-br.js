@@ -38,6 +38,7 @@ export default {
     name: 'Nome',
     profile: 'Perfil',
     email: 'Email',
+    phone: 'Celular',
     active: {
       label: 'Ativo',
       inline: 'Permitir acesso'

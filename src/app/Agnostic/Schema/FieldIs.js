@@ -1,6 +1,6 @@
 import { yesNo } from 'src/app/Agnostic/options'
 import { primaryKey } from 'src/settings/schema'
-import { booleanFormatter, dateFormatter, optionFormatter, optionsFormatter } from 'src/app/Util/formatter'
+import { booleanFormatter, dateFormatter, optionFormatter, optionsFormatter, format } from 'src/app/Util/formatter'
 import { currencyParseInput } from 'src/settings/components'
 
 /**
@@ -78,9 +78,12 @@ export default {
    * @returns {Schema}
    */
   fieldAsMasked (mask, attrs = {}) {
-    let { placeholder } = attrs
+    let { placeholder, tableFormat } = attrs
     if (!placeholder) {
       placeholder = mask.replace(/#/g, '9')
+    }
+    if (!tableFormat) {
+      tableFormat = (value) => format(value, mask)
     }
     this.setAttrs({
       mask,
@@ -88,6 +91,7 @@ export default {
       ...attrs,
       placeholder: `ex.: ${placeholder}`
     })
+    this.setLayout({ tableFormat })
     this.setType('string')
     return this
   },
