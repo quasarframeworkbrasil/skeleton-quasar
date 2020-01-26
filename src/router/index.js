@@ -41,9 +41,9 @@ export default function (/* { store, ssrContext } */) {
   // just a simple middleware
   $router.afterEach(updateTitle)
 
-  // inject router on auth layout
+  // inject router on auth module
   authRouteFile($router)
-  // inject router on dashboard layout
+  // inject router on dashboard module
   dashboardRouteFile($router)
 
   return $router

@@ -6,8 +6,7 @@ import SchemaBody from 'src/app/Components/Schema/Form/Mixins/SchemaFormBody'
 import { POSITIONS } from 'src/app/Agnostic/enum'
 import { primaryKey } from 'src/settings/schema'
 import { $store } from 'src/store'
-import { reportContext } from 'src/settings/components'
-import { reportAction, reportLoading, reportMethod } from 'src/settings/report'
+import { reportAction, reportContext, reportLoading, reportMethod } from 'src/settings/report'
 
 /**
  * @component {SchemaReport}

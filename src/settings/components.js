@@ -1,28 +1,6 @@
 import { getLocale } from 'src/lang'
 
 /**
- * @type {Object}
- */
-export const attrs = { dense: true, clearable: true, outlined: true, uppercase: false, useReadonly: true }
-
-/**
- * @param value
- * @returns {string}
- */
-export const parseOutput = (value) => typeof value === 'string' ? value.toUpperCase() : value
-
-/**
- * @param value
- * @returns {string|*}
- */
-export const currencyParseOutput = (value) => {
-  if (typeof value !== 'string') {
-    return value
-  }
-  return Number(value.replace(/\./g, '').replace(/,/g, '.'))
-}
-
-/**
  * @param {boolean} native
  * @returns {Object}
  */
@@ -34,6 +12,17 @@ const currency = (native = true) => {
     [currencyDisplay]: 'symbol',
     currency: process.env.VUE_APP_CURRENCY
   }
+}
+
+/**
+ * @param value
+ * @returns {string|*}
+ */
+export const currencyParseOutput = (value) => {
+  if (typeof value !== 'string') {
+    return value
+  }
+  return Number(value.replace(/\./g, '').replace(/,/g, '.'))
 }
 
 /**
@@ -65,17 +54,15 @@ export const tableOuterHeight = 250
 export const tableMinRowsPerPage = 10
 
 /**
- * @param {Function} h
- * @returns {*}
+ * @type {Object}
  */
-export const reportContext = (h) => {
-  const domProps = {
-    type: 'hidden',
-    name: '__@context',
-    value: undefined
-  }
-  return h('input', { domProps })
-}
+export const attrs = { dense: true, clearable: true, outlined: true, uppercase: false, useReadonly: true }
+
+/**
+ * @param value
+ * @returns {string}
+ */
+export const parseOutput = (value) => typeof value === 'string' ? value.toUpperCase() : value
 
 /**
  * @type {Object}

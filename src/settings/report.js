@@ -3,6 +3,19 @@
  */
 const baseURL = process.env.VUE_APP_REPORT_BASE_URL
 
+/**
+ * @param {Function} h
+ * @returns {*}
+ */
+export const reportContext = (h) => {
+  const domProps = {
+    type: 'hidden',
+    name: '__@context',
+    value: undefined
+  }
+  return h('input', { domProps })
+}
+
 // noinspection JSUnusedLocalSymbols
 /**
  * @return {string}

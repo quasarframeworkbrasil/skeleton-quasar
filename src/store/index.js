@@ -19,11 +19,12 @@ export let $store
  */
 
 export default function (/* { ssrContext } */) {
+  // create store
   $store = new Vuex.Store({
     modules: {
       app,
-      auth,
-      dashboard
+      auth, // register auth router
+      dashboard // register dashboard router
     },
     // enable strict mode (adds overhead!)
     // for dev mode only
