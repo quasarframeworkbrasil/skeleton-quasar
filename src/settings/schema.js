@@ -14,9 +14,10 @@ export const searchKey = 'where'
 export const SEPARATION_OPERATOR = '~'
 
 /**
- * @type {string[]}
+ * @param {string} validation
+ * @return {boolean}
  */
-export const required = ['required']
+export const required = (validation) => ['required'].includes(validation)
 
 /** @type {Object} */
 export const counter = {

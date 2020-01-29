@@ -153,7 +153,7 @@ export default {
      */
     parseOptions (row) {
       const value = row[this.keyValue]
-      const label = this.format ? this.format(row, value) : row[this.keyLabel]
+      const label = this.format ? this.format(row, row[this.keyLabel]) : row[this.keyLabel]
       return { value, label, __meta: row }
     }
   },

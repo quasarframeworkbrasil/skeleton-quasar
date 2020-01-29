@@ -243,13 +243,6 @@ export default {
     this.setAttrs(attrs)
     this.setLayout({ tableFormat: optionFormatter(attrs.keyLabel), tableWhereOperator: 'eq' })
     this.setType('select')
-
-    const current = this.__currentField
-    this.addAvoid(current)
-    const { keyValue: primaryKey } = attrs
-    this.addWatch(`record.${current}`, function (value) {
-      this.record[`${current}_id`] = value[primaryKey]
-    })
     return this
   },
 
