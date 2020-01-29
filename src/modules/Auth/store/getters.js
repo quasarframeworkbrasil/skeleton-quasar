@@ -1,5 +1,6 @@
 import { get, is } from 'src/app/Util/general'
 import { primaryKey } from 'src/settings/schema'
+import actions from 'src/settings/actions'
 
 /**
  * @param state
@@ -47,9 +48,12 @@ export const getUserShopUrl = (state) => {
  * @returns {Object}
  */
 export const getActions = (state) => {
-  const actions = get(state.user, 'actions')
-  if (actions) {
-    return actions
+  if (typeof actions === 'function') {
+    return actions(state.user)
+  }
+  const userActions = get(state.user, 'actions')
+  if (userActions) {
+    return userActions
   }
   return {}
 }
