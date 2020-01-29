@@ -16,19 +16,19 @@ export default {
   },
 
   /**
-   * @param {string} operator
+   * @param {boolean} tableWhere
    * @returns {Schema}
    */
-  fieldTableWhere (operator = undefined) {
-    let tableWhere = this.__fields[this.__currentField].$layout.tableWhere
-    if (!operator && !tableWhere) {
-      return this.setLayout({ tableWhere: 'automatic' })
-    }
-
-    if (!tableWhere || tableWhere === 'automatic') {
-      tableWhere = operator
-    }
+  fieldTableWhere (tableWhere = true) {
     return this.setLayout({ tableWhere })
+  },
+
+  /**
+   * @param {string} fieldTableWhereOperator
+   * @returns {Schema}
+   */
+  fieldTableWhereOperator (fieldTableWhereOperator) {
+    return this.setLayout({ fieldTableWhereOperator })
   },
 
   /**

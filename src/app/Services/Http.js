@@ -4,7 +4,7 @@ import { is, serialize } from 'src/app/Util/general'
 import { searchKey } from 'src/settings/schema'
 
 /**
- * @type {Http}
+ * @class {Http}
  */
 export default class Http {
   /**
@@ -63,7 +63,7 @@ export default class Http {
    * @param {Record<string, any>} config
    * @returns {Promise<*>}
    */
-  post (url = '', data = undefined, config = undefined) {
+  post (url = '', data = {}, config = {}) {
     const path = this.parseUrl(this.path, url)
     const payload = this.parseData(data)
     return this.client.post(path, payload, config)
@@ -74,7 +74,7 @@ export default class Http {
    * @param {Record<string, any>} config
    * @returns {Promise<*>}
    */
-  get (url = '', config = undefined) {
+  get (url = '', config = {}) {
     const path = this.parseUrl(this.path, url, true)
     return this.client.get(path, config)
   }
@@ -84,7 +84,7 @@ export default class Http {
    * @param {Record<string, any>} config
    * @returns {Promise<*>}
    */
-  head (url, config = undefined) {
+  head (url, config = {}) {
     const path = this.parseUrl(this.path, url, true)
     return this.client.head(path, config)
   }
@@ -95,7 +95,7 @@ export default class Http {
    * @param {Record<string, any>} config
    * @returns {Promise<*>}
    */
-  put (url, data = undefined, config = undefined) {
+  put (url, data = {}, config = {}) {
     const path = this.parseUrl(this.path, url)
     const payload = this.parseData(data)
     return this.client.put(path, payload, config)
@@ -107,7 +107,7 @@ export default class Http {
    * @param {Record<string, any>} config
    * @returns {Promise<*>}
    */
-  patch (url, data = undefined, config = undefined) {
+  patch (url, data = {}, config = {}) {
     const path = this.parseUrl(this.path, url)
     const payload = this.parseData(data)
     return this.client.patch(path, payload, config)
@@ -118,7 +118,7 @@ export default class Http {
    * @param {Record<string, any>} config
    * @returns {Promise<*>}
    */
-  delete (url, config = undefined) {
+  delete (url, config = {}) {
     const path = this.parseUrl(this.path, url, true)
     return this.client.delete(path, config)
   }

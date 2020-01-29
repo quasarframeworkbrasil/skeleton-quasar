@@ -1,5 +1,5 @@
 /**
- * @typedef {FormField}
+ * @typedef {Object} FormField
  */
 const FormField = {
   /**

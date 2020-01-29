@@ -29,7 +29,7 @@ export default class Report extends Schema {
   defaults () {
     const schema = this
 
-    this.hook('created:default', function () {
+    this.addHook('created:default', function () {
       // call component initialize method
       if (this.initialize && typeof this.initialize === 'function') {
         this.initialize()
@@ -43,7 +43,7 @@ export default class Report extends Schema {
 
       // call global prototype configure
       /**
-       * @fires createdHook
+       * @fires.createdHook
        */
       schema.createdHook.call(this, schema)
     })
@@ -113,9 +113,10 @@ export default class Report extends Schema {
       settings: {},
       primaryKey: this.primaryKey,
       displayKey: this.displayKey,
-      hooks: () => this.hooks(),
-      actions: () => this.actions(),
-      fields: () => this.fields()
+      hooks: () => this.getHooks(),
+      actions: () => this.getActions(),
+      fields: () => this.getFields(),
+      watches: () => this.getWatches()
     }
   }
 }

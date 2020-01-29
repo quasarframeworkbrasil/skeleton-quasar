@@ -17,7 +17,7 @@ export default {
    * @param value
    * @returns {Schema}
    */
-  fieldSection (value) {
+  fieldGroup (value) {
     const id = this.__currentField
     if (this.__fields[id]) {
       this.__fields[id].section = value
@@ -69,6 +69,15 @@ export default {
    */
   fieldOn (event, callable, reset = false) {
     return this.setOn(event, callable, reset)
+  },
+
+  /**
+   * @param {Function} callable
+   * @return {Schema}
+   */
+  fieldWatch (callable) {
+    this.addWatch(`record.${this.__currentField}`, callable)
+    return this
   },
 
   /**

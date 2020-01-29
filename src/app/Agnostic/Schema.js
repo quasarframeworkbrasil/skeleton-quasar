@@ -39,7 +39,7 @@ export default class Schema extends Skeleton {
   /**
    * @type {boolean}
    */
-  useUuid = true
+  useUuid = false
 
   /**
    * @param {Object} property

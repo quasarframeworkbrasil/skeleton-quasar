@@ -1,7 +1,7 @@
 import { dateFormatter } from 'src/app/Util/formatter'
 
 /**
- * @typedef {AppDateMixin}
+ * @typedef {Object} AppDateMixin
  */
 export default {
   /**

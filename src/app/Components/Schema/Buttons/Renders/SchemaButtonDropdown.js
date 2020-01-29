@@ -1,5 +1,5 @@
 /**
- * @typedef {SchemaButtonDropdown}
+ * @typedef {Object} SchemaButtonDropdown
  */
 export default {
   /**

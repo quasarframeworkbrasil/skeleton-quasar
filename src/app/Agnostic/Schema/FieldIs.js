@@ -4,7 +4,7 @@ import { booleanFormatter, dateFormatter, optionFormatter, optionsFormatter, for
 import { currencyParseInput } from 'src/settings/components'
 
 /**
- * @typedef {FieldIs}
+ * @typedef {Object} FieldIs
  */
 export default {
   /**
@@ -115,7 +115,7 @@ export default {
   fieldIsNumber (attrs = {}) {
     this.setComponent('number')
     this.setAttrs({ ...attrs })
-    this.setLayout({ tableWhere: 'eq' })
+    this.setLayout({ tableWhereOperator: 'eq' })
     this.setType('number')
     return this
   },
@@ -147,7 +147,7 @@ export default {
    * @param {Object} attrs
    * @returns {Schema}
    */
-  fieldIsText (rows = 6, attrs = {}) {
+  fieldIsText (rows = 4, attrs = {}) {
     this.setComponent('text')
     this.setAttrs({ ...attrs, rows })
     this.setType('text')
@@ -229,7 +229,7 @@ export default {
         }
       })
     }
-    this.setLayout({ tableFormat: optionsFormatter(options), tableWhere: 'eq' })
+    this.setLayout({ tableFormat: optionsFormatter(options), tableWhereOperator: 'eq' })
     this.setType('select')
     return this
   },
@@ -241,8 +241,15 @@ export default {
   fieldIsSelectRemote (attrs = {}) {
     this.setComponent('remote')
     this.setAttrs(attrs)
-    this.setLayout({ tableFormat: optionFormatter(attrs.keyLabel), tableWhere: 'eq' })
+    this.setLayout({ tableFormat: optionFormatter(attrs.keyLabel), tableWhereOperator: 'eq' })
     this.setType('select')
+
+    const current = this.__currentField
+    this.addAvoid(current)
+    const { keyValue: primaryKey } = attrs
+    this.addWatch(`record.${current}`, function (value) {
+      this.record[`${current}_id`] = value[primaryKey]
+    })
     return this
   },
 

@@ -14,13 +14,13 @@ export default class Skeleton extends Base {
   /**
    * @type {string}
    */
-  groupType = 'none'
+  groupType = 'sections'
 
   /**
    * @param {string} $key
    * @param {string} label
    * @param {*} type
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   addField ($key, label = '', type = undefined) {
     if (this.__fields[$key]) {
@@ -60,7 +60,7 @@ export default class Skeleton extends Base {
 
   /**
    * @param {string} $key
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   getField ($key) {
     if (!this.__fields[$key]) {
@@ -71,9 +71,19 @@ export default class Skeleton extends Base {
   }
 
   /**
+   * @returns {Object}
+   */
+  getFields () {
+    if (this.safe) {
+      return this.$clone(this.__fields)
+    }
+    return this.__fields
+  }
+
+  /**
    * @param {string} id
    * @param {string} label
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   addAction (id, label = '') {
     if (this.__actions[id]) {
@@ -110,8 +120,8 @@ export default class Skeleton extends Base {
   }
 
   /**
-   * @param id
-   * @return {Schema}
+   * @param {string} id
+   * @returns {Schema|Skeleton}
    */
   getAction (id) {
     if (!this.__actions[id]) {
@@ -122,47 +132,9 @@ export default class Skeleton extends Base {
   }
 
   /**
-   * @returns {Object}
-   */
-  hook (name, handler) {
-    this.__hooks[name] = handler
-    return this
-  }
-
-  /**
-   * @returns {Object}
-   */
-  hooks () {
-    if (this.safe) {
-      return this.$clone(this.__hooks)
-    }
-    return this.__hooks
-  }
-
-  /**
-   * @returns {Object}
-   */
-  fields () {
-    if (this.safe) {
-      return this.$clone(this.__fields)
-    }
-    return this.__fields
-  }
-
-  /**
-   * @returns {Object}
-   */
-  groups () {
-    if (this.safe) {
-      return this.$clone(this.__groups)
-    }
-    return this.__groups
-  }
-
-  /**
    * @returns {Array}
    */
-  actions () {
+  getActions () {
     if (this.safe) {
       return this.$clone(Object.values(this.__actions))
     }
@@ -170,11 +142,65 @@ export default class Skeleton extends Base {
   }
 
   /**
+   * @param {string} name
+   * @param {Function} handler
+   * @returns {Schema|Skeleton}
+   */
+  addHook (name, handler) {
+    this.__hooks[name] = handler
+    return this
+  }
+
+  /**
+   * @param {string} name
+   * @returns {Schema|Skeleton}
+   */
+  removeHook (name) {
+    delete this.__hooks[name]
+    return this
+  }
+
+  /**
+   * @returns {Object}
+   */
+  getHooks () {
+    if (this.safe) {
+      return this.$clone(this.__hooks)
+    }
+    return this.__hooks
+  }
+
+  /**
+   * @param {string} name
+   * @param {Function} handler
+   * @returns {Schema|Skeleton}
+   */
+  addWatch (name, handler) {
+    if (!this.__watches[name]) {
+      this.__watches[name] = handler
+      return this
+    }
+    this.__watches[name] = [this.__watches[name]]
+    this.__watches[name].push(handler)
+    return this
+  }
+
+  /**
+   * @returns {Object}
+   */
+  getWatches () {
+    if (this.safe) {
+      return this.$clone(this.__watches)
+    }
+    return this.__watches
+  }
+
+  /**
    * @param {string} id
    * @param {Object} options
-   * @returns {Skeleton}
+   * @returns {Schema|Skeleton}
    */
-  section (id, options = {}) {
+  addGroup (id, options = {}) {
     this.__groups[id] = {
       label: this.$lang(`domains.${this.constructor.domain}.groups.${id}`),
       ...options
@@ -183,11 +209,21 @@ export default class Skeleton extends Base {
   }
 
   /**
+   * @returns {Object}
+   */
+  getGroups () {
+    if (this.safe) {
+      return this.$clone(this.__groups)
+    }
+    return this.__groups
+  }
+
+  /**
    * @param {Object} options
    * @returns {Object}
    */
   array (options = {}) {
-    const fields = this.arrayFields ? this.arrayFields(this.fields) : this.$clone(this.fields())
+    const fields = this.arrayFields ? this.arrayFields(this.getFields()) : this.$clone(this.getFields())
     return {
       domain: this.constructor.domain,
       primaryKey: this.primaryKey,
@@ -203,23 +239,54 @@ export default class Skeleton extends Base {
    * @returns {Object}
    */
   remote (widget = false, query = {}) {
-    const fields = this.remoteFields ? this.remoteFields(this.fields) : this.$clone(this.fields())
+    const fields = this.remoteFields ? this.remoteFields(this.getFields()) : this.$clone(this.getFields())
     return {
       widget: widget,
+      query: query,
       keyValue: this.primaryKey,
       keyLabel: this.displayKey,
       domain: this.constructor.domain,
+      format: (row, value) => value,
       fields: fields,
-      remote: (filter, pagination = undefined, customQuery = {}) => {
+      remote: (filter, pagination = undefined, query = {}) => {
         if (pagination) {
           return this.$service()
-            .paginate({ filter, pagination, [searchKey]: { ...customQuery, ...query } })
+            .paginate({ filter, pagination, [searchKey]: query })
         }
         return this.$service()
-          .paginate({ filter, [searchKey]: { ...customQuery, ...query } })
+          .paginate({ filter, [searchKey]: query })
           .then((response) => response.rows)
       }
     }
+  }
+
+  /**
+   * @param {string} field
+   * @returns {Schema|Skeleton}
+   */
+  addAvoid (field) {
+    this.__avoids.push(field)
+    return this
+  }
+
+  /**
+   * @return {Array}
+   */
+  getAvoids () {
+    return this.__avoids
+  }
+
+  /**
+   * @param {Object} record
+   * @return {Object}
+   */
+  removeAvoids (record) {
+    return this.__avoids.reduce(function (carry, avoid) {
+      if (carry[avoid]) {
+        delete carry[avoid]
+      }
+      return carry
+    }, { ...record })
   }
 
   // noinspection JSMethodCanBeStatic
@@ -262,10 +329,11 @@ export default class Skeleton extends Base {
       form: Object.assign(form, this.form),
       primaryKey: this.primaryKey,
       displayKey: this.displayKey,
-      hooks: () => this.hooks(),
-      actions: () => this.actions(),
-      groups: () => this.groups(),
-      fields: () => this.fields()
+      hooks: () => this.getHooks(),
+      actions: () => this.getActions(),
+      groups: () => this.getGroups(),
+      fields: () => this.getFields(),
+      watches: () => this.getWatches()
     }
   }
 }

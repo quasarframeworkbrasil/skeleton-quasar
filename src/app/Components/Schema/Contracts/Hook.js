@@ -1,5 +1,5 @@
 /**
- * @typedef {Hook}
+ * @typedef {Object} Hook
  */
 export default {
   /**

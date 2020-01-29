@@ -12,7 +12,7 @@ export default {
   defaultCreated () {
     const schema = this
 
-    this.hook('created:default', function () {
+    this.addHook('created:default', function () {
       // call component initialize method
       if (this.initialize && typeof this.initialize === 'function') {
         this.initialize()
@@ -27,20 +27,35 @@ export default {
       const scopeHook = `createdHook${this.scope.toCamelCase(true)}`
       if (schema[scopeHook]) {
         /**
-         * @fires createdHookScopeIndex
-         * @fires createdHookScopeAdd
-         * @fires createdHookScopeEdit
-         * @fires createdHookScopeView
-         * @fires createdHookScopeTrash
+         * @fires.createdHookScopeIndex
+         * @fires.createdHookScopeAdd
+         * @fires.createdHookScopeEdit
+         * @fires.createdHookScopeView
+         * @fires.createdHookScopeTrash
          */
         schema[scopeHook].call(this, schema)
       }
 
       // call global prototype configure
       /**
-       * @fires createdHook
+       * @fires.createdHook
        */
       schema.createdHook.call(this, schema)
+
+      const watches = this.watches()
+      Object.keys(watches).forEach((key) => {
+        this.$watch(key, function (current, previous) {
+          const watching = watches[key]
+          const apply = (watch) => watch.bind(this)(current, previous)
+
+          if (!Array.isArray(watching)) {
+            apply(watching)
+            return
+          }
+
+          watching.forEach(apply)
+        })
+      })
     })
   },
 
@@ -51,7 +66,7 @@ export default {
   defaultRequestRecords () {
     const schema = this
 
-    this.hook('request:records', function ({ parameters, filters }) {
+    this.addHook('request:records', function ({ parameters, filters }) {
       if (!schema.service) {
         return reject({})
       }
@@ -67,17 +82,19 @@ export default {
   defaultRequestRecord () {
     const schema = this
 
-    this.hook('request:record', function ({ id }) {
+    this.addHook('request:record', function ({ id }) {
       if (!schema.service) {
         return reject({})
       }
-      if (!id) {
-        return reject({})
+      if (id) {
+        const trash = this.$route.query.trash
+        return schema.$service()
+          .read(id, trash)
+          .then((response) => parseResponseRecord(response))
       }
-      const trash = this.$route.query.trash
-      return schema.$service()
-        .read(id, trash)
-        .then(parseResponseRecord())
+      return new Promise(function (resolve, reject) {
+        reject()
+      })
     })
   }
 }

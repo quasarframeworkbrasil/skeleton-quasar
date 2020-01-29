@@ -1,7 +1,7 @@
 import Basic from 'src/app/Components/Schema/Contracts/Basic'
 
 /**
- * @typedef {FormDynamic}
+ * @typedef {Object} FormDynamic
  */
 export default {
   /**
@@ -57,6 +57,10 @@ export default {
       default: () => ({})
     },
     hooks: {
+      type: Function,
+      default: () => ({})
+    },
+    watches: {
       type: Function,
       default: () => ({})
     }

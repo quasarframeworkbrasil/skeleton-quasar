@@ -1,5 +1,5 @@
 /**
- * @typedef {SchemaButtonSingle}
+ * @typedef {Object} SchemaButtonSingle
  * @link https://codepen.io/wilcorrea/pen/BaBJpjR?editors=0010s
  * TODO: use label as static tooltips
  */

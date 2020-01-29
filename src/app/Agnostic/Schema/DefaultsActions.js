@@ -85,7 +85,8 @@ export default {
     }
 
     this.actionSchemaAttempt()
-    return schema.$service().create(record)
+    const __record = schema.removeAvoids(record)
+    return schema.$service().create(__record)
       .then(success)
       .catch(fail)
   },
@@ -116,7 +117,8 @@ export default {
     const fail = (error) => this.actionSchemaFail(error, 'agnostic.actions.update.fail')
 
     prepare()
-    return schema.$service().update(record)
+    const __record = schema.removeAvoids(record)
+    return schema.$service().update(__record)
       .then(success)
       .catch(fail)
   },
@@ -191,7 +193,7 @@ export default {
    */
   actionSortClear () {
     if (!this.$route.query.sort) {
-      this.$alert(this.$lang('agnostic.actions.sortClear.noSort'))
+      this.$alert(this.$lang('agnostic.actions.sort-clear.noSort'))
       return
     }
     this.$browse({ query: { sort: undefined } }, true)
@@ -359,35 +361,6 @@ export default {
       .actionIcon('delete')
       .actionOn('click', function ({ context, $event }) {
         return schema.actionDestroy.call(this, { $event, schema, ...context })
-      })
-
-    this.addAction('trash')
-      .actionFloatRight()
-      .actionScopes([SCOPES.SCOPE_INDEX])
-      .actionPositions(readonly ? [] : [POSITIONS.POSITION_TABLE_TOP, POSITIONS.POSITION_TABLE_FLOAT])
-      .actionIcon('restore')
-      .actionOn('click', function ({ context, $event }) {
-        return schema.actionTrash.call(this, { $event, schema, ...context })
-      })
-
-    this.addAction('restore')
-      .actionScopes([SCOPES.SCOPE_VIEW, SCOPES.SCOPE_TRASH])
-      .actionPositions([
-        POSITIONS.POSITION_TABLE_TOP,
-        POSITIONS.POSITION_TABLE_FLOAT,
-        POSITIONS.POSITION_TABLE_CELL,
-        POSITIONS.POSITION_FORM_FOOTER
-      ])
-      .actionConfigure(function (action, { context: { record }, position }) {
-        if ([POSITIONS.POSITION_TABLE_CELL, POSITIONS.POSITION_FORM_FOOTER].includes(position)) {
-          action.hidden = !record['deletedAt']
-        }
-        return action
-      })
-      .actionColor('primary')
-      .actionIcon('restore_from_trash')
-      .actionOn('click', function ({ context, $event }) {
-        return schema.actionRestore.call(this, { $event, schema, ...context })
       })
 
     this.addAction('sort-clear')

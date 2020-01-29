@@ -8,7 +8,7 @@ import { filterKey, primaryKey, searchKey } from 'src/settings/schema'
 import { parseResponseRecords } from 'src/settings/rest'
 
 /**
- * @type {Rest}
+ * @class {Rest}
  */
 export default class Rest extends Http {
   /**
@@ -48,23 +48,25 @@ export default class Rest extends Http {
 
   /**
    * @param {Record<string, any>} record
+   * @param {Record<string, any>} config
    * @returns {Promise}
    */
-  create (record) {
+  create (record, config = {}) {
     if ($store.getters['app/getOffline'] || this.offline) {
       return new Promise((resolve, reject) => {
         reject('Unsupported action create')
       })
     }
-    return this.post(this.getResource(), record)
+    return this.post(this.getResource(), record, config)
   }
 
   /**
    * @param {string | number | Record<string, any>} record
    * @param {boolean} trash
+   * @param {Record<string, any>} config
    * @returns {Promise}
    */
-  read (record, trash = false) {
+  read (record, trash = false, config = {}) {
     let queryString = ''
     if (trash) {
       queryString = '?trash=true'
@@ -74,42 +76,45 @@ export default class Rest extends Http {
       return this.readOffline(record, trash)
     }
     const url = `${this.getResource()}/${this.getId(record)}${queryString}`
-    return this.get(url)
+    return this.get(url, config)
   }
 
   /**
    * @param {Record<string, any>} record
+   * @param {Record<string, any>} config
    * @returns {Promise}
    */
-  update (record) {
+  update (record, config = {}) {
     if ($store.getters['app/getOffline'] || this.offline) {
       return this.updateOffline(record)
     }
     const url = `${this.getResource()}/${this.getId(record)}`
-    return this.patch(url, record)
+    return this.patch(url, record, config)
   }
 
   /**
    * @param {Record<string, any>} record
-   * @returns {Promise}
+   * @param {Record<string, any>} config
+   * @returns {Promise<any>}
    */
-  destroy (record) {
+  destroy (record, config = {}) {
     if ($store.getters['app/getOffline'] || this.offline) {
       return new Promise((resolve, reject) => {
         reject('Unsupported action create')
       })
     }
     const url = `${this.getResource()}/${this.getId(record)}`
-    return this.delete(url)
+    return this.delete(url, config)
   }
 
   /**
    * @param {Record<string, any>} record
+   * @param {Record<string, any>} config
    * @returns {Promise}
    */
-  restore (record) {
+  restore (record, config = {}) {
     const url = `${this.getResource()}/${this.getId(record)}/restore`
-    return this.patch(url)
+    return this.patch(url, record, config)
   }
 
   /**
@@ -143,12 +148,13 @@ export default class Rest extends Http {
 
   /**
    * Ex.: query({ page, size, sort, filter, where })
-   * @param {Record<string, string | number>} parameters
+   * @param {Object} parameters
+   * @param {Object} config
    * @returns {Promise}
    */
-  search (parameters = {}) {
+  search (parameters = {}, config = {}) {
     const queryString = this.searchQueryString(parameters, '&')
-    return this.get(`${this.getResource()}?${queryString}`)
+    return this.get(`${this.getResource()}?${queryString}`, config)
   }
 
   /**

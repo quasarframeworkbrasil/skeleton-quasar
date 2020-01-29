@@ -17,7 +17,7 @@ export default {
       caption: 'Finaliza a sessão atual e redireciona para a tela inicial'
     },
     profile: {
-      label: 'Minha Conta',
+      label: 'Perfil',
       caption: 'Exibe e administra os dados do usuário conectado'
     }
   },

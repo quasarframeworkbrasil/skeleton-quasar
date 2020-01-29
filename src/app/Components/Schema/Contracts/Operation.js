@@ -58,7 +58,11 @@ export default {
       if (this.debuggers) {
         window.alert(JSON.stringify(response))
       }
-      this.$message.success(this.$lang(success))
+      let message = response.message
+      if (!message) {
+        message = this.$lang(success)
+      }
+      this.$message.success(message)
       let id = response[this.primaryKey]
       if (!id) {
         id = this.$util.get(response, 'data.ticket')

@@ -35,12 +35,20 @@ export default {
       required: true
     },
     keyLabel: {
-      type: [String, Function],
+      type: String,
       required: true
     },
     component: {
       type: [String, Function, Object],
       default: () => undefined
+    },
+    query: {
+      type: Object,
+      default: () => ({})
+    },
+    format: {
+      type: Function,
+      default: undefined
     }
   },
   /**
@@ -91,7 +99,7 @@ export default {
     async filterRemote (filter, update, abort) {
       this.loading = true
       try {
-        let query = {}
+        let query = { ...this.query }
         if (Array.isArray(this.value)) {
           const values = this.value.map((item) => item[this.keyValue]).join(',')
           query = { [this.keyValue]: withSeparator(values, 'nin') }
@@ -145,7 +153,7 @@ export default {
      */
     parseOptions (row) {
       const value = row[this.keyValue]
-      const label = typeof this.keyLabel === 'function' ? this.keyLabel(row, value) : row[this.keyLabel]
+      const label = this.format ? this.format(row, value) : row[this.keyLabel]
       return { value, label, __meta: row }
     }
   },

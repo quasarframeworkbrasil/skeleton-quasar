@@ -1,3 +1,5 @@
+import { required } from 'src/settings/schema'
+
 /**
  * @mixin {FormComponent}
  */
@@ -27,8 +29,7 @@ export default {
       const validations = Object.keys(field.$validations)
       validations.forEach(parseValidations)
 
-      const conditional = ['requiredIf']
-      field.$hasValidation = validations.filter((validation) => !conditional.includes(validation)).length
+      field.$hasValidation = validations.filter((validation) => required(validation)).length
 
       field.label = this.parseFieldLabel(field)
       if (field.attrs.options) {

@@ -1,5 +1,5 @@
 /**
- * @typedef {SchemaButtonSingle}
+ * @typedef {Object} SchemaButtonSingle
  */
 export default {
   /**

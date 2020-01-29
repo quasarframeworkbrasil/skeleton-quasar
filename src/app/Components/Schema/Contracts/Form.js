@@ -7,7 +7,7 @@ import FormValidation from 'src/app/Components/Schema/Contracts/Form/FormValidat
 import { fieldsReorder } from 'src/app/Agnostic/Helper'
 
 /**
- * @typedef {Form}
+ * @typedef {Object} Form
  */
 export default {
   /**

@@ -109,9 +109,11 @@ export default class Base {
     this.__loaded = {}
 
     this.__hooks = {}
+    this.__watches = {}
     this.__fields = {}
     this.__actions = {}
     this.__groups = {}
+    this.__avoids = []
 
     this.scopes = this.initScopes()
 

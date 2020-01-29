@@ -277,7 +277,7 @@ export const unSerialize = (url, prefix = '') => {
  * @param {string} operator
  * @returns {string}
  */
-export const withSeparator = (value, operator) => {
+export const withSeparator = (value, operator = undefined) => {
   if (operator) {
     return `${operator}${SEPARATION_OPERATOR}${value}`
   }

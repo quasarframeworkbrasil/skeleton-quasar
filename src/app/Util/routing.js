@@ -30,7 +30,7 @@ export const route = (
  * @param {string} path
  * @param {Function} component
  * @param {Array} [children]
- * @param {Object} [meta]
+ * @param {Record<string, any>} [meta]
  * @returns {RouteConfig}
  */
 export const group = (

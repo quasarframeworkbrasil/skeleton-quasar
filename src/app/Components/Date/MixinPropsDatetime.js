@@ -1,5 +1,5 @@
 /**
- * @typedef {AppDateMixinProps}
+ * @typedef {Object} AppDateMixinProps
  */
 export default {
   /**

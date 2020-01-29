@@ -223,8 +223,8 @@ export default {
           value = value ? 1 : 0
         }
         let operator
-        if (component.$layout.tableWhere !== 'automatic') {
-          operator = component.$layout.tableWhere
+        if (component.$layout.tableWhereOperator) {
+          operator = component.$layout.tableWhereOperator
         }
         query[field] = withSeparator(value, operator)
       }
@@ -267,17 +267,23 @@ export default {
       if (component.$type === 'boolean') {
         return !!value
       }
-      const isSelect = component.$type === 'select'
-      if (isSelect) {
+      if (component.$type === 'select') {
+        return value
+      }
+      if (component.$type === 'string') {
         return value
       }
       if (component.attrs.options) {
         return isNaN(Number(value)) ? String(value) : Number(value)
       }
-      const payload = JSON.parse(value)
-      return {
-        [component.attrs.keyValue]: payload[component.attrs.keyValue],
-        [component.attrs.keyLabel]: payload[component.attrs.keyLabel]
+      try {
+        const payload = JSON.parse(value)
+        return {
+          [component.attrs.keyValue]: payload[component.attrs.keyValue],
+          [component.attrs.keyLabel]: payload[component.attrs.keyLabel]
+        }
+      } catch (e) {
+        return value
       }
     }
   },

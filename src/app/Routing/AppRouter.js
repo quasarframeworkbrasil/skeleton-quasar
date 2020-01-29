@@ -11,7 +11,7 @@ VueRouter.prototype.push = function push (location, onResolve, onReject) {
 
 /**
  * @extends VueRouter
- * @class {AppRouter}
+ * @class AppRouter
  */
 export default class AppRouter extends VueRouter {
   /**
@@ -21,6 +21,7 @@ export default class AppRouter extends VueRouter {
   beforeEach (middleware) {
     return super.beforeEach(middleware)
   }
+
   /**
    * @param routes
    */

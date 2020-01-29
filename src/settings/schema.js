@@ -13,6 +13,11 @@ export const searchKey = 'where'
 /** @type {string} */
 export const SEPARATION_OPERATOR = '~'
 
+/**
+ * @type {string[]}
+ */
+export const required = ['required']
+
 /** @type {Object} */
 export const counter = {
   name: 'counter',

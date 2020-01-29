@@ -7,7 +7,7 @@ import Operation from 'src/app/Components/Schema/Contracts/Operation'
 import SchemaButtons from 'src/app/Components/Schema/Buttons/SchemaButtons'
 
 /**
- * @typedef {Basic}
+ * @typedef {Object} Basic
  */
 export default {
   /**

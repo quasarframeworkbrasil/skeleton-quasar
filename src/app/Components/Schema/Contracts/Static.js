@@ -1,7 +1,7 @@
 import Basic from 'src/app/Components/Schema/Contracts/Basic'
 
 /**
- * @typedef {Static}
+ * @typedef {Object} Static
  */
 export default {
   /**
