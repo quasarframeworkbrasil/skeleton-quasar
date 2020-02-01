@@ -25,10 +25,11 @@ export default {
   methods: {
     /**
      * @param {Function} h
+     * @param {Array} classes
+     * @param {boolean} embed
      * @returns {*}
      */
-    renderTable (h) {
-      const classes = ['SchemaTable']
+    renderTable (h, classes = ['SchemaTable'], embed = false) {
       if (this.scope === SCOPES.SCOPE_TRASH) {
         classes.push('trash')
       }

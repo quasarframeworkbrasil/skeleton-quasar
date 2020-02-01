@@ -45,8 +45,17 @@ export default {
      */
     actions () {
       return Object.values(this.buttons)
-        .filter((button) => button.positions && button.positions.includes(this.position))
-        .map((button) => this.parseButton(button))
+        .filter(this.filterButton)
+        .map(this.parseButton)
+    }
+  },
+  methods: {
+    /**
+     * @param {Object} button
+     * @returns {boolean}
+     */
+    filterButton (button) {
+      return button.scopes && button.scopes.includes(this.scope) && button.positions && button.positions.includes(this.position)
     }
   },
   /**

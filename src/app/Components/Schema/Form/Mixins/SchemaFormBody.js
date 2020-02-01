@@ -91,13 +91,13 @@ export default {
             key: key,
             name: key,
             slot: 'title',
-            label: groups[key].label,
-            keepAlive: true
+            label: groups[key].label
           }
         }
         tabs.push(h('q-tab', tab))
 
         const pane = {
+          style: groups[key].pane,
           attrs: {
             key: key,
             name: key
@@ -127,7 +127,8 @@ export default {
         on: { input: ($event) => { this.groupSelected = $event } },
         attrs: {
           value: this.groupSelected,
-          animated: true
+          animated: true,
+          keepAlive: true
         }
       }
 

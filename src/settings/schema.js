@@ -1,3 +1,5 @@
+import { unSerialize, serialize } from 'src/app/Util/general'
+
 /** @type {string} */
 export const primaryKey = 'id'
 
@@ -12,6 +14,22 @@ export const searchKey = 'where'
 
 /** @type {string} */
 export const SEPARATION_OPERATOR = '~'
+
+/**
+ * @param {Object} value
+ * @return {string}
+ */
+export const serializeSearch = (value) => {
+  return serialize(value, searchKey)
+}
+
+/**
+ * @param {string} value
+ * @return {Object}
+ */
+export const unSerializeSearch = (value) => {
+  return unSerialize(value, searchKey)
+}
 
 /**
  * @param {string} validation

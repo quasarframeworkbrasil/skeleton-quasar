@@ -27,11 +27,9 @@ export default {
       this.loadingShow()
 
       if (options === undefined || !is(options)) {
+        const page = this.parsePageToFetch()
         options = {
-          pagination: {
-            ...this.pagination,
-            page: this.$route.query.page ? Number(this.$route.query.page) : 1
-          }
+          pagination: { ...this.pagination, page: page }
         }
       }
 
@@ -42,16 +40,28 @@ export default {
       this.sorter = this.pagination.sortBy
       this.filters = [this.sorter]
 
+      const { raw } = options
+
       const parameters = {
         pagination: this.pagination,
         sorter: this.sorter,
         [filterKey]: this[filterKey],
-        [searchKey]: this[searchKey]
+        [searchKey]: this[searchKey],
+        raw: raw
       }
 
       this.triggerHook('request:records', { parameters, filters: this.filters })
         .then(this.successFetchRecords)
         .catch(this.errorFetchRecords)
+    },
+    /**
+     * @return {number}
+     */
+    parsePageToFetch () {
+      if (!this.embed) {
+        return this.$route.query.page ? Number(this.$route.query.page) : 1
+      }
+      return this.pagination.page
     },
     /**
      * @param {Object} response
@@ -66,12 +76,13 @@ export default {
       this.pagination.rowsNumber = response.rowsNumber
       /* "sortBy": null, "descending": false, "page": 1, "": 5  */
 
-      if (!this.data.length) {
+      if (!this.data.length && !this.embed) {
         const query = {}
         if (this.$route.query.page >= 2) {
           query.page = this.$route.query.page - 1
         }
-        this.$browse({ query }, true)
+        this.tableFetchApply(query, true)
+        return
       }
 
       if (!this.triggerHook) {
@@ -121,9 +132,10 @@ export default {
       if (this.$route.query.sort) {
         query.sort = this.$route.query.sort
       }
-      this.$browse({ query })
+      this.tableFetchApply(query)
     },
     /**
+     * @param {string} filter
      */
     applyFilter (filter = undefined) {
       if (filter !== undefined) {
@@ -133,9 +145,10 @@ export default {
       if (this[filterKey]) {
         query = { [filterKey]: this[filterKey] }
       }
-      this.$browse({ query })
+      this.tableFetchApply(query)
     },
     /**
+     * @param {string} search
      */
     applySearch (search = undefined) {
       if (search !== undefined) {
@@ -145,7 +158,7 @@ export default {
       if (this[searchKey]) {
         query = { [searchKey]: this[searchKey] }
       }
-      this.$browse({ query })
+      this.tableFetchApply(query)
     },
     /**
      * @param {Object} parameters
@@ -156,7 +169,22 @@ export default {
       }
       const direction = parameters.pagination.descending ? 'desc' : 'asc'
       const sort = `${parameters.pagination.sortBy}.${direction}`
-      this.$browse({ query: { sort } }, true)
+      this.tableFetchApply({ sort }, true)
+    },
+    /**
+     * @param query
+     * @param options
+     */
+    tableFetchApply (query, options = undefined) {
+      if (!this.embed) {
+        this.$browse({ query: query }, options)
+        return
+      }
+      const { page } = query
+      if (page) {
+        this.pagination.page = page
+      }
+      this.fetchRecords()
     }
   }
 }

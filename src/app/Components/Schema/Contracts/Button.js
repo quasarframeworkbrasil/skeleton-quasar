@@ -14,16 +14,8 @@ export default {
      */
     renderButtons () {
       this.buttons = this.actions()
-        .filter(this.buttonFilter)
         .sort(this.buttonSort)
         .reduce(this.buttonReduce, {})
-    },
-    /**
-     * @param {Object} action
-     * @returns {boolean}
-     */
-    buttonFilter (action) {
-      return action.scopes && action.scopes.includes(this.scope)
     },
     /**
      * @param {Object} a

@@ -79,8 +79,14 @@ export default {
    * @param {Function} h
    */
   render (h) {
+    let grouping = ''
+    if (this.hasSections) {
+      grouping = 'SchemaForm--with-sections'
+    } else if (this.hasTabs) {
+      grouping = 'SchemaForm--with-tabs'
+    }
     const data = {
-      class: 'SchemaForm',
+      class: ['SchemaForm', grouping],
       attrs: {
         padding: true
       }

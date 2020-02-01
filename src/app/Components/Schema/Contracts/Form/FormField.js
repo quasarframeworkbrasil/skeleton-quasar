@@ -1,24 +1,10 @@
 /**
  * @typedef {Object} FormField
  */
-const FormField = {
+export default {
   /**
    */
   methods: {
-    /**
-     * @param {string} property
-     * @param {*} value
-     */
-    setRecord (property, value) {
-      this.record[property] = value
-      return this
-    },
-    /**
-     * @param {string} property
-     */
-    getRecord (property) {
-      return this.record[property]
-    },
     /**
      * @param {string} component
      * @param {Boolean} error
@@ -39,4 +25,3 @@ const FormField = {
     }
   }
 }
-export default FormField

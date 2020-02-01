@@ -25,6 +25,16 @@ export default class Schema extends Skeleton {
   ]
 
   /**
+   * @type {boolean}
+   */
+  static useUuid = true
+
+  /**
+   * @type {boolean}
+   */
+  static userMasterDetail = false
+
+  /**
    * available: ['edit', 'view', 'index']
    * @type {string}
    */
@@ -35,11 +45,6 @@ export default class Schema extends Skeleton {
    * @type {string}
    */
   afterUpdate = 'index'
-
-  /**
-   * @type {boolean}
-   */
-  useUuid = true
 
   /**
    * @param {Object} property
@@ -133,5 +138,10 @@ export default class Schema extends Skeleton {
 
     // initialize actions
     this.defaultActions()
+
+    if (this.constructor.userMasterDetail) {
+      // initialize actions
+      this.defaultMasterDetailActions()
+    }
   }
 }

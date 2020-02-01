@@ -356,5 +356,20 @@ export default {
     const attrs = { ...options, click }
     this.setAttrs(attrs)
     return this
+  },
+
+  /**
+   * @param {Object} attrs
+   * @returns {Schema}
+   */
+  fieldIsEmbed (attrs = {}) {
+    this.setIs('app-embed')
+    this.setAttrs({ ...attrs })
+    this.setType('undefined')
+    const current = this.__currentField
+    this.addWatch(`record.${this.primaryKey}`, function (value) {
+      this.$getField(current).$setValue(value)
+    })
+    return this
   }
 }

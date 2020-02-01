@@ -5,9 +5,9 @@ import SchemaTableWhereForm from 'src/app/Components/Schema/Table/Where/SchemaTa
 import SchemaButtons from 'src/app/Components/Schema/Buttons/SchemaButtons'
 // app
 import { POSITIONS } from 'src/app/Agnostic/enum'
-import { is, isObject, serialize, unSerialize, withoutSeparator, withSeparator } from 'src/app/Util/general'
+import { is, isObject, withoutSeparator, withSeparator } from 'src/app/Util/general'
 // settings
-import { searchKey } from 'src/settings/schema'
+import { serializeSearch, unSerializeSearch } from 'src/settings/schema'
 
 /**
  * @component {SchemaTableWhere}
@@ -229,7 +229,7 @@ export default {
         query[field] = withSeparator(value, operator)
       }
       this.activeSearching = true
-      this.$emit('input', serialize(query, searchKey))
+      this.$emit('input', serializeSearch(query))
       this.toggleWhere()
     },
     /**
@@ -243,7 +243,7 @@ export default {
      * @param {string} value
      */
     hydrateRecord (value) {
-      const unSerialized = unSerialize(value, searchKey)
+      const unSerialized = unSerializeSearch(value)
       Object.keys(this.record).forEach((key) => {
         if (!unSerialized[key]) {
           this.record[key] = undefined

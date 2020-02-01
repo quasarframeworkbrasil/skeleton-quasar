@@ -306,6 +306,29 @@ export default class Skeleton extends Base {
   }
 
   /**
+   * @param {string} masterKey
+   * @returns {Object}
+   */
+  detail (masterKey) {
+    return {
+      masterKey: masterKey,
+      groupType: this.groupType,
+      domain: this.constructor.domain,
+      settings: {
+        toast: this.useToast,
+        uuid: this.useUuid
+      },
+      primaryKey: this.primaryKey,
+      displayKey: this.displayKey,
+      hooks: () => this.getHooks(),
+      actions: () => this.getActions(),
+      groups: () => this.getGroups(),
+      fields: () => this.getFields(),
+      watches: () => this.getWatches()
+    }
+  }
+
+  /**
    * @returns {Object}
    */
   provide () {
