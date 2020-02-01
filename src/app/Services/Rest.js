@@ -5,7 +5,7 @@ import { $store } from 'src/store'
 import Http from './Http'
 
 import { filterKey, primaryKey, searchKey } from 'src/settings/schema'
-import { parseResponseRecords } from 'src/settings/rest'
+import { parseRestRecords, parseRestRecord } from 'src/settings/rest'
 
 /**
  * @class {Rest}
@@ -76,7 +76,7 @@ export default class Rest extends Http {
       return this.readOffline(record, trash)
     }
     const url = `${this.getResource()}/${this.getId(record)}${queryString}`
-    return this.get(url, config)
+    return this.get(url, config).then(parseRestRecord)
   }
 
   /**
@@ -143,7 +143,7 @@ export default class Rest extends Http {
 
     return this
       .search({ page, size, sort, filter, where, raw, trash })
-      .then(parseResponseRecords({ rowsPerPage: size, sortBy, descending, page }))
+      .then(parseRestRecords({ rowsPerPage: size, sortBy, descending, page }))
   }
 
   /**

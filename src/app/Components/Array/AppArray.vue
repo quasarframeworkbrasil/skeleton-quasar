@@ -129,6 +129,10 @@ export default {
     optimize: {
       type: Boolean,
       default: false
+    },
+    useUuid: {
+      type: Boolean,
+      default: false
     }
   },
   /**
@@ -177,7 +181,10 @@ export default {
     /**
      */
     addItem () {
-      const newest = { [this.primaryKey]: uuid() }
+      const newest = {}
+      if (this.useUuid) {
+        newest[this.primaryKey] = uuid()
+      }
       Object.keys(this.components).forEach((key) => {
         newest[key] = this.components[key].attrs.value
       })

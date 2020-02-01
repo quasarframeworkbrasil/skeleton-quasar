@@ -5,7 +5,7 @@ import { get } from 'src/app/Util/general'
  * @param {Object} parameters
  * @returns {Function}
  */
-export const parseResponseRecords = (parameters = {}) => {
+export const parseRestRecords = (parameters = {}) => {
   const { rowsPerPage, sortBy, descending, page } = parameters
   return (response) => {
     let rows = []
@@ -27,6 +27,6 @@ export const parseResponseRecords = (parameters = {}) => {
  * @param {Object} parameters
  * @return {Function}
  */
-export const parseResponseRecord = (parameters = {}) => {
+export const parseRestRecord = (parameters = {}) => {
   return (response) => response.data
 }

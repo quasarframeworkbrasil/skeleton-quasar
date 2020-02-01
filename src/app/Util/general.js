@@ -164,6 +164,12 @@ export function isObject (item) {
  * @returns {boolean}
  */
 export function is (value) {
+  if (typeof value === 'undefined') {
+    return false
+  }
+  if (value === null) {
+    return false
+  }
   if (typeof value === 'string') {
     return value.length > 0
   }
@@ -348,3 +354,8 @@ export const promisify = (payload, timeout = 800) => {
     window.setTimeout(handler, timeout)
   })
 }
+
+/**
+ * @return {string}
+ */
+export const unique = () => (new Date()).getTime().toString(32)
