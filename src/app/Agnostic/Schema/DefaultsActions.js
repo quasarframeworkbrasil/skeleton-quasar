@@ -1,5 +1,5 @@
 import { POSITIONS, SCOPES } from 'src/app/Agnostic/enum'
-import { reject } from 'src/app/Util/general'
+import { reject, unique } from 'src/app/Util/general'
 import { primaryKey } from 'src/settings/schema'
 
 /**
@@ -39,26 +39,33 @@ export default {
    * @param {Schema} schema
    * @param {string} scope
    * @param {Object} record
+   * @param {Function} after
    * @returns {Object}
    */
-  actionCreate ({ schema, record }) {
+  actionCreate ({ schema, record, after }) {
     const ok = this.formCheckIntegrity(schema, 'agnostic.actions.create.validation')
     if (!ok) {
       return
     }
 
+    if (!after) {
+      after = (path, id) => {
+        if (schema.afterCreate === 'view') {
+          this.$browse(`${path}/${id}`, true)
+          return
+        }
+        if (schema.afterCreate === 'edit') {
+          this.$browse(`${path}/${id}/edit`, true)
+          return
+        }
+        this.$browse(path, true)
+      }
+    }
+
     const success = (response) => {
-      const id = this.actionSchemaSuccess(response, 'agnostic.actions.create.success')
       const path = this.getActionPath()
-      if (schema.afterCreate === 'view') {
-        this.$browse(`${path}/${id}`, true)
-        return
-      }
-      if (schema.afterCreate === 'edit') {
-        this.$browse(`${path}/${id}/edit`, true)
-        return
-      }
-      this.$browse(path, true)
+      const id = this.actionSchemaSuccess(response, 'agnostic.actions.create.success')
+      after(path, id)
     }
 
     const fail = (error) => {
@@ -97,7 +104,7 @@ export default {
    * @param {Object} record
    * @returns {Object}
    */
-  actionUpdate ({ schema, record }) {
+  actionUpdate ({ schema, record, after }) {
     const ok = this.formCheckIntegrity(schema, 'agnostic.actions.update.validation')
     if (!ok) {
       return
@@ -105,13 +112,18 @@ export default {
 
     const prepare = () => this.actionSchemaAttempt()
 
+    if (!after) {
+      after = (path) => {
+        if (schema.afterUpdate !== 'index') {
+          return
+        }
+        this.$browse(path, true)
+      }
+    }
     const success = (response) => {
       this.actionSchemaSuccess(response, 'agnostic.actions.update.success')
       const path = this.getActionPath()
-      if (schema.afterUpdate !== 'index') {
-        return
-      }
-      this.$browse(path, true)
+      after(path)
     }
 
     const fail = (error) => this.actionSchemaFail(error, 'agnostic.actions.update.fail')
@@ -401,6 +413,154 @@ export default {
 
     this.addAction('search-clear')
       .actionScopes([SCOPES.SCOPE_INDEX])
+      .actionPositions([POSITIONS.POSITION_TABLE_SEARCH])
+      .actionIcon('cancel')
+      .actionOn('click', function ({ context, $event }) {
+        return schema.actionSearchCancel.call(this, { $event, schema, ...context })
+      })
+  },
+
+  /**
+   */
+  defaultMasterDetailActions () {
+    const schema = this
+
+    const readonly = schema.constructor.readonly
+
+    this.addAction('md-back')
+      .actionScopes(readonly ? [] : [
+        SCOPES.SCOPE_MASTER_DETAIL_ADD,
+        SCOPES.SCOPE_MASTER_DETAIL_VIEW,
+        SCOPES.SCOPE_MASTER_DETAIL_EDIT
+      ])
+      .actionPositions([
+        POSITIONS.POSITION_FORM_FOOTER
+      ])
+      .actionIcon('reply')
+      .actionOn('click', function () {
+        this.$emit('change', { scope: SCOPES.SCOPE_MASTER_DETAIL_INDEX })
+      })
+
+    this.addAction('md-create')
+      .actionScopes(readonly ? [] : [SCOPES.SCOPE_MASTER_DETAIL_ADD])
+      .actionPositions([POSITIONS.POSITION_FORM_FOOTER])
+      .actionFloatRight()
+      .actionIcon('save')
+      .actionColor('primary')
+      .actionOn('click', function ({ context, $event }) {
+        const payload = {
+          scope: SCOPES.SCOPE_MASTER_DETAIL_INDEX,
+          clipboard: { forceRefresh: unique() }
+        }
+        const after = () => {
+          this.$emit('change', payload)
+        }
+        return schema.actionCreate.call(this, { $event, schema, after, ...context })
+      })
+
+    this.addAction('md-update')
+      .actionScopes([SCOPES.SCOPE_MASTER_DETAIL_EDIT])
+      .actionPositions(readonly ? [] : [POSITIONS.POSITION_FORM_FOOTER])
+      .actionFloatRight()
+      .actionIcon('save')
+      .actionColor('primary')
+      .actionOn('click', function ({ context, $event }) {
+        const payload = {
+          scope: SCOPES.SCOPE_MASTER_DETAIL_INDEX,
+          clipboard: { forceRefresh: unique() }
+        }
+        const after = () => {
+          this.$emit('change', payload)
+        }
+        return schema.actionUpdate.call(this, { $event, schema, after, ...context })
+      })
+
+    this.addAction('md-edit')
+      .actionScopes(readonly ? [] : [SCOPES.SCOPE_MASTER_DETAIL_INDEX])
+      .actionPositions([
+        POSITIONS.POSITION_TABLE_TOP,
+        POSITIONS.POSITION_TABLE_FLOAT,
+        POSITIONS.POSITION_TABLE_CELL
+      ])
+      .actionColor('primary')
+      .actionIcon('edit')
+      .actionOn('click', function ({ context }) {
+        const { record } = context
+        const payload = {
+          scope: SCOPES.SCOPE_MASTER_DETAIL_EDIT,
+          clipboard: { [this.primaryKey]: record[this.primaryKey] }
+        }
+        this.$emit('change', payload)
+      })
+
+    const scopesDestroy = readonly
+      ? []
+      : [
+        SCOPES.SCOPE_MASTER_DETAIL_INDEX,
+        SCOPES.SCOPE_MASTER_DETAIL_VIEW,
+        SCOPES.SCOPE_MASTER_DETAIL_EDIT
+      ]
+    this.addAction('md-destroy')
+      .actionScopes(scopesDestroy)
+      .actionPositions([
+        POSITIONS.POSITION_TABLE_CELL,
+        POSITIONS.POSITION_TABLE_FLOAT,
+        POSITIONS.POSITION_TABLE_TOP
+      ])
+      .actionConfigure(function (action, { context: { record }, position }) {
+        if ([POSITIONS.POSITION_TABLE_CELL, POSITIONS.POSITION_FORM_FOOTER].includes(position)) {
+          action.hidden = record['deletedAt']
+        }
+        return action
+      })
+      .actionColor('negative')
+      .actionIcon('delete')
+      .actionOn('click', function ({ context, $event }) {
+        return schema.actionDestroy.call(this, { $event, schema, ...context })
+      })
+
+    this.addAction('md-sort-clear')
+      .actionScopes([SCOPES.SCOPE_MASTER_DETAIL_INDEX, SCOPES.SCOPE_MASTER_DETAIL_TRASH])
+      .actionPositions([POSITIONS.POSITION_TABLE_TOP])
+      .actionIcon('layers_clear')
+      .actionNoMinWidth()
+      .actionOn('click', function ({ context, $event }) {
+        // return schema.actionSortClear.call(this, { $event, schema, ...context })
+      })
+
+    this.addAction('md-refresh')
+      .actionScopes([SCOPES.SCOPE_MASTER_DETAIL_INDEX, SCOPES.SCOPE_MASTER_DETAIL_TRASH])
+      .actionPositions([POSITIONS.POSITION_TABLE_TOP, POSITIONS.POSITION_TABLE_FLOAT])
+      .actionIcon('refresh')
+      .actionNoMinWidth()
+      .actionOn('click', function ({ context, $event }) {
+        this.fetchRecords({ raw: { [this.masterKey]: this.masterValue } })
+      })
+
+    this.addAction('md-add')
+      .actionScopes(readonly ? [] : [SCOPES.SCOPE_MASTER_DETAIL_INDEX])
+      .actionPositions([POSITIONS.POSITION_TABLE_TOP, POSITIONS.POSITION_TABLE_FLOAT])
+      .actionIcon('add')
+      .actionColor('primary')
+      .actionOn('click', function () {
+        const payload = {
+          scope: SCOPES.SCOPE_MASTER_DETAIL_ADD,
+          clipboard: { forceClear: unique() }
+        }
+        this.$emit('change', payload)
+      })
+
+    this.addAction('md-search')
+      .actionScopes([SCOPES.SCOPE_MASTER_DETAIL_INDEX])
+      .actionPositions([POSITIONS.POSITION_TABLE_SEARCH])
+      .actionIcon('search')
+      .actionColor('primary')
+      .actionOn('click', function ({ context, $event }) {
+        return schema.actionSearch.call(this, { $event, schema, ...context })
+      })
+
+    this.addAction('md-search-clear')
+      .actionScopes([SCOPES.SCOPE_MASTER_DETAIL_INDEX])
       .actionPositions([POSITIONS.POSITION_TABLE_SEARCH])
       .actionIcon('cancel')
       .actionOn('click', function ({ context, $event }) {
