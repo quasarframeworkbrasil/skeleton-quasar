@@ -195,8 +195,11 @@ export default class Rest extends Http {
    */
   remove (records) {
     const callback = (record) => this.getId(record)
-    const list = records.map(callback).join(',')
-    return this.delete(`${this.getResource()}/[${list}]`)
+    const remove = records.map(callback).join(',')
+    if (records.length === 1) {
+      return this.delete(`${this.getResource()}/${remove}`)
+    }
+    return this.delete(`${this.getResource()}/[${remove}]`)
   }
 
   /**
