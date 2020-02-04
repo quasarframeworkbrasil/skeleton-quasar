@@ -28,7 +28,7 @@ export default class ActionSchema extends Schema {
     this.addField('parent')
       .fieldTableShow()
       .fieldTableWhere()
-      .fieldIsSelectRemote(this.remote())
+      .fieldIsSelectRemote(this.provideRemote())
       .fieldFormWidth(35)
 
     this.addField('name')

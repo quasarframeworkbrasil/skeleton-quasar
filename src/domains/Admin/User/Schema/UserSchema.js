@@ -57,7 +57,7 @@ export default class UserSchema extends Schema {
     this.addField('profile')
       .fieldTableShow()
       .fieldTableWhere()
-      .fieldIsSelectRemote(ProfileSchema.build().remote())
+      .fieldIsSelectRemote(ProfileSchema.build().provideRemote())
       .fieldFormWidth(30)
       .validationRequired()
 

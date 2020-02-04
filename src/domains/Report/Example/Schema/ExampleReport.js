@@ -15,7 +15,7 @@ export default class ExampleReport extends Report {
    */
   construct () {
     this.addField('user')
-      .fieldIsSelectRemote(UserSchema.build().remote())
+      .fieldIsSelectRemote(UserSchema.build().provideRemote())
       .fieldFormWidth(60)
       .validationRequired()
 
@@ -25,7 +25,7 @@ export default class ExampleReport extends Report {
       .fieldFormHeight(2)
 
     this.addField('profile')
-      .fieldIsSelectRemote(ProfileSchema.build().remote())
+      .fieldIsSelectRemote(ProfileSchema.build().provideRemote())
       .fieldFormWidth(60)
 
     this.addField('restrict')
