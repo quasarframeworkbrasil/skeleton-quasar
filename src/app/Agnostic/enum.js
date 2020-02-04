@@ -8,12 +8,12 @@ export const SCOPES = {
   SCOPE_EDIT: 'scope-edit',
   SCOPE_REMOVE: 'scope-remove',
   SCOPE_TRASH: 'scope-trash',
-  SCOPE_MASTER_DETAIL_INDEX: 'scope-md-index',
-  SCOPE_MASTER_DETAIL_ADD: 'scope-md-add',
-  SCOPE_MASTER_DETAIL_VIEW: 'scope-md-view',
-  SCOPE_MASTER_DETAIL_EDIT: 'scope-md-edit',
-  SCOPE_MASTER_DETAIL_REMOVE: 'scope-md-remove',
-  SCOPE_MASTER_DETAIL_TRASH: 'scope-md-trash'
+  SCOPE_MASTER_DETAIL_INDEX: 'scope-master-detail-index',
+  SCOPE_MASTER_DETAIL_ADD: 'scope-master-detail-add',
+  SCOPE_MASTER_DETAIL_VIEW: 'scope-master-detail-view',
+  SCOPE_MASTER_DETAIL_EDIT: 'scope-master-detail-edit',
+  SCOPE_MASTER_DETAIL_REMOVE: 'scope-master-detail-remove',
+  SCOPE_MASTER_DETAIL_TRASH: 'scope-master-detail-trash'
 }
 
 /**

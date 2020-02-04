@@ -12,16 +12,18 @@ export default {
   },
 
   /**
+   * @return {Promise|undefined}
    */
   actionPrint () {
     const name = this.$options.name
-    if (name === 'SchemaForm') {
-      this.$store.dispatch('app/setPrint', {
-        domain: this.domain,
-        components: this.components,
-        record: this.record
-      })
+    if (name !== 'SchemaForm') {
+      return
     }
+    return this.$store.dispatch('app/setPrint', {
+      domain: this.domain,
+      components: this.components,
+      record: this.record
+    })
   },
 
   /**
@@ -205,8 +207,7 @@ export default {
    */
   actionSortClear () {
     if (!this.$route.query.sort) {
-      this.$alert(this.$lang('agnostic.actions.sort-clear.noSort'))
-      return
+      return this.$alert(this.$lang('agnostic.actions.sort-clear.noSort'))
     }
     this.$browse({ query: { sort: undefined } }, true)
   },
@@ -447,6 +448,12 @@ export default {
       .actionFloatRight()
       .actionIcon('save')
       .actionColor('primary')
+      .actionConfigure(function (action) {
+        if (this.locked) {
+          action.hidden = true
+        }
+        return action
+      })
       .actionOn('click', function ({ context, $event }) {
         const payload = {
           scope: SCOPES.SCOPE_MASTER_DETAIL_INDEX,
@@ -464,6 +471,12 @@ export default {
       .actionFloatRight()
       .actionIcon('save')
       .actionColor('primary')
+      .actionConfigure(function (action) {
+        if (this.locked) {
+          action.hidden = true
+        }
+        return action
+      })
       .actionOn('click', function ({ context, $event }) {
         const payload = {
           scope: SCOPES.SCOPE_MASTER_DETAIL_INDEX,
@@ -475,6 +488,23 @@ export default {
         return schema.actionUpdate.call(this, { $event, schema, after, ...context })
       })
 
+    this.addAction('md-view')
+      .actionScopes([SCOPES.SCOPE_MASTER_DETAIL_INDEX])
+      .actionPositions([
+        POSITIONS.POSITION_TABLE_TOP,
+        POSITIONS.POSITION_TABLE_FLOAT,
+        POSITIONS.POSITION_TABLE_CELL
+      ])
+      .actionIcon('visibility')
+      .actionOn('click', function ({ context, $event }) {
+        const { record } = context
+        const payload = {
+          scope: SCOPES.SCOPE_MASTER_DETAIL_VIEW,
+          clipboard: { [this.primaryKey]: record[this.primaryKey] }
+        }
+        this.$emit('change', payload)
+      })
+
     this.addAction('md-edit')
       .actionScopes(readonly ? [] : [SCOPES.SCOPE_MASTER_DETAIL_INDEX])
       .actionPositions([
@@ -484,6 +514,12 @@ export default {
       ])
       .actionColor('primary')
       .actionIcon('edit')
+      .actionConfigure(function (action) {
+        if (this.locked) {
+          action.hidden = true
+        }
+        return action
+      })
       .actionOn('click', function ({ context }) {
         const { record } = context
         const payload = {
@@ -511,6 +547,9 @@ export default {
         if ([POSITIONS.POSITION_TABLE_CELL, POSITIONS.POSITION_FORM_FOOTER].includes(position)) {
           action.hidden = record['deletedAt']
         }
+        if (this.locked) {
+          action.hidden = true
+        }
         return action
       })
       .actionColor('negative')
@@ -534,7 +573,7 @@ export default {
       .actionIcon('refresh')
       .actionNoMinWidth()
       .actionOn('click', function ({ context, $event }) {
-        this.fetchRecords({ raw: { [this.masterKey]: this.masterValue } })
+        this.fetchRecords()
       })
 
     this.addAction('md-add')
@@ -542,6 +581,12 @@ export default {
       .actionPositions([POSITIONS.POSITION_TABLE_TOP, POSITIONS.POSITION_TABLE_FLOAT])
       .actionIcon('add')
       .actionColor('primary')
+      .actionConfigure(function (action) {
+        if (this.locked) {
+          action.hidden = true
+        }
+        return action
+      })
       .actionOn('click', function () {
         const payload = {
           scope: SCOPES.SCOPE_MASTER_DETAIL_ADD,

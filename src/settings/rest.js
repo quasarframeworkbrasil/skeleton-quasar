@@ -1,6 +1,11 @@
 import { get } from 'src/app/Util/general'
 
-// noinspection JSUnusedLocalSymbols
+/**
+ * @param {ContainerComponent} context
+ * @return {number}
+ */
+export const delayLoading = (context) => 250
+
 /**
  * @param {Object} parameters
  * @returns {Function}
@@ -22,7 +27,6 @@ export const parseRestRecords = (parameters = {}) => {
   }
 }
 
-// noinspection JSUnusedLocalSymbols
 /**
  * @param {Object} parameters
  * @return {Function}

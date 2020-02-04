@@ -2,7 +2,7 @@ import SchemaForm from 'src/app/Components/Schema/SchemaForm'
 import { SCOPES } from 'src/app/Agnostic/enum'
 
 /**
- * @component {AppMasterDetailForm}
+ * @component {AppEmbedForm}
  */
 export default {
   /**
@@ -10,10 +10,16 @@ export default {
   extends: SchemaForm,
   /**
    */
-  name: 'AppMasterDetailForm',
+  name: 'AppEmbedForm',
   /**
    */
   props: {
+    readonly: {
+      default: false
+    },
+    disable: {
+      default: false
+    },
     masterKey: {
       type: String,
       default: undefined
@@ -28,6 +34,19 @@ export default {
     embed: {
       type: Boolean,
       default: false
+    }
+  },
+  /**
+   */
+  computed: {
+    /**
+     * @return {boolean}
+     */
+    locked () {
+      if (this.readonly) {
+        return true
+      }
+      return !this.masterValue
     }
   },
   methods: {
@@ -47,11 +66,24 @@ export default {
   created () {
     this.record[this.masterKey] = undefined
 
+    this.$watch(`scope`, (scope) => {
+      if (scope === SCOPES.SCOPE_MASTER_DETAIL_INDEX) {
+        return
+      }
+      this.reloadComponents()
+
+      if (scope !== SCOPES.SCOPE_MASTER_DETAIL_VIEW) {
+        return
+      }
+      const setField = (key) => this.setFieldAttrs(key, { readonly: true, disable: true })
+      Object.keys(this.components).forEach(setField)
+    })
+
     this.$watch(`clipboard.${this.primaryKey}`, (id) => {
       return this.loadRecordMasterDetailForm(id)
     })
 
-    this.$watch(`clipboard.forceClear`, (id) => {
+    this.$watch(`clipboard.forceClear`, () => {
       this.renderRecord()
       this.record[this.masterKey] = this.masterValue
     })
@@ -65,7 +97,7 @@ export default {
    */
   render (h) {
     const data = {
-      class: ['AppMasterDetailForm'],
+      class: ['AppEmbedForm'],
       attrs: {
         padding: true
       }

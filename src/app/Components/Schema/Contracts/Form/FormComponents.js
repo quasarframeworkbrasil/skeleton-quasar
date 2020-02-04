@@ -48,6 +48,7 @@ export default {
       this.grouping = this.groups()
       const fields = this.$util.clone(this.fields())
       this.components = this.performRenderComponents(fields)
+      this.renderedComponents = this.$util.clone(this.components)
     },
     /**
      * @param {Object} fields
@@ -60,7 +61,7 @@ export default {
     /**
      */
     reloadComponents () {
-      this.components = this.performRenderComponents(this.components)
+      this.components = this.$util.clone(this.renderedComponents)
     },
     /**
      * @param {Object} a
@@ -148,31 +149,6 @@ export default {
         return
       }
       action.original.call(this, { $event, field, ...parameters })
-    },
-    /**
-     * @param {string} name
-     */
-    fieldFocus (name) {
-      if (!this.components[name]) {
-        return
-      }
-      const field = this.components[name]
-      const ref = this.generateComponentRef(field)
-      const component = this.getComponentByRef(ref)
-      if (!component) {
-        return
-      }
-      const focusable = ['focus', 'show']
-      let done = false
-      focusable.forEach((method) => {
-        if (done) {
-          return
-        }
-        if (component[method] && typeof component[method] === 'function') {
-          done = true
-          window.setTimeout(component[method], 300)
-        }
-      })
     }
   }
 }

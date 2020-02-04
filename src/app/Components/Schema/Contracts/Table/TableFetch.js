@@ -1,5 +1,6 @@
 import { filterKey, searchKey } from 'src/settings/schema'
 import { is } from 'src/app/Util/general'
+import { delayLoading } from 'src/settings/rest'
 
 /**
  * @mixin {TableFetch}
@@ -12,7 +13,7 @@ export default {
      */
     loadingShow () {
       this.loading = true
-      this.$q.loading.show({ delay: 100 })
+      this.$q.loading.show({ delay: delayLoading(this) })
     },
     /**
      */
@@ -40,7 +41,13 @@ export default {
       this.sorter = this.pagination.sortBy
       this.filters = [this.sorter]
 
-      const { raw } = options
+      let { raw } = options
+      if (!raw) {
+        raw = {}
+      }
+      if (this.pagination.raw) {
+        raw = { ...raw, ...this.pagination.raw }
+      }
 
       const parameters = {
         pagination: this.pagination,

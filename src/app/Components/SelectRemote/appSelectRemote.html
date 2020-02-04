@@ -1,9 +1,14 @@
 <div class="AppSelectRemote">
-  <q-select
+  <AppSelect
     :options="options"
     :value="arriving"
+    :hide-selected="hideSelected"
     @filter="filterRemote"
     @filter-abort="filterAbortRemote"
+    @keyup="hideCurrentValue"
+    @focus="hideCurrentValue"
+    @blur="showCurrentValue"
+    @select="showCurrentValue"
     @input="goingOut($event)"
     v-bind="bind"
   >
@@ -24,8 +29,9 @@
         </q-item-section>
       </q-item>
     </template>
+
     <template
-      v-if="widget"
+      v-if="widget || path"
       v-slot:append
     >
       <q-icon
@@ -34,6 +40,7 @@
         @click="widgetOpen"
       />
       <q-dialog
+        v-if="widget"
         v-model="openDialog"
         persistent
         :maximized="maximizedToggle"
@@ -68,7 +75,7 @@
               :columns="columns"
               :visibleColumns="visibleColumns"
               :data="data"
-              :search="search"
+              :search="widgetSearchPhrase"
               @confirm="widgetConfirm"
               @cancel="widgetCancel"
               @request="widgetRequest"
@@ -78,12 +85,12 @@
               :displayKey="keyLabel"
               :domain="domain"
               :fields="fields"
-              :value="search"
+              :value="widgetSearchPhrase"
               @input="widgetSearch"
             />
           </q-card-section>
         </q-card>
       </q-dialog>
     </template>
-  </q-select>
+  </AppSelect>
 </div>

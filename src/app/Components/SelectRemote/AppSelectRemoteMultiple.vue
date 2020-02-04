@@ -50,8 +50,8 @@ export default {
     columns: [],
     visibleColumns: [],
     data: [],
-    query: {},
-    search: ''
+    widgetQuery: {},
+    widgetSearchPhrase: ''
   }),
   /**
    */
@@ -67,19 +67,12 @@ export default {
       this.$emit('input', value.map((selected) => selected.__meta))
     },
     /**
-     */
-    widgetOpen ($event) {
-      $event.preventDefault()
-      $event.stopPropagation()
-      this.openDialog = true
-    },
-    /**
      * @param {Object} options
      */
     widgetRequest (options = {}) {
       const { filter, done, page, rowsPerPage, rowsNumber, sortBy, descending } = options
 
-      this.remote(filter, { page, rowsPerPage, rowsNumber, sortBy, descending }, this.query)
+      this.remote(filter, { page, rowsPerPage, rowsNumber, sortBy, descending }, this.widgetQuery)
         .then((response) => {
           let data = []
           if (Array.isArray(response.rows)) {
@@ -106,10 +99,11 @@ export default {
       this.openDialog = false
     },
     /**
+     * @param {string} phrase
      */
-    widgetSearch (search) {
-      this.search = search
-      this.query = unSerialize(search, searchKey)
+    widgetSearch (phrase) {
+      this.widgetSearchPhrase = phrase
+      this.widgetQuery = unSerialize(phrase, searchKey)
     }
   },
   /**

@@ -1,14 +1,14 @@
 <template>
-  <div class="AppMasterDetail">
+  <div class="AppEmbed">
     <transition name="slide-right">
-      <AppMasterDetailForm
+      <AppEmbedForm
         v-show="form"
         v-bind="bind"
         @change="change"
       />
     </transition>
     <transition name="slide-left">
-      <AppMasterDetailTable
+      <AppEmbedTable
         v-show="table"
         v-bind="bind"
         @change="change"
@@ -18,18 +18,18 @@
 </template>
 
 <script lang="js">
-import AppMasterDetailTable from 'src/app/Components/Embed/AppEmbedTable'
-import AppMasterDetailForm from 'src/app/Components/Embed/AppEmbedForm'
+import AppEmbedTable from 'src/app/Components/Embed/AppEmbedTable'
+import AppEmbedForm from 'src/app/Components/Embed/AppEmbedForm'
 import { SCOPES } from 'src/app/Agnostic/enum'
 
 export default {
   /**
    */
-  name: 'AppMasterDetail',
+  name: 'AppEmbed',
   /**
    */
   components: {
-    AppMasterDetailTable, AppMasterDetailForm
+    AppEmbedTable, AppEmbedForm
   },
   /**
    */
@@ -37,6 +37,12 @@ export default {
     value: {
       type: [String, Number],
       default: undefined
+    },
+    readonly: {
+      default: false
+    },
+    disable: {
+      default: false
     },
     masterKey: {
       type: String,
@@ -64,6 +70,8 @@ export default {
         ...attrs,
         ...props,
         embed: true,
+        readonly: this.readonly,
+        disable: this.disable,
         masterKey: this.masterKey,
         masterValue: this.value,
         scope: this.scope,
@@ -107,12 +115,12 @@ export default {
 </script>
 
 <style lang="stylus">
-.AppMasterDetail
+.AppEmbed
   height calc(100vh - 210px)
   overflow-x hidden
   overflow-y auto
 
-  > .AppMasterDetailForm
+  > .AppEmbedForm
     .app-form-wrapper
       height calc(100vh - 212px)
       box-shadow none
@@ -122,7 +130,7 @@ export default {
         height calc(100vh - 275px)
         padding 15px 10px 0 10px
 
-  > .AppMasterDetailTable
+  > .AppEmbedTable
     .q-page-sticky
       z-index 2000
 
@@ -130,7 +138,7 @@ export default {
       button
         min-width auto
 
-    > .AppMasterDetailTable__container
+    > .AppEmbedTable__container
       box-shadow none
       border 1px solid #dddddd
 

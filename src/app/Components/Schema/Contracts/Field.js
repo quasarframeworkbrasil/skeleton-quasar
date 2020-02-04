@@ -214,6 +214,31 @@ export default {
      */
     $getAttr (property) {
       return this.getFieldAttr(this.__currentField, property)
+    },
+    /**
+     * @param {string} name
+     */
+    $setFocus (name) {
+      if (!this.components[name]) {
+        return
+      }
+      const field = this.components[name]
+      const ref = this.generateComponentRef(field)
+      const component = this.getComponentByRef(ref)
+      if (!component) {
+        return
+      }
+      const focusable = ['focus', 'show']
+      let done = false
+      focusable.forEach((method) => {
+        if (done) {
+          return
+        }
+        if (component[method] && typeof component[method] === 'function') {
+          done = true
+          window.setTimeout(component[method], 300)
+        }
+      })
     }
   }
 }

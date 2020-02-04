@@ -1,3 +1,5 @@
+import './style.styl'
+
 /**
  * @component {AppSeparator}
  */
@@ -18,7 +20,12 @@ export default {
    * @returns {VNode}
    */
   render (h) {
-    const innerHTML = this.label
-    return h('div', { class: 'app-separator', domProps: { innerHTML } })
+    const className = ['app-separator']
+    let innerHTML
+    if (this.label) {
+      innerHTML = `<small>${this.label}</small>`
+      className.push('app-separator--with-label')
+    }
+    return h('hr', { class: className, domProps: { innerHTML } })
   }
 }

@@ -45,6 +45,7 @@ export default {
         { value: 'support_operator', label: 'SERVIÇO' }
       ]
     },
+    price: 'Valor da Mensalidade',
     actions: 'Ações'
   }
 }

@@ -1,7 +1,7 @@
 import SchemaTable from 'src/app/Components/Schema/SchemaTable'
 
 /**
- * @component {AppMasterDetailTable}
+ * @component {AppEmbedTable}
  */
 export default {
   /**
@@ -9,10 +9,16 @@ export default {
   extends: SchemaTable,
   /**
    */
-  name: 'AppMasterDetailTable',
+  name: 'AppEmbedTable',
   /**
    */
   props: {
+    readonly: {
+      default: false
+    },
+    disable: {
+      default: false
+    },
     masterKey: {
       type: String,
       default: undefined
@@ -31,12 +37,26 @@ export default {
   },
   /**
    */
+  computed: {
+    /**
+     * @return {boolean}
+     */
+    locked () {
+      if (this.readonly) {
+        return true
+      }
+      return !this.masterValue
+    }
+  },
+  /**
+   */
   methods: {
     /**
      * @param masterValue
      */
     refreshMasterDetailTable (masterValue = undefined) {
-      this.fetchRecords({ raw: { [this.masterKey]: masterValue || this.masterValue } })
+      this.pagination.raw = { [this.masterKey]: this.masterValue }
+      this.fetchRecords()
     }
   },
   /**
@@ -45,6 +65,7 @@ export default {
     if (this.masterValue) {
       this.refreshMasterDetailTable()
     }
+    this.pagination.raw = { [this.masterKey]: this.masterValue }
 
     this.$watch('clipboard.forceRefresh', (value) => {
       if (value === false) {
@@ -62,11 +83,11 @@ export default {
    */
   render (h) {
     const data = {
-      class: ['AppMasterDetailTable'],
+      class: ['AppEmbedTable'],
       attrs: { padding: true }
     }
     const children = [
-      this.renderTable(h, ['AppMasterDetailTable__container'], true),
+      this.renderTable(h, ['AppEmbedTable__container'], true),
       this.renderWhere(h),
       this.renderFloatActionButtons(h),
       this.renderTableDebuggers(h)

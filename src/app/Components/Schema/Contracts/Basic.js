@@ -57,6 +57,7 @@ export default {
     renderSchemaButtons (h, position, context, override = {}) {
       const attrs = {
         scope: this.scope,
+        locked: this.locked,
         buttons: this.buttons,
         context: context,
         position: position,
@@ -88,15 +89,7 @@ export default {
      * @returns {*}
      */
     getComponentByRef (ref) {
-      const component = Object.values(this.$refs).reduce((accumulator, formBody) => {
-        if (accumulator) {
-          return accumulator
-        }
-        if (formBody.$refs[ref]) {
-          accumulator = formBody.$refs[ref]
-        }
-        return accumulator
-      }, undefined)
+      const component = this.findComponentByRef(ref)
       if (!component) {
         return null
       }
@@ -104,6 +97,25 @@ export default {
         return component[0]
       }
       return component
+    },
+    /**
+     * @param {string} ref
+     * @return {Vue | Element | Vue[] | Element[] | undefined}
+     */
+    findComponentByRef (ref) {
+      const reduce = (accumulator, formBody) => {
+        if (accumulator) {
+          return accumulator
+        }
+        if (!formBody) {
+          return accumulator
+        }
+        if (formBody.$refs[ref]) {
+          accumulator = formBody.$refs[ref]
+        }
+        return accumulator
+      }
+      return Object.values(this.$refs).reduce(reduce, undefined)
     },
     /**
      * @returns {*}

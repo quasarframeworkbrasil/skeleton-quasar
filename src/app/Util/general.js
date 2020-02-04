@@ -14,9 +14,10 @@ export const get = (element, path, fallback = undefined) => {
     return fallback
   }
 
-  const search = Array.isArray(path)
-    ? path
-    : path.split('.').filter((pieces) => pieces && pieces.length)
+  let search = path
+  if (!Array.isArray(path)) {
+    search = String(path).split('.').filter((pieces) => pieces && pieces.length)
+  }
 
   if (!search.length) {
     return element

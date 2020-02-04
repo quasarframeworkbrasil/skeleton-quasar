@@ -1,6 +1,8 @@
 /**
  * @mixin {FormFetch}
  */
+import { delayLoading } from 'src/settings/rest'
+
 export default {
   /**
    */
@@ -8,7 +10,7 @@ export default {
     /**
      */
     loadingShow () {
-      this.$q.loading.show({ delay: 100 })
+      this.$q.loading.show({ delay: delayLoading(this) })
     },
     /**
      */

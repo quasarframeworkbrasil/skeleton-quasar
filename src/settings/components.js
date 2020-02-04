@@ -62,7 +62,7 @@ export const attrs = { dense: true, clearable: true, outlined: true, uppercase: 
  * @param value
  * @returns {string}
  */
-export const parseOutput = (value) => typeof value === 'string' ? value.toUpperCase() : value
+export const parseOutputUpperCase = (value) => typeof value === 'string' ? value.toUpperCase() : value
 
 /**
  * @type {Object}
@@ -71,52 +71,62 @@ export default {
   input: {
     is: 'q-input',
     attrs: { maxlength: 255, ...attrs, uppercase: true },
-    parseOutput
+    parseOutput: parseOutputUpperCase
   },
   plan: {
     is: 'q-input',
-    attrs: { maxlength: 255, ...attrs }
+    attrs: { maxlength: 255, ...attrs },
+    parseOutput: undefined
   },
   number: {
     is: 'q-input',
-    attrs: { type: 'number', ...attrs }
+    attrs: { type: 'number', ...attrs },
+    parseOutput: undefined
   },
   password: {
     is: 'q-input',
-    attrs: { type: 'password', maxlength: 255, ...attrs }
+    attrs: { type: 'password', maxlength: 255, ...attrs },
+    parseOutput: undefined
   },
   email: {
     is: 'q-input',
-    attrs: { type: 'email', maxlength: 255, ...attrs }
+    attrs: { type: 'email', maxlength: 255, ...attrs },
+    parseOutput: undefined
   },
   text: {
     is: 'q-input',
     attrs: { type: 'textarea', rows: 4, maxlength: 4000, ...attrs },
-    parseOutput
+    parseOutput: parseOutputUpperCase
   },
   checkbox: {
     is: 'q-checkbox',
-    attrs: { ...attrs, useReadonly: false, 'indeterminate-value': 'maybe' }
+    attrs: { ...attrs, useReadonly: false, 'indeterminate-value': 'maybe' },
+    parseOutput: undefined
   },
   radio: {
     is: 'q-option-group',
-    attrs: { inline: true, ...attrs, useReadonly: false }
+    attrs: { inline: true, ...attrs, useReadonly: false },
+    parseOutput: undefined
   },
   select: {
     is: 'q-select',
-    attrs: { popupContentClass: 'uppercase', ...attrs, uppercase: true }
+    attrs: { popupContentClass: 'uppercase', ...attrs, uppercase: true },
+    parseOutput: undefined
   },
   toggle: {
     is: 'q-toggle',
-    attrs: { ...attrs, useReadonly: false }
+    attrs: { ...attrs, useReadonly: false },
+    parseOutput: undefined
   },
   remote: {
     is: 'AppSelectRemoteSingle',
-    attrs: { ...attrs, uppercase: true }
+    attrs: { ...attrs, uppercase: true },
+    parseOutput: undefined
   },
   remoteMultiple: {
     is: 'AppSelectRemoteMultiple',
-    attrs: { ...attrs, uppercase: true }
+    attrs: { ...attrs, uppercase: true },
+    parseOutput: undefined
   },
   date: {
     is: 'AppDate',
@@ -125,7 +135,8 @@ export default {
       format: 'YYYY-MM-DD',
       display: 'DD/MM/YYYY',
       ...attrs
-    }
+    },
+    parseOutput: undefined
   },
   datetime: {
     is: 'AppDatetime',
@@ -134,7 +145,8 @@ export default {
       format: 'YYYY-MM-DD HH:mm',
       display: 'DD/MM/YYYY HH:mm',
       ...attrs
-    }
+    },
+    parseOutput: undefined
   },
   currency: {
     is: 'q-decimal',
@@ -146,6 +158,15 @@ export default {
       clearable: false,
       lang: getLocale(),
       ...currency(false)
-    }
+    },
+    parseOutput: undefined
+  },
+  image: {
+    is: 'AppImage',
+    parseOutput: undefined
+  },
+  file: {
+    is: 'AppFile',
+    parseOutput: undefined
   }
 }

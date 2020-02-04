@@ -1,40 +1,7 @@
-<template>
-  <q-list
-    bordered
-    separator
-  >
-    <template v-for="action in actions">
-      <DashboardAction
-        :key="action.uuid"
-        :action="action"
-        @popup="openPopup"
-      />
-    </template>
-  </q-list>
-</template>
-
-<script>
-import DashboardAction from 'src/modules/Dashboard/components/DashboardAction'
-import Popup from 'src/modules/General/Mixins/Popup'
-
+/**
+ * @mixin Popup
+ */
 export default {
-  /**
-   */
-  name: 'DashboardActions',
-  /**
-   */
-  components: { DashboardAction },
-  /**
-   */
-  mixins: [Popup],
-  /**
-   */
-  props: {
-    actions: {
-      type: [Array, Object],
-      default: () => []
-    }
-  },
   /**
    */
   methods: {
@@ -74,8 +41,3 @@ export default {
     }
   }
 }
-</script>
-
-<style scoped>
-
-</style>

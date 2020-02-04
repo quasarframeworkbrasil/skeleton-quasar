@@ -45,14 +45,15 @@
 
       .form
         padding 20px 10px 0 10px
+
         .field
           padding 2px 5px
 
-          label
-            color #3c3c3c
+          > label
+            color #333333
             display block
             font-size 0.8rem
-            text-shadow 0 1px 3px rgba(0, 0, 0, 0.08)
+            text-shadow 1px 1px 1px rgba(115, 115, 115, 0.15)
 
           &.has-error
             label
@@ -69,6 +70,7 @@
 
           .is-required
             position relative
+
             &:after
               position absolute
               content '*'

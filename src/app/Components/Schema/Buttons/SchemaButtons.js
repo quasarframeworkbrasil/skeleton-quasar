@@ -36,6 +36,9 @@ export default {
     override: {
       type: Object,
       default: () => ({})
+    },
+    locked: {
+      default: false
     }
   },
   /**

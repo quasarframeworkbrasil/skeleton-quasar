@@ -363,13 +363,31 @@ export default {
    * @returns {Schema}
    */
   fieldIsEmbed (attrs = {}) {
-    this.setIs('app-embed')
+    this.setIs('AppEmbed')
     this.setAttrs({ ...attrs })
     this.setType('undefined')
-    const current = this.__currentField
+    const foreignKey = this.__currentField
     this.addWatch(`record.${this.primaryKey}`, function (value) {
-      this.$getField(current).$setValue(value)
+      this.$getField(foreignKey).$setValue(value)
     })
+    return this
+  },
+  /**
+   * @param {Object} attrs
+   * @returns {Schema}
+   */
+  fieldIsImage (attrs = {}) {
+    this.setComponent('image')
+    this.setAttrs(attrs)
+    return this
+  },
+  /**
+   * @param {Object} attrs
+   * @returns {Schema}
+   */
+  fieldIsFile (attrs = {}) {
+    this.setComponent('file')
+    this.setAttrs(attrs)
     return this
   }
 }

@@ -25,7 +25,7 @@
             dense
             @click="onConfirm"
           >
-            <q-tooltip>{{ $lang('agnostic.components.appSelectRemote.confirm') }}</q-tooltip>
+            <q-tooltip>{{ $lang('agnostic.components.remote.confirm') }}</q-tooltip>
           </q-btn>
           <q-btn
             icon="clear_all"
@@ -35,7 +35,7 @@
             dense
             @click="onClear"
           >
-            <q-tooltip>{{ $lang('agnostic.components.appSelectRemote.clear') }}</q-tooltip>
+            <q-tooltip>{{ $lang('agnostic.components.remote.clear') }}</q-tooltip>
           </q-btn>
           <q-btn
             icon="clear"
@@ -45,13 +45,13 @@
             dense
             @click="onCancel"
           >
-            <q-tooltip>{{ $lang('agnostic.components.appSelectRemote.cancel') }}</q-tooltip>
+            <q-tooltip>{{ $lang('agnostic.components.remote.cancel') }}</q-tooltip>
           </q-btn>
         </div>
       </template>
       <template v-slot:top-right>
         <q-input
-          :placeholder="$lang('agnostic.components.appSelectRemote.search')"
+          :placeholder="$lang('agnostic.components.remote.search')"
           debounce="300"
           v-model="filter"
           v-bind="defaultAttrs"

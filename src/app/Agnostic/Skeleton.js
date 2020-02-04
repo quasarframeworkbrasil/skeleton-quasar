@@ -1,6 +1,7 @@
 import Base from 'src/app/Agnostic/Base'
 import field from 'src/settings/field'
 import { searchKey } from 'src/settings/schema'
+import { unique } from 'src/app/Util/general'
 
 /**
  * @class {Skeleton}
@@ -219,48 +220,6 @@ export default class Skeleton extends Base {
   }
 
   /**
-   * @param {Object} options
-   * @returns {Object}
-   */
-  array (options = {}) {
-    const fields = this.arrayFields ? this.arrayFields(this.getFields()) : this.$clone(this.getFields())
-    return {
-      domain: this.constructor.domain,
-      primaryKey: this.primaryKey,
-      displayKey: this.displayKey,
-      fields: fields,
-      ...options
-    }
-  }
-
-  /**
-   * @param {boolean} widget
-   * @param {Object} query
-   * @returns {Object}
-   */
-  remote (widget = false, query = {}) {
-    const fields = this.remoteFields ? this.remoteFields(this.getFields()) : this.$clone(this.getFields())
-    return {
-      widget: widget,
-      query: query,
-      keyValue: this.primaryKey,
-      keyLabel: this.displayKey,
-      domain: this.constructor.domain,
-      format: (row, value) => value,
-      fields: fields,
-      remote: (filter, pagination = undefined, query = {}) => {
-        if (pagination) {
-          return this.$service()
-            .paginate({ filter, pagination, [searchKey]: query })
-        }
-        return this.$service()
-          .paginate({ filter, [searchKey]: query })
-          .then((response) => response.rows)
-      }
-    }
-  }
-
-  /**
    * @param {string} field
    * @returns {Schema|Skeleton}
    */
@@ -289,6 +248,22 @@ export default class Skeleton extends Base {
     }, { ...record })
   }
 
+  /**
+   * @param {string} $key
+   * @return {Schema|Skeleton}
+   */
+  addSeparator ($key = undefined) {
+    const field = $key || unique()
+    const path = `separators.${field}`
+    const label = this.$lang(`domains.${this.constructor.domain}.${path}`)
+
+    this.addAvoid(path)
+    this.addField(path)
+      .setIs('AppSeparator')
+      .setAttrs({ label })
+    return this
+  }
+
   // noinspection JSMethodCanBeStatic
   /**
    * @returns {Object}
@@ -306,10 +281,59 @@ export default class Skeleton extends Base {
   }
 
   /**
+   * @param {Object} options
+   * @returns {Object}
+   */
+  provideArray (options = {}) {
+    const fields = this.arrayFields ? this.arrayFields(this.getFields()) : this.$clone(this.getFields())
+    return {
+      domain: this.constructor.domain,
+      primaryKey: this.primaryKey,
+      displayKey: this.displayKey,
+      fields: fields,
+      ...options
+    }
+  }
+
+  /**
+   * @param {Object} options
+   * @returns {Object}
+   */
+  provideRemote (options = {}) {
+    const fields = this.remoteFields ? this.remoteFields(this.getFields()) : this.$clone(this.getFields())
+    let { widget, path, query } = options
+    if (widget === undefined) {
+      widget = false
+    }
+    if (path === undefined) {
+      path = ''
+    }
+    return {
+      widget: widget,
+      path: path,
+      query: query,
+      keyValue: this.primaryKey,
+      keyLabel: this.displayKey,
+      domain: this.constructor.domain,
+      format: (row, value) => value,
+      fields: fields,
+      remote: (filter, pagination = undefined, query = {}) => {
+        if (pagination) {
+          return this.$service()
+            .paginate({ filter, pagination, [searchKey]: query })
+        }
+        return this.$service()
+          .paginate({ filter, [searchKey]: query })
+          .then((response) => response.rows)
+      }
+    }
+  }
+
+  /**
    * @param {string} masterKey
    * @returns {Object}
    */
-  detail (masterKey) {
+  provideDetail (masterKey) {
     return {
       masterKey: masterKey,
       groupType: this.groupType,

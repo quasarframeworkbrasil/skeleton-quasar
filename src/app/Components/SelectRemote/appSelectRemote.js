@@ -2,11 +2,15 @@
  * @mixin {AppSelectRemote}
  */
 import { withSeparator } from 'src/app/Util/general'
+import Popup from 'src/modules/General/Mixins/Popup'
 
 export default {
   /**
    */
   multiple: undefined,
+  /**
+   */
+  mixins: [Popup],
   /**
    */
   props: {
@@ -49,6 +53,9 @@ export default {
     format: {
       type: Function,
       default: undefined
+    },
+    path: {
+      default: undefined
     }
   },
   /**
@@ -74,10 +81,22 @@ export default {
         ...attrs
       }
     },
+    /**
+     * @return {boolean}
+     */
+    hideSelected () {
+      if (this.$options.multiple) {
+        return false
+      }
+      return this.searching
+    },
+    /**
+     * @return {String|Object}
+     */
     noResults () {
-      let path = 'agnostic.components.appSelectRemote.noResults'
+      let path = 'agnostic.components.remote.noResults'
       if (this.loading) {
-        path = 'agnostic.components.appSelectRemote.searching'
+        path = 'agnostic.components.remote.searching'
       }
       return this.$lang(path)
     }
@@ -86,7 +105,8 @@ export default {
    */
   data: () => ({
     options: [],
-    loading: false
+    loading: false,
+    searching: false
   }),
   /**
    */
@@ -155,6 +175,30 @@ export default {
       const value = row[this.keyValue]
       const label = this.format ? this.format(row, row[this.keyLabel]) : row[this.keyLabel]
       return { value, label, __meta: row }
+    },
+    /**
+     */
+    hideCurrentValue () {
+      this.searching = true
+    },
+    /**
+     */
+    showCurrentValue (value) {
+      this.searching = false
+    },
+    /**
+     * @param {Event} $event
+     */
+    widgetOpen ($event) {
+      $event.preventDefault()
+      $event.stopPropagation()
+      this.showCurrentValue()
+
+      if (this.path) {
+        this.openPopup(this.path)
+        return
+      }
+      this.openDialog = true
     }
   },
   /**
