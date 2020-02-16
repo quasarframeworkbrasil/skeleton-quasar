@@ -25,7 +25,7 @@
       <q-item
         clickable
         v-ripple
-        to="/dashboard/home/profile"
+        :to="accountPath"
       >
         <q-item-section>
           <q-item-label>{{ $lang('app.menu.profile.label') }}</q-item-label>
@@ -65,6 +65,7 @@
 
 <script>
 import { otherwise } from 'src/router'
+import { accountPath } from '../../../domains/Home/Account/routes.js'
 
 export default {
   /**
@@ -78,6 +79,12 @@ export default {
   /**
    */
   computed: {
+    /**
+     * @return {string}
+     */
+    accountPath () {
+      return accountPath
+    },
     /**
      * @returns {Object}
      */

@@ -4,15 +4,15 @@ import { index, layout, notFound } from './components'
 import { updateTransition } from './middleware'
 
 // admin
-import action from 'src/domains/Admin/Action/route'
-import profile from 'src/domains/Admin/Profile/route'
-import user from 'src/domains/Admin/User/route'
+import action from 'src/domains/Admin/Action/routes.js'
+import profile from 'src/domains/Admin/Profile/routes.js'
+import user from 'src/domains/Admin/User/routes.js'
 
 // home
-import home from 'src/domains/Home/route'
+import home from 'src/domains/Home/Account/routes.js'
 
 // report
-import report from 'src/domains/Report/route'
+import report from 'src/domains/Report/routes.js'
 
 /**
  * @var {string}

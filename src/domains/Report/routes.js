@@ -1,5 +1,5 @@
 import { group } from 'src/app/Util/routing'
-import example from 'src/domains/Report/Example/route'
+import example from 'src/domains/Report/Example/routes.js'
 
 /**
  * @param {VueRouter} router

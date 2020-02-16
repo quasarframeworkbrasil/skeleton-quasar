@@ -1,4 +1,4 @@
-import UserSchema from 'src/domains/Admin/User/Schema/UserSchema'
+import UserSchema from 'src/domains/Admin/User/Schema/UserSchema.js'
 
 /**
  * @class {AccountSchema}
@@ -18,10 +18,10 @@ export default class AccountSchema extends UserSchema {
     // fields
 
     this.getField('name')
-      .fieldFormWidth(50)
+      .fieldFormWidth(60)
 
     this.getField('email')
-      .fieldFormWidth(50)
+      .fieldFormWidth(60)
 
     this.getField('profile')
       .fieldFormHidden()
@@ -43,16 +43,17 @@ export default class AccountSchema extends UserSchema {
 
     // hooks
 
-    this.hook('after:update.click', function () {
-      // noinspection JSIgnoredPromiseFromCall
-      this.$store.dispatch('auth/setNameUser', this.$getField('name').$getValue())
+    this.addHook('after:update.click', function () {
+      return this.$store.dispatch('auth/setNameUser', this.$getField('name').$getValue())
     })
   }
 
-  // noinspection JSCheckFunctionSignatures
   /**
+   * Component created hook
+   * @param schema
+   * @override
    */
-  createdHook () {
+  createdHook (schema = undefined) {
     const user = this.$store.getters['auth/getUser']
 
     const fields = [this.primaryKey, 'name', 'email', 'profile', 'integration']
