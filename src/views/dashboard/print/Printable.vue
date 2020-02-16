@@ -4,7 +4,7 @@
     style="margin: 0 auto; max-width: 810px;"
   >
     <img
-      src="statics/dashboard/header-logo.png"
+      :src="$static('/dashboard/header-logo.png')"
       alt="logo"
       style="height: 50px"
       class="float-left"

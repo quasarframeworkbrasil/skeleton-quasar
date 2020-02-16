@@ -54,6 +54,16 @@ export default {
   /**
    */
   mixins: [File],
+  props: {
+    cloudinaryURL: {
+      type: String,
+      default: ''
+    },
+    cloudinaryUnsignedUploadPreset: {
+      type: String,
+      default: ''
+    }
+  },
   /**
    */
   methods: {
@@ -61,15 +71,11 @@ export default {
      * @param {File} file
      */
     startFileUpload (file) {
-      const cloudName = 'dncyvvphv'
-      const unsignedUploadPreset = 'tkv2icks'
-
-      const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`
-      this.xhr.open('POST', url, true)
+      this.xhr.open('POST', this.cloudinaryURL, true)
       this.xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
 
       const formData = new FormData()
-      formData.append('upload_preset', unsignedUploadPreset)
+      formData.append('upload_preset', this.cloudinaryUnsignedUploadPreset)
       formData.append('tags', 'browser_upload') // Optional - add tag for image admin in Cloudinary
       formData.append('file', file)
       this.xhr.send(formData)
