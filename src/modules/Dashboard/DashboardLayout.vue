@@ -158,9 +158,9 @@ export default {
   .DashboardLayout__header
 
     small
-      text-shadow 1px 1px 1px rgba(255, 255, 255, 0.45)
+      text-shadow 1px 1px 1px rgba(119, 119, 119, 0.45)
       text-transform lowercase
-      color #555
+      color #fff
 
     .DashboardLayout__header_logo
       height 40px

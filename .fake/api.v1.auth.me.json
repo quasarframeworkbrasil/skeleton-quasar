@@ -5,6 +5,13 @@
     "name": "Guest",
     "email": "guest@mail.io",
     "integration": "75917eaa-3180-11ea-b2d6-0242ac150004",
+    "photo": "https://res.cloudinary.com/dncyvvphv/image/upload/v1580948710/profile_kqyiox.jpg",
+    "credentials": {
+      "image": {
+        "cloudinaryURL": "https://api.cloudinary.com/v1_1/dncyvvphv/upload",
+        "cloudinaryUnsignedUploadPreset": "tkv2icks"
+      }
+    },
     "actions": {
       "c3dfa528-fd0a-11e9-896d-0242ac180004": {
         "id": "c3dfa528-fd0a-11e9-896d-0242ac180004",
