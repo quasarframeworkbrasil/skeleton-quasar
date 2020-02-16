@@ -162,7 +162,7 @@ export default {
     parseOutput: undefined
   },
   image: {
-    is: 'AppImage',
+    is: 'AppCloudinaryImage',
     parseOutput: undefined
   },
   file: {

@@ -2,6 +2,7 @@ import { yesNo } from 'src/app/Agnostic/options'
 import { primaryKey } from 'src/settings/schema'
 import { booleanFormatter, dateFormatter, optionFormatter, optionsFormatter, format } from 'src/app/Util/formatter'
 import { currencyParseInput } from 'src/settings/components'
+import { $store } from 'src/store'
 
 /**
  * @typedef {Object} FieldIs
@@ -378,7 +379,8 @@ export default {
    */
   fieldIsImage (attrs = {}) {
     this.setComponent('image')
-    this.setAttrs(attrs)
+    const imageCredentials = $store.getters['auth/getUserImageCredentials']
+    this.setAttrs({ ...attrs, ...imageCredentials })
     return this
   },
   /**

@@ -84,7 +84,7 @@ export default {
         return
       }
       const response = JSON.parse(this.xhr.responseText)
-      const value = this.onFileUploadFinished(response)
+      const value = this.finishFileUpload(response)
       this.$emit('input', value)
       window.setTimeout(this.resetUploadProgress, 4000)
     },
