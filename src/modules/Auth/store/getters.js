@@ -26,21 +26,12 @@ export const getUserId = (state) => {
  * @param state
  * @returns {Object}
  */
-export const getUserShop = (state) => {
-  const shop = get(state.user, 'shop')
-  if (is(shop)) {
-    return shop
+export const getUserImageCredentials = (state) => {
+  const imageCredentials = get(state.user, 'credentials.image')
+  if (is(imageCredentials)) {
+    return imageCredentials
   }
   return {}
-}
-
-/**
- * @param state
- * @returns {Object|undefined}
- */
-export const getUserShopUrl = (state) => {
-  const shop = getUserShop(state)
-  return shop.url || ''
 }
 
 /**

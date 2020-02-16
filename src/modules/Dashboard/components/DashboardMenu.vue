@@ -4,13 +4,21 @@
     flat
     content-class="DashboardLayout__dropdown_menu"
   >
-    <template v-slot:label="">
+    <template v-slot:label>
       <small class="DashboardLayout__user q-pl-sm q-pr-md">{{ name }}</small>
       <q-avatar
         color="white"
         text-color="primary"
       >
-        {{ letter }}
+        <template v-if="photo">
+          <img
+            :src="photo"
+            alt="photo"
+          >
+        </template>
+        <template v-else>
+          {{ letter }}
+        </template>
       </q-avatar>
     </template>
     <q-list>
@@ -74,7 +82,13 @@ export default {
      * @returns {Object}
      */
     name () {
-      return this.$util.get(this.$store.getters['auth/getUser'], 'login')
+      return this.$util.get(this.$store.getters['auth/getUser'], 'name')
+    },
+    /**
+     * @returns {Object}
+     */
+    photo () {
+      return this.$util.get(this.$store.getters['auth/getUser'], 'photo')
     },
     /**
      * @returns {Object}
