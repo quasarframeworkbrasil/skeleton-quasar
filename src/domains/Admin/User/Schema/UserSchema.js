@@ -28,6 +28,51 @@ export default class UserSchema extends Schema {
   /**
    */
   construct () {
+    this.addField('name')
+      .fieldTableShow()
+      .fieldTableWhere()
+      .fieldFormAutofocus()
+      .fieldFormWidth(60)
+      .validationRequired()
+
+    this.addField('photo')
+      .fieldIsImage()
+      .fieldFormWidth(40)
+      .fieldFormHeight(4)
+      .fieldFormDefaultValue('https://res.cloudinary.com/dncyvvphv/image/upload/v1580948710/profile_kqyiox.jpg')
+
+    this.addField('email')
+      .fieldTableShow()
+      .fieldTableWhere()
+      .fieldIsEmail()
+      .fieldFormWidth(60)
+      .validationRequired()
+      .validationEmail()
+
+    this.addField('profile')
+      .fieldTableShow()
+      .fieldTableWhere()
+      .fieldIsSelectRemote(ProfileSchema.build().provideRemote())
+      .fieldFormWidth(60)
+      .validationRequired()
+
+    this.addField('password')
+      .fieldFormWidth(30)
+      .fieldIsPassword()
+      .validationPassword()
+      .validationRequiredWhen(function () {
+        return this.scope === SCOPES.SCOPE_ADD
+      })
+
+    this.addField('confirmPassword')
+      .fieldFormWidth(30)
+      .fieldIsPassword()
+      .validationSameAs(['password'])
+
+    this.addField('phone')
+      .fieldAsPhone()
+      .fieldFormWidth(30)
+
     this.addField('integration')
       .fieldTableWhere()
       .fieldFormWidth(100)
@@ -38,45 +83,6 @@ export default class UserSchema extends Schema {
         }
         return field
       })
-
-    this.addField('name')
-      .fieldTableShow()
-      .fieldTableWhere()
-      .fieldFormAutofocus()
-      .fieldFormWidth(35)
-      .validationRequired()
-
-    this.addField('email')
-      .fieldTableShow()
-      .fieldTableWhere()
-      .fieldIsEmail()
-      .fieldFormWidth(35)
-      .validationRequired()
-      .validationEmail()
-
-    this.addField('profile')
-      .fieldTableShow()
-      .fieldTableWhere()
-      .fieldIsSelectRemote(ProfileSchema.build().provideRemote())
-      .fieldFormWidth(30)
-      .validationRequired()
-
-    this.addField('password')
-      .fieldFormWidth(50)
-      .fieldIsPassword()
-      .validationPassword()
-      .validationRequiredWhen(function () {
-        return this.scope === SCOPES.SCOPE_ADD
-      })
-
-    this.addField('confirmPassword')
-      .fieldFormWidth(50)
-      .fieldIsPassword()
-      .validationSameAs(['password'])
-
-    this.addField('phone')
-      .fieldAsPhone()
-      .fieldFormWidth(40)
 
     this.addField('active')
       .fieldTableShow()

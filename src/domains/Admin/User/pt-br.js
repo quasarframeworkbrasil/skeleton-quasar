@@ -39,6 +39,7 @@ export default {
     profile: 'Perfil',
     email: 'Email',
     phone: 'Celular',
+    photo: 'Foto',
     active: {
       label: 'Ativo',
       inline: 'Permitir acesso'

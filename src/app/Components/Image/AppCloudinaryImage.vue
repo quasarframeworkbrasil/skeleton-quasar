@@ -1,6 +1,6 @@
 <template>
   <div
-    class="AppUploader AppImage"
+    class="AppUploader AppCloudinaryImage"
     ref="container"
   >
 
@@ -50,10 +50,22 @@ import File from 'src/app/Components/File/Uploader'
 export default {
   /**
    */
-  name: 'AppImage',
+  name: 'AppCloudinaryImage',
   /**
    */
   mixins: [File],
+  props: {
+    cloudinaryURL: {
+      type: String,
+      default: ''
+    },
+    cloudinaryUnsignedUploadPreset: {
+      type: String,
+      default: ''
+    }
+  },
+  /**
+   */
   props: {
     cloudinaryURL: {
       type: String,
@@ -92,7 +104,7 @@ export default {
 </script>
 
 <style lang="stylus">
-.AppImage
+.AppCloudinaryImage
 
   .preview
     background-color #a8a8a8
