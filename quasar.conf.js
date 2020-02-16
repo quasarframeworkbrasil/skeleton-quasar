@@ -21,6 +21,7 @@ module.exports = function (ctx) {
       'polyfill',
       'sentry',
       'service',
+      'static',
       'util',
       'vuelidate'
     ],
@@ -126,10 +127,10 @@ module.exports = function (ctx) {
     build: {
       scopeHoisting: true,
       // vueRouterMode: 'history',
-      // vueCompiler: true,
+      vueCompiler: true,
       // gzip: true,
       // analyze: true,
-      publicPath: process.env.BUILD_PUBLIC_PATH || '',
+      publicPath: process.env.VUE_APP_PUBLIC_PATH || '',
       preloadChunks: false,
       extractCSS: true,
       extendWebpack (cfg) {

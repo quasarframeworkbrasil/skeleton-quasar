@@ -25,7 +25,7 @@
           >
             <!--suppress HtmlUnknownTarget -->
             <img
-              src="statics/dashboard/gitbook.png"
+              :src="$static('/dashboard/gitbook.png')"
               alt="gitbook"
             />
           </a>
@@ -36,7 +36,7 @@
         <!--suppress CssUnknownTarget -->
         <div
           class="DashboardIndex__source text-white shadow-2 rounded-borders mono-font"
-          style="background-image: url('/statics/dashboard/github.png')"
+          :style="{ backgroundImage: `url('${$static('/dashboard/github.png')}')` }"
         >
           <div class="DashboardIndex__label">
             Código-fonte

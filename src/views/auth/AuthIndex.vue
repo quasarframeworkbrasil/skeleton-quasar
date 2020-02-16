@@ -9,7 +9,7 @@
           <img
             alt="logo"
             class="AuthIndex__logo"
-            src="statics/logo-horizontal.png"
+            :src="$static('/logo-horizontal.png')"
           >
         </div>
       </q-card-section>
