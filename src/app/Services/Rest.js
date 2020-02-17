@@ -76,7 +76,7 @@ export default class Rest extends Http {
       return this.readOffline(record, trash)
     }
     const url = `${this.getResource()}/${this.getId(record)}${queryString}`
-    return this.get(url, config).then(parseRestRecord)
+    return this.get(url, config).then(parseRestRecord())
   }
 
   /**

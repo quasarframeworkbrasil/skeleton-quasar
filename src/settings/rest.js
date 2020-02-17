@@ -4,7 +4,7 @@ import { get } from 'src/app/Util/general'
  * @param {ContainerComponent} context
  * @return {number}
  */
-export const delayLoading = (context) => 250
+export const delayLoading = (context = {}) => 250
 
 /**
  * @param {Object} parameters

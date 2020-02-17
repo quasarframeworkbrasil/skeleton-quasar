@@ -9,7 +9,7 @@ export default {
      * @param {string} hook
      * @param {Object} context
      */
-    triggerHook (hook, context) {
+    triggerHook (hook, context = {}) {
       const hooks = this.hooks()
 
       if (!hooks) {
