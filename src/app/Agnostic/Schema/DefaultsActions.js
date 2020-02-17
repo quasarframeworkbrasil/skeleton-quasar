@@ -102,37 +102,53 @@ export default {
 
   /**
    * @param {Schema} schema
-   * @param {string} scope
    * @param {Object} record
+   * @param {function(Object): Promise} executor
+   * @param {function(string)} after
    * @returns {Object}
    */
-  actionUpdate ({ schema, record, after }) {
+  actionUpdate ({ schema, record, executor, after }) {
     const ok = this.formCheckIntegrity(schema, 'agnostic.actions.update.validation')
     if (!ok) {
       return
     }
 
-    const prepare = () => this.actionSchemaAttempt()
+    const afterUpdateDefault = (path) => {
+      if (schema.afterUpdate !== 'index') {
+        return
+      }
+      this.$browse(path, true)
+    }
 
     if (!after) {
-      after = (path) => {
-        if (schema.afterUpdate !== 'index') {
-          return
-        }
-        this.$browse(path, true)
-      }
+      after = afterUpdateDefault
     }
+
+    const prepare = () => {
+      return this.actionSchemaAttempt()
+    }
+
     const success = (response) => {
       this.actionSchemaSuccess(response, 'agnostic.actions.update.success')
       const path = this.getActionPath()
-      after(path)
+      return after(path)
     }
 
-    const fail = (error) => this.actionSchemaFail(error, 'agnostic.actions.update.fail')
+    const fail = (error) => {
+      return this.actionSchemaFail(error, 'agnostic.actions.update.fail')
+    }
+
+    const update = (payload) => {
+      if (executor) {
+        return executor(payload)
+      }
+      return schema.$service().update(payload)
+    }
 
     prepare()
+
     const __record = schema.removeAvoids(record)
-    return schema.$service().update(__record)
+    return update(__record)
       .then(success)
       .catch(fail)
   },
@@ -357,7 +373,7 @@ export default {
       })
 
     this.addAction('destroy')
-      .actionScopes(readonly ? [] : [SCOPES.SCOPE_INDEX, SCOPES.SCOPE_VIEW, SCOPES.SCOPE_EDIT])
+      .actionScopes(readonly ? [] : [SCOPES.SCOPE_INDEX, SCOPES.SCOPE_VIEW])
       .actionPositions([
         POSITIONS.POSITION_TABLE_CELL,
         POSITIONS.POSITION_TABLE_FLOAT,
