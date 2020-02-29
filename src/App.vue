@@ -98,6 +98,9 @@ export default {
   /**
    */
   created () {
+    if (this.$dev) {
+      return
+    }
     // wait 1 second to take a breath
     window.setTimeout(this.fetchVersion, 1000)
   }

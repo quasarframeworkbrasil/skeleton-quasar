@@ -165,6 +165,9 @@ export default {
      * @returns {string}
      */
     version () {
+      if (this.$dev) {
+        return 'develop'
+      }
       return $store.state.version || 'unknown'
     },
     /**
