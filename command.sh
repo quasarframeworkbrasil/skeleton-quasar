@@ -15,5 +15,5 @@ echo "Details: '$(pwd)' | '$(quasar -v)'"
 echo "~> fix permissions"
 chown -R node:node .
 
-echo "~> starting quasar dev"
+echo "~> starting dev"
 quasar dev
