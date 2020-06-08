@@ -1,3 +1,12 @@
+### This reposository is readonly now
+
+<p align="center">
+  <img
+    src="https://raw.githubusercontent.com/quasarframeworkbrasil/skeleton-quasar/master/readonly.png"
+    alt="readonly"
+  />
+</p>
+
 [![Build Status](https://travis-ci.com/quasarframeworkbrasil/skeleton-quasar.svg?branch=master)](https://travis-ci.com/quasarframeworkbrasil/skeleton-quasar)
 
 # Skeleton
