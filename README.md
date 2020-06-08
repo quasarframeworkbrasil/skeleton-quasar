@@ -1,4 +1,4 @@
-### This reposository is readonly now
+# This reposository is readonly now
 
 <p align="center">
   <img
@@ -6,6 +6,8 @@
     alt="readonly"
   />
 </p>
+
+> If you like this repo maybe will like this org that is focused on approach used here https://github.com/devitools
 
 [![Build Status](https://travis-ci.com/quasarframeworkbrasil/skeleton-quasar.svg?branch=master)](https://travis-ci.com/quasarframeworkbrasil/skeleton-quasar)
 
