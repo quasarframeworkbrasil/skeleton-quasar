@@ -7,7 +7,7 @@
   />
 </p>
 
-> If you like this repo maybe will like this org that is focused on approach used here https://github.com/devitools
+> If you like this repository, you may like this organization focused on the approach used here https://github.com/devitools
 
 [![Build Status](https://travis-ci.com/quasarframeworkbrasil/skeleton-quasar.svg?branch=master)](https://travis-ci.com/quasarframeworkbrasil/skeleton-quasar)
 
