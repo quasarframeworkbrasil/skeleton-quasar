@@ -1,0 +1,232 @@
+@import '~src/css/quasar.variables.styl'
+
+.SchemaTable
+  &.q-table--dense
+    .q-table
+      thead tr:not(.q-table__progress), tbody tr, tbody td
+        height 40px !important
+
+      thead > tr:nth-child(1) > th
+        height 40px !important
+        background linear-gradient(180deg, #f7f7f7 0, #f1f1f1 20px, #ecebeb 39px, #c1c1c1 40px) !important
+
+      .app-form-buttons
+        height 38px !important
+        padding 2px 40px 2px 16px !important
+
+        .button-position-right, .button-position-left
+          float none
+
+  &.q-table__container.q-table--horizontal-separator
+    .q-table__middle.scroll
+      height calc(100vh - 200px)
+
+    &.fullscreen
+      .q-table__middle.scroll
+        height calc(100vh - 105px)
+
+    > .q-table__top
+      border-style solid
+      border-width 0 0 1px 0
+      border-color #dddddd
+
+  &.trash
+    > .q-table__middle
+      background-color #ffeee8
+
+      .app-form-buttons
+        /*background linear-gradient(90deg, rgb(239, 232, 230) 0%, rgba(239, 232, 230, 0.9) 86%, rgba(239, 232, 230, 0) 100%)*/
+        background linear-gradient(90deg, rgb(235, 224, 221) 0%, rgba(235, 224, 221, 0.9) 86%, rgba(235, 224, 221, 0) 100%)
+
+  .q-table
+    /*box-shadow 0 0 3px 2px rgba(0, 0, 0, 0.1)*/
+    border-bottom 1px solid rgba(0, 0, 0, 0.12)
+
+    thead > tr:nth-child(1) > th
+      position sticky
+      zoom 1
+      top 0
+      overflow hidden
+      opacity 1 !important
+      color #4f4f4f
+      text-shadow 0 1px 0 rgba(255, 255, 255, 0.7)
+      z-index 1000
+      height 54px
+      background linear-gradient(180deg, #f7f7f7 0%, #e6e6e6 65%, #f0f0f0 99%, #020202 100%)
+      text-transform none
+
+    .app-form-buttons
+      position absolute
+      transform scale(0)
+      top 0
+      left 0
+      /*min-width 240px*/
+      height 54px
+      background linear-gradient(90deg, #f7f7f7 0%, rgba(239, 239, 239, 0.9) 60%, rgba(239, 239, 239, 0) 100%)
+      z-index 1000
+
+    tr
+      td
+        i.q-icon-inline
+          font-size 1.6rem
+          color #767676
+
+      &:hover
+        .app-form-buttons
+          transform scale(1) /*
+          transition-property transform
+          transition-duration 0.15s
+          transition-timing-function ease-out
+           */
+          padding 10px
+
+  .app-form-buttons
+    button
+      min-width auto
+
+      .q-icon
+        color #767676
+
+  @media (max-width 768px)
+    .q-table__top > div:not(.keep-visible)
+      display none
+
+    .q-table__top > div.q-input
+      width 100%
+
+
+.SchemaTableSide__absolute
+  position absolute
+  top 0
+  right 0
+
+
+.SchemaTableSide__shadow
+  box-shadow 0 0 10px 2px rgba(0, 0, 0, 0.16), 0 0 10px rgba(0, 0, 0, 0.16)
+
+.SchemaTableWhere
+  @extend .SchemaTableSide__absolute
+
+  &.SchemaTableWhere--open
+    & > .SchemaTableWhere__side
+      transform translateX(0)
+
+    & > .SchemaTableWhere__toggle
+      & > #search
+        transform scale(0) rotate(180deg)
+        position absolute
+
+      & > #arrow
+        transform scale(1) rotate(180deg)
+
+    & > .SchemaTableWhere__backdrop
+      display block
+
+  & > .SchemaTableWhere__backdrop
+    position sticky
+    height calc(100vh - 61px)
+    width 100vw
+    left 0
+    top 0
+    z-index 1997
+    background rgba(0, 0, 0, 0.05)
+    display none
+
+  & > .SchemaTableWhere__side
+    @extend .SchemaTableSide__absolute, .SchemaTableSide__shadow
+    z-index 1998
+    background-color #ffffff
+    height calc(100vh - 62px)
+    width 300px
+    transform translateX(320px)
+    transition transform .3s
+
+    .SchemaTableWhere__form
+      padding-top 10px
+      height calc(100vh - 118px)
+      overflow auto
+
+      > .SchemaTableWhere__component
+        padding 6px 12px
+
+        > label
+          display block
+          color #3c3c3c
+          font-size 0.8rem
+
+        > .q-field > .q-field__inner > .q-field__control > .q-field__control-container > input.q-field__native,
+        .q-field.q-select > .q-field__inner > .q-field__control > .q-field__control-container
+          padding-top 5px
+          padding-bottom 4px
+
+    .app-form-buttons
+      display flex
+      height 58px
+      padding 10px 0 10px 10px
+      border-top 1px solid #bebebe
+      box-shadow 4px 0 6px 1px rgba(0, 0, 0, 0.3)
+
+      button
+        font-size 0.8rem
+        min-width auto
+        flex 1
+
+  & > .SchemaTableWhere__toggle
+    @extend .SchemaTableSide__absolute
+    z-index 1999
+    background-color $primary
+    height 50px
+    width 50px
+    cursor pointer
+    border-radius 0 0 0 50px
+    box-shadow 0 0 10px 2px rgba(0, 0, 0, 0.2), 0 0px 10px rgba(0, 0, 0, 0.24)
+    padding 10px 0 0 18px
+
+    &.SchemaTableWhere__toggle--searching
+      animation toggle-pulse 2s infinite
+      background lighten($negative, 10%)
+
+    & > .q-icon
+      position absolute
+      transition all .3s
+
+    & > #search
+      transform scale(1) rotate(0)
+
+    & > #arrow
+      transform scale(0)
+
+
+.DashboardLayout--modal
+  .SchemaTable
+    &.q-table__container.q-table--horizontal-separator
+      .q-table__middle.scroll
+        height calc(100vh - 150px)
+
+      &.fullscreen
+        .q-table__middle.scroll
+          height calc(100vh - 55px)
+
+  .SchemaTableWhere
+    & > .SchemaTableWhere__side
+      height 100vh
+
+    .SchemaTableWhere__form
+      height calc(100vh - 55px)
+
+    &.SchemaTableWhere--open
+
+      & > .SchemaTableWhere__backdrop
+        height calc(100vh - 1px)
+
+@keyframes toggle-pulse {
+  0% {
+    box-shadow 0 0 10px 2px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 0, 0, 0.24), 0 0 0 0 rgba(204, 169, 44, 0.4)
+  }
+  70% {
+    box-shadow 0 0 10px 2px rgba(0, 0, 0, 0.2), 0 0px 20px rgba(0, 0, 0, 0.24), 0 0 0 40px rgba(204, 169, 44, 0)
+  }
+  100% {
+    box-shadow 0 0 10px 2px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 0, 0, 0.24), 0 0 0 0 rgba(204, 169, 44, 0)
+  }
+}

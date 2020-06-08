@@ -1,0 +1,17 @@
+services:
+  - docker
+
+install:
+  - docker run -v "${PWD}":/app -w /app tevun/quasar:latest yarn install
+
+script:
+  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then yarn test; fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./.travis.sh; fi'
+
+deploy:
+  skip_cleanup: true
+  provider: pages
+  github_token: $GITHUB_TOKEN
+  verbose: true
+  on:
+    master: true

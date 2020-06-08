@@ -1,0 +1,26 @@
+@media print
+  body, html
+    overflow auto
+
+  #root > #q-app, .q-tooltip
+    display none
+
+  #printable
+    height auto
+    min-height 100vh
+    overflow visible
+
+@media screen
+  body.printing
+    height 100vh
+    overflow auto
+
+  #printable
+    position absolute
+    top 0
+    left 0
+    z-index 10001
+    width 100vw
+    height 100vh
+    background #fff
+    overflow auto

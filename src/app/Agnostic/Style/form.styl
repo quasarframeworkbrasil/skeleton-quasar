@@ -1,0 +1,123 @@
+@import '~src/css/quasar.variables.styl'
+
+.SchemaForm
+  .q-tab__label
+    color #777777
+
+  .q-tab__indicator
+    background-color $primary
+
+  .app-form-wrapper
+    height calc(100vh - 95px)
+    overflow auto
+    background #ffffff
+    border-radius 4px
+    box-shadow 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)
+
+    .app-form-section
+      border 1px solid #ddd
+      border-radius 3px
+      margin 10px 5px 10px 5px
+
+      .app-form-section-title
+        padding 5px 10px
+        color #a8a8a8
+        border-bottom 1px solid #ddd
+        background-color #f5f5f5
+
+        span
+          font-size 12px
+          margin 0 6px
+
+      .form.form-grid
+        padding 5px 5px 0 5px
+
+    .app-form-body
+      /*padding 10px*/
+      height calc(100vh - 155px)
+      border-bottom 1px solid #ddd
+      overflow auto
+
+      &.with-section
+        height auto
+        border-bottom 0
+        padding 0 5px
+
+      .form
+        padding 20px 10px 0 10px
+
+        .field
+          padding 2px 5px
+
+          > label
+            color #333333
+            display block
+            font-size 0.8rem
+            text-shadow 1px 1px 1px rgba(115, 115, 115, 0.15)
+
+          &.has-error
+            label
+              color $errorForeground
+
+            & .q-field__control
+              color darken($errorBackground, 25%)
+
+            & .q-field__control:before
+              border-color $errorBackground
+
+            & .q-field__control:after
+              background $errorBackground
+
+          .is-required
+            position relative
+
+            &:after
+              position absolute
+              content '*'
+              color #e0534f
+              margin 0 0 0 5px
+              font-weight bold
+              font-size 0.9rem
+
+          .field-error
+            min-height 22px
+            padding 4px 0 0 0
+            font-size 12px
+            color $errorForeground
+
+
+    .app-form-buttons
+      padding 10px
+
+.app-form-buttons
+  button
+    margin-right 10px
+    height 36px
+    font-size 0.8rem
+
+    &:not(.button-no-min-width)
+      min-width 140px
+
+    &.button-position-right
+      float right
+
+    &.button-position-left
+      float left
+
+    &.button-position-none
+      float none
+
+.DashboardLayout--modal
+  .SchemaForm
+    .app-form-wrapper
+      height calc(100vh - 35px)
+
+    .app-form-body
+      /*padding 10px*/
+      height calc(100vh - 95px)
+
+.SchemaForm.SchemaForm--with-tabs
+  .app-form-wrapper
+    .app-form-body
+      .form
+        padding 0

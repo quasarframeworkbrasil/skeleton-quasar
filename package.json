@@ -1,0 +1,51 @@
+{
+  "name": "visualon",
+  "version": "0.0.1",
+  "description": "Rapid development with Vue and Quasar",
+  "productName": "Skeleton",
+  "cordovaId": "br.com.quasarframework-brasil.app",
+  "capacitorId": "",
+  "author": "",
+  "private": true,
+  "scripts": {
+    "lint": "eslint --ext .js,.vue src",
+    "dev": "quasar dev",
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.0.0",
+    "@sentry/browser": "^5.6.1",
+    "@sentry/integrations": "^5.6.1",
+    "@types/node": "^12.0.10",
+    "axios": "^0.18.1",
+    "dayjs": "^1.8.14",
+    "fingerprintjs2": "^2.1.0",
+    "localforage": "^1.7.3",
+    "quasar": "^1.0.0",
+    "uuid": "^3.3.2",
+    "vue-class-component": "^7.1.0",
+    "vue-property-decorator": "^8.2.1",
+    "vuelidate": "^0.7.4",
+    "webpack-version-file-plugin": "^0.4.0"
+  },
+  "devDependencies": {
+    "@quasar/app": "^1.0.0",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "babel-eslint": "^10.0.1",
+    "dotenv-webpack": "^1.7.0",
+    "eslint": "^5.10.0",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-vue": "^5.0.0",
+    "quasar-app-extension-qdecimal": "^1.0.0-beta.2",
+    "vue": "latest",
+    "vuex": "latest"
+  },
+  "engines": {
+    "node": ">= 10.18.1",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  },
+  "browserslist": [
+    "last 1 version, not dead, ie >= 11"
+  ]
+}

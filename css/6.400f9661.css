@@ -1,0 +1,1 @@
+.AuthIndex{height:100vh;overflow-x:hidden;opacity:0.3;transition:opacity 3s}.AuthIndex.started{opacity:1}.AuthIndex .AuthIndex__card{max-width:420px;box-shadow:0 4px 6px 1px rgba(0,0,0,0.16),0 2px 6px 1px rgba(0,0,0,0.16),0 5px 6px 1px rgba(0,0,0,0.16)}.AuthIndex .AuthIndex__logo{height:48px}.AuthIndex .AuthIndex__button{min-height:42px}.q-field__label{color:#c5d2d1}

@@ -1,0 +1,86 @@
+{
+  "status": "success",
+  "data": {
+    "id": "41c3b27c-fc48-11e9-83c7-0242ac150004",
+    "name": "Guest",
+    "email": "guest@mail.io",
+    "integration": "75917eaa-3180-11ea-b2d6-0242ac150004",
+    "photo": "https://res.cloudinary.com/dncyvvphv/image/upload/v1580948710/profile_kqyiox.jpg",
+    "credentials": {
+      "image": {
+        "cloudinaryURL": "https://api.cloudinary.com/v1_1/dncyvvphv/upload",
+        "cloudinaryUnsignedUploadPreset": "tkv2icks"
+      }
+    },
+    "actions": {
+      "c3dfa528-fd0a-11e9-896d-0242ac180004": {
+        "id": "c3dfa528-fd0a-11e9-896d-0242ac180004",
+        "name": "Início",
+        "namespace": "Home",
+        "path": "\/dashboard\/home",
+        "icon": "home",
+        "separated": 0
+      },
+      "c3e09b22-fd0a-11e9-8947-0242ac180004": {
+        "id": "c3e09b22-fd0a-11e9-8947-0242ac180004",
+        "actionId": null,
+        "name": "Administração",
+        "namespace": "Admin",
+        "path": "",
+        "icon": "fingerprint",
+        "separated": 0,
+        "children": [
+          {
+            "id": "c3e09b22-fd0a-11e9-8947-0242ac180004",
+            "actionId": null,
+            "name": "Usuários",
+            "namespace": "Admin.User",
+            "path": "\/dashboard\/admin\/user",
+            "icon": "supervisor_account",
+            "separated": 1
+          },
+          {
+            "id": "c3e465cc-fd0a-11e9-bcc1-0242ac180004",
+            "actionId": null,
+            "name": "Perfis de Usuário",
+            "namespace": "Admin.Profile",
+            "path": "\/dashboard\/admin\/profile",
+            "icon": "playlist_add_check",
+            "separated": 0
+          },
+          {
+            "id": "c3e5a27a-fd0a-11e9-b185-0242ac180004",
+            "actionId": null,
+            "name": "Ações",
+            "namespace": "Admin.Action",
+            "path": "\/dashboard\/admin\/action",
+            "icon": "turned_in",
+            "separated": 0
+          }
+        ]
+      },
+      "2e69a680-057d-11ea-8d71-362b9e155667": {
+        "id": "2e69a680-057d-11ea-8d71-362b9e155667",
+        "actionId": null,
+        "name": "Relatórios",
+        "namespace": "Report",
+        "path": "",
+        "icon": "list_alt",
+        "separated": 0,
+        "children": [
+          {
+            "id": "2e69a680-057d-11ea-8d71-362b9e155667",
+            "actionId": null,
+            "name": "Estoque Atual",
+            "namespace": "Report.Example",
+            "path": "\/dashboard\/report\/example",
+            "icon": "print",
+            "separated": 0,
+            "parent": null
+          }
+        ]
+      }
+    }
+  },
+  "meta": []
+}

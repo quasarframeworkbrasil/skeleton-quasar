@@ -1,0 +1,95 @@
+<div class="AppSelectRemote">
+  <AppSelect
+    :options="options"
+    :value="arriving"
+    :hide-selected="hideSelected"
+    @filter="filterRemote"
+    @filter-abort="filterAbortRemote"
+    @keyup="hideCurrentValue"
+    @blur="showCurrentValue"
+    @select="showCurrentValue"
+    @input="goingOut($event)"
+    v-bind="bind"
+  >
+    <template
+      v-if="component"
+      v-slot:option="scope"
+    >
+      <component
+        :is="component"
+        :scope="scope"
+      />
+    </template>
+
+    <template v-slot:no-option>
+      <q-item>
+        <q-item-section class="text-grey">
+          {{ noResults }}
+        </q-item-section>
+      </q-item>
+    </template>
+
+    <template
+      v-if="widget || path"
+      v-slot:append
+    >
+      <q-icon
+        class="cursor-pointer"
+        name="open_in_new"
+        @click="widgetOpen"
+      />
+      <q-dialog
+        v-if="widget"
+        v-model="openDialog"
+        persistent
+        :maximized="maximizedToggle"
+        full-width
+        transition-show="slide-up"
+        transition-hide="slide-down"
+      >
+        <q-card
+          class="AppSelectRemote__widget bg-white"
+          style="overflow: hidden"
+        >
+          <q-bar class="bg-primary shadow-1">
+            <q-space />
+
+            <q-btn
+              dense
+              flat
+              icon="crop_square"
+              @click="maximizedToggle = !maximizedToggle"
+            />
+            <q-btn
+              dense
+              flat
+              icon="close"
+              v-close-popup
+            />
+          </q-bar>
+
+          <q-card-section style="padding: 0 16px">
+            <SelectRemoteWidgetTable
+              :value="value"
+              :columns="columns"
+              :visibleColumns="visibleColumns"
+              :data="data"
+              :search="widgetSearchPhrase"
+              @confirm="widgetConfirm"
+              @cancel="widgetCancel"
+              @request="widgetRequest"
+            />
+            <SchemaTableWhere
+              :primaryKey="keyValue"
+              :displayKey="keyLabel"
+              :domain="domain"
+              :fields="fields"
+              :value="widgetSearchPhrase"
+              @input="widgetSearch"
+            />
+          </q-card-section>
+        </q-card>
+      </q-dialog>
+    </template>
+  </AppSelect>
+</div>

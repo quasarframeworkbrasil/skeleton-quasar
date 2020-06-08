@@ -1,0 +1,22 @@
+.app-breadcrumb
+  display block
+  padding 0 10px
+  margin 0
+  white-space nowrap
+  > .app-breadcrumb__item
+    font-size 0.8rem
+    display inline-block
+    margin 0 10px 0 0
+    white-space nowrap
+    &:after
+      content: ' / '
+    &:last-child
+      &:after
+        content: ''
+      > .app-breadcrumb__item__a
+        color $breadcrumb-item-last
+        cursor default
+    > .app-breadcrumb__item__a
+      cursor pointer
+      text-decoration none
+      color $breadcrumb-item

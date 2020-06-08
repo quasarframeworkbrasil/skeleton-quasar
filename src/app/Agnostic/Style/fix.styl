@@ -1,0 +1,85 @@
+main.q-page
+  overflow-x hidden !important
+
+.q-card, .q-table__container.fullscreen
+  background #ffffff
+
+.bg-primary, .bg-negative
+  color white !important
+
+.q-page-sticky
+  z-index 1000
+
+.app-float-menu
+  border-radius 0 0 4px 4px !important
+  border-top 1px solid #ddd
+
+.q-tooltip, .q-menu
+  z-index 10001
+
+.q-radio__label
+  font-size 0.8rem
+
+.SchemaForm, .SchemaTable
+  .field
+    //.q-field
+    //  max-height 40px
+
+    .q-checkbox, .q-toggle
+      padding 10px 0 0 0
+
+      .q-checkbox__inner:not(.q-checkbox__inner--active)
+        .q-checkbox__bg
+          border-color #b7b7b7
+
+    .q-select
+      .q-field__native, .q-field__prefix, .q-field__suffix
+        padding 0
+
+  // @quasar
+  // q-btn, q-btn-section
+  @media (max-width: 768px)
+    .q-btn, .q-btn-section
+      min-width 0 !important
+
+      .q-btn__content
+        & > div
+          display: none
+
+        & i.on-left
+          margin: 0
+
+.uppercase
+  input[type="text"], select, textarea, .q-field__native > span, .q-chip__content > span, .q-item__label
+    text-transform uppercase !important
+
+.q-field__control-container.row.no-wrap.q-anchor--skip
+  overflow hidden
+
+.border-less > .q-field__inner > .q-field__control:before
+  border 1px solid rgba(0, 0, 0, 0.07)
+
+.q-field__inner, .q-markup-table > .q-table > thead > tr > th
+  background-color #fff
+
+.q-option-group
+  margin 8px 0 0 0
+
+::-webkit-input-placeholder /* Chrome/Opera/Safari */
+  text-transform none !important
+  color #eeeeee
+
+::-moz-placeholder /* Firefox 19+ */
+  text-transform none !important
+  color #eeeeee
+
+:-ms-input-placeholder /* IE 10+ */
+  text-transform none !important
+  color #eeeeee
+
+:-moz-placeholder /* Firefox 18- */
+  text-transform none !important
+  color #eeeeee
+
+*
+  outline none !important
